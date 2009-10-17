@@ -1,6 +1,6 @@
 package ga_testbench;
 
-public interface GA_Individual {
+interface GA_Individual {
 
     public GA_Individual random();
 
