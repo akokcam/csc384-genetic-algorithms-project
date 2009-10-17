@@ -6,6 +6,7 @@ interface GA_Population<ProblemType extends GA_Individual> {
 
     public void evolve();
 
+    public SolverException xx();
     public int currentGeneration();
 
     public ProblemType crossPairWeighted();
