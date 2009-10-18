@@ -1,0 +1,17 @@
+==================================================================
+Oct 18, 2009  12:24   Caigu Deco Liu
+Every time you change the code,
+Please write into team log about what you have modified on the code.
+Will be easier for the other 2 people to learn about what is going on,
+especially when tracking a bug.
+
+
+==================================================================
+Oct 18, 2009  12:23   Caigu Deco Liu
+team log is up
+
+
+
+==================================================================
+Oct 16, 2009  12:23   Dave Kordalewski
+repository is set up.
