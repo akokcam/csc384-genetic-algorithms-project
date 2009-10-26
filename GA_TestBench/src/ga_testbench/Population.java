@@ -1,15 +1,26 @@
 package ga_testbench;
 
-interface GA_Population<SolutionInstance extends GA_Individual> {
+import java.util.List;
 
+interface Population<SolutionInstance extends Individual> {
+
+
+    // Constructor
+    public void Population(int size);
+
+//    public void Population(List<SolutionInstance> individuals);
+
+    // Find the best one in the current population
     public SolutionInstance getBest();
+
+
 
     /* This should be weighted by the normalized fitness. I can't think of how
      * to implement a nice quick way to select from the population besides
      * storing them in an augmented interval tree. But I just learned about
      * this in 265. Am I missing an obvious simple way to do it?
      * */
-    public SolutionInstance getRandom();
+    //public SolutionInstance getIndividual();
 
     /* Some simple options. These should be enough for most purposes for the
      * population module. Just tells it what weights it should place on the
@@ -18,22 +29,28 @@ interface GA_Population<SolutionInstance extends GA_Individual> {
     public void setNextGenerationProportions(float copies, float mutations,
             float crossovers, float randoms);
 
+    // Generate a new population based on this one and the current settings.
     public void evolve();
 
+    // Populations know how long since they started off random
     public int currentGenerationNumber();
 
-    public SolutionInstance crossPairWeighted();
+    public float fitnessAverage();
+    public float fitnessVariance();
 
-    public SolutionInstance crossPairUnweighted();
+
+    // Should be private
+    //public SolutionInstance crossPairWeighted();
+
+    //public SolutionInstance crossPairUnweighted();
 
     /* This should be inplemented for multiple threads. Generally, fitness
      * evaluation is the most serious bottleneck for GA problems. It may be
      * quite easy to breed them, but many things need to be taken into account
      * when turning a whole individual into a single fitness number.
      */
-    public void evaluateAll();
+    //public void evaluateAll();
 
-    public void runTournament();
+    //public void runTournament();
 
-    public void GA_Population(int size);
 }
