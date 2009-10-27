@@ -1,12 +1,15 @@
 package ga_testbench;
 
-abstract class Individual {
+public abstract class Individual {
 
     // This should really be static
     public abstract Individual random();
 
     // Evaluate the instance, as it is
     public abstract float fitness();
+
+    // Will be called once by the solver before any fitness tests are done
+    public abstract void initialize(String filename);
 
     // This sort of thing really calls for further subclassing
     //public float pairEvaluate(Individual other);
