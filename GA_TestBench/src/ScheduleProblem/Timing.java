@@ -4,7 +4,7 @@ package ScheduleProblem;
  *
  * @author Dave
  */
-class Timing {
+public class Timing {
 
     private int day;
     private int time;
