@@ -33,14 +33,34 @@ public class GASolver<T extends Individual> implements Solver {
      * new random individuals.
      */
     private float randoms = -1;
-
-
+    /**
+     * The population at a certain time.
+     */
     private Population<T> population;
-    long startTime;
-    long endTime;
+    /**
+     * The time that the timing should count from, in milliseconds, from System.
+     */
+    private long startTime;
+    /**
+     * The time that we should stop evolving.
+     */
+    private long endTime;
+    /**
+     * Whether or not we should be outputting statistics when we evolve the population.
+     */
     private boolean verboseOn;
+    /**
+     * This is where the problem instance data is located. The individual knows
+     * how to decode this file and keep static variables for itself to remember
+     * how to perform fitness evaluations.
+     */
+    private final String instanceDataFile;
 
-    public GASolver() {
+    /**
+     * Default constructor. Default values are given, but can be set with the
+     * set... methods.
+     */
+    public GASolver(String instanceDataFile) {
         // Initial default population
         popSize = 1000;
 
@@ -60,16 +80,33 @@ public class GASolver<T extends Individual> implements Solver {
         // Set these explicitly
         startTime = -1;
         endTime = -1;
+
+        // Set the instanceData field, so where we know where to get the
+        // instance from, when we need it.
+        this.instanceDataFile = instanceDataFile;
     }
 
+    /**
+     * Set the size of population that this run will use.
+     * @param size The number of individuals to track in one generation.
+     */
     public void setPopulationSize(int size) {
         popSize = size;
     }
 
+    /**
+     * Set the maximum number of generations that should be processed before
+     * returning the best found individual.
+     * @param maxGens An upper limit on the number of generations to make.
+     */
     public void setMaxGenerations(int maxGens) {
         this.maxGens = maxGens;
     }
 
+    /**
+     * Set a time limit on the computation.
+     * @param timeLimit Number of seconds to work for, at max.
+     */
     public void setTimeLimit(float timeLimit) {
         this.timeLimit = timeLimit;
 
@@ -77,8 +114,26 @@ public class GASolver<T extends Individual> implements Solver {
         this.endTime = this.startTime + (long) (timeLimit * 1000);
     }
 
+    /**
+     * Set the proportions that should determine the composition of the
+     * population from one generation to the next. The sum of these 4 fields can
+     * be anything, because we normalize them, but they should all be positive.
+     * @param copies The portion of the next generation that should be copies
+     *  of the finest members of this generation.
+     * @param mutations The approximate proportion of the next generation that
+     *  should be made by randomly mutating individuals in the current
+     *  generation.
+     * @param crossovers The approximate proportion of the next generation that
+     *  should be made by crossing over pairs of individuals from the current
+     *  generation.
+     * @param randoms The approximate proportion of the next generation that
+     *  should be made by creating new random individuals.
+     */
     public void setNextGenerationProportions(float copies,
             float mutations, float crossovers, float randoms) {
+        if (copies < 0 || mutations < 0 || crossovers < 0 || randoms < 0) {
+            throw new RuntimeException("Invalid generation proportions.");
+        }
         float tot = copies + mutations + crossovers + randoms;
         this.copies = copies / tot;
         this.mutations = mutations / tot;
@@ -86,6 +141,10 @@ public class GASolver<T extends Individual> implements Solver {
         this.randoms = randoms / tot;
     }
 
+    /**
+     * Generate statistics when every generation is created.
+     * @param outputFile File to put statistics in.
+     */
     public void setVerboseMode(String outputFile) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -101,7 +160,7 @@ public class GASolver<T extends Individual> implements Solver {
         if (timeLimit <= 0 && maxGens <= 0) {
             throw new RuntimeException("No stopping condition set. Cannot run the GA.");
         }
-        
+
         while (evolutionNotDone()) {
             population.evolve();
             if (verboseOn) {
