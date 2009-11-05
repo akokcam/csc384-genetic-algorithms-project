@@ -2,16 +2,16 @@ package ga_testbench;
 
 import java.util.List;
 
-interface Population<SolutionInstance extends Individual> {
+interface Population<T extends Individual> {
 
 
-    // Constructor
-    public void Population(int size);
+    // Constructor can't be declared here
+//    public void Population(int size);
 
 //    public void Population(List<SolutionInstance> individuals);
 
     // Find the best one in the current population
-    public SolutionInstance getBest();
+    public T getBest();
 
 
 
