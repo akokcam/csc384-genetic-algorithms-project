@@ -157,6 +157,20 @@ public class GASolver<T extends Individual> implements Solver {
     }
 
     /**
+     * Add a line of data to the verbose report.
+     */
+    private void addReport() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    /**
+     * Close files and do whatever is necessary to complete the stats gathering.
+     */
+    private void verboseTidyUp() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    /**
      * Run the genetic algorithm with the current settings.
      * @return
      */
@@ -176,6 +190,9 @@ public class GASolver<T extends Individual> implements Solver {
             }
         }
 
+        if (verboseOn) {
+            verboseTidyUp();
+        }
         return population.getBest();
     }
 
@@ -194,12 +211,5 @@ public class GASolver<T extends Individual> implements Solver {
         }
         return true;
 
-    }
-
-    /**
-     * Add a line of data to the verbose report.
-     */
-    private void addReport() {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

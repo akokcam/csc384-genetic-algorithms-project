@@ -1,12 +1,13 @@
 package ScheduleProblem;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  *
  * @author Dave
  */
-public class TimeTable implements TimeTableInterface {
+public class TimeTable implements TimeTableInterface, Iterable {
 
     private List<Timing> times;
 
@@ -16,5 +17,9 @@ public class TimeTable implements TimeTableInterface {
 
     public int countDuplicates() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Iterator iterator() {
+        return times.iterator();
     }
 }

@@ -1,9 +1,5 @@
 package ScheduleProblem;
 
-/**
- *
- * @author Dave
- */
 interface CourseInterface {
 
     public String getName();
