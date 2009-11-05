@@ -9,7 +9,11 @@ public abstract class Individual {
     public abstract float fitness();
 
     // Will be called once by the solver before any fitness tests are done
-    public abstract void initialize(String filename);
+    public static void initialize(String filename) {
+        // This must be implemented by the problem instance
+        throw new UnsupportedOperationException("The initialize method must " +
+                "be implemented by an Individual in whatever way it wants.");
+    }
 
     // This sort of thing really calls for further subclassing
     //public float pairEvaluate(Individual other);

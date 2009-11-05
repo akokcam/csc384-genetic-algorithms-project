@@ -40,8 +40,7 @@ public class Schedule extends ga_testbench.Individual implements ScheduleInterfa
      * and make the static members.
      * @param filename File from which to load instance data
      */
-    @Override
-    public void initialize(String filename) {
+    public static void initialize(String filename) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
