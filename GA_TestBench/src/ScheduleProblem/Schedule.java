@@ -13,8 +13,7 @@ public class Schedule extends ga_testbench.Individual implements ScheduleInterfa
     private static List<Room> rooms;
     private List<Course> courses;
 
-    @Override
-    public Individual random() {
+    public static Individual random() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -24,7 +23,7 @@ public class Schedule extends ga_testbench.Individual implements ScheduleInterfa
     }
 
     @Override
-    public void mutate(float difference) {
+    public Individual mutate(float difference) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
