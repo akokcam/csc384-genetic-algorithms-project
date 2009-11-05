@@ -6,7 +6,14 @@ package ga_testbench;
  */
 public class GASolver<T extends Individual> implements Solver {
 
+    /**
+     * The number of individuals that a population should have.
+     */
     private int popSize;
+    /**
+     * The maximum amount of time, in seconds, that should be spent trying to
+     * solve this instance.
+     */
     private float timeLimit;
     /**
      * The maximum number of generations that should be processed before
@@ -156,6 +163,7 @@ public class GASolver<T extends Individual> implements Solver {
     public Individual run() {
         population = new GAPopulation<T>(popSize);
         population.setNextGenerationProportions(copies, mutations, crossovers, randoms);
+        T.initialize(instanceDataFile); // Load the desired problem instance
 
         if (timeLimit <= 0 && maxGens <= 0) {
             throw new RuntimeException("No stopping condition set. Cannot run the GA.");
