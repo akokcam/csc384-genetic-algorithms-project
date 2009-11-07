@@ -184,6 +184,18 @@ public class Schedule extends ga_testbench.Individual {
         throw new RuntimeException(courseName + "is an unrecognized course name.");
     }
 
+    public static List<Course> getCourses() {
+        return courses;
+    }
+
+    public static List<Room> getRooms() {
+        return rooms;
+    }
+
+    public static List<Student> getStudents() {
+        return students;
+    }
+
     private static void verifyInitialized() {
         if (!initialized) {
             throw new RuntimeException("Schedule not initialized.");
@@ -310,14 +322,33 @@ public class Schedule extends ga_testbench.Individual {
 
     /**
      * Get the timetable that a student has
-     * @param stud A student
+     * @param student A student
      * @return The timetable for the courses that the student is enrolled in
      */
-    TimeTable getTimes(Student stud) {
+    TimeTable getTimes(Student student) {
         // Get each of the timing for the student's courses
         TimeTable ret = new TimeTable();
-        for (Course c : stud.getCourses()) {
+        for (Course c : student.getCourses()) {
             ret.addTime(c.getTiming(this));
+        }
+        return ret;
+    }
+
+    public String studentSchedulesString() {
+        String ret = "";
+        for (Student s : students) {
+            ret += s.getName() + "'s schedule:\n";
+            ret += s.getTimeTable(this);
+            ret += "\n";
+        }
+        return ret;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "Schedule information:\n";
+        for (int i = 0; i < numCourses; i++) {
+            ret += courses.get(i).getName() + " has exam in " + rooms.get(timingRooms[i]).getName() + " at " + times[i] + "\n";
         }
         return ret;
     }
