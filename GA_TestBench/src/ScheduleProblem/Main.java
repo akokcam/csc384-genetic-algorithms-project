@@ -1,4 +1,4 @@
-package ga_testbench;
+package ScheduleProblem;
 
 public class Main {
 

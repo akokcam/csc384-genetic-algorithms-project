@@ -66,6 +66,11 @@ public class GAPopulation<T extends Individual> implements Population {
      * This is the random number generator used by the class.
      */
     private static Random rand;
+    /**
+     * Should be true if the state of the population has all of the members
+     * evaluated.
+     */
+    private boolean allEvaluated;
 
     /**
      * Make a new population.
@@ -77,13 +82,19 @@ public class GAPopulation<T extends Individual> implements Population {
         fitnesses = new float[size];
         this.evals = 0; // No evaluations have been performed yet.
         this.currentGeneration = 0;
+        this.allEvaluated = false;
         GAPopulation.rand = new Random();
+
+        // Any evaluation should set both of these
+        this.fitnessMin = Float.POSITIVE_INFINITY;
+        this.fitnessMax = Float.NEGATIVE_INFINITY;
+
+        // Set all of the fitnesses to NaN
         for (int i = 0; i < size; i++) {
             Individual randomIndividual = T.random();
             this.pop.add(randomIndividual);
             this.fitnesses[i] = Float.NaN; // All of the fitnesses are initialized to Nan
         }
-
     }
 
     /**
@@ -165,6 +176,7 @@ public class GAPopulation<T extends Individual> implements Population {
                     "nextGenerationProportions before evolving.");
         }
 
+        // Make sure that all have been evaluated
         evaluateAll();
 
         List<Individual> newList = new ArrayList<Individual>(size);
@@ -193,8 +205,7 @@ public class GAPopulation<T extends Individual> implements Population {
             Individual individual = getRandomWeightedIndividual();
             // Mutate it by a random amount, weighted a little bit down, so we 
             // always mutate less than half. This is sane.
-            float mutAmt = rand.nextFloat();
-            mutAmt = min(mutAmt, 1 - mutAmt);
+            float mutAmt = rand.nextFloat() / 2;
 
             newList.add(individual.mutate(mutAmt));
         }
@@ -213,7 +224,11 @@ public class GAPopulation<T extends Individual> implements Population {
             // for the new population
         }
 
+        this.pop = newList;
+        this.fitnesses = newFitnesses;
+
         this.currentGeneration++;
+        this.allEvaluated = false;
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -278,6 +293,8 @@ public class GAPopulation<T extends Individual> implements Population {
             }
             i++; // Do the next one next
         }
+
+        this.allEvaluated = true;
 
         /* Change all of the fitnesses depending on the value of the least fit.
          * This makes everything eeasier to weight.
