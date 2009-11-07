@@ -84,6 +84,6 @@ public class Timing implements Comparable {
 
     @Override
     public String toString() {
-        return "Day " + day + ", Time: " + time;
+        return "Day " + (day + 1) + ", Time: " + (time + 1);
     }
 }

@@ -1,5 +1,7 @@
 package ScheduleProblem;
 
+import ga_testbench.Individual;
+
 public class Main {
 
     /**
@@ -14,16 +16,10 @@ public class Main {
             Schedule.displayInfo();
         }
 
-        TimeTable x = new TimeTable();
-        x.addTime(new Timing(1,2));
-        x.addTime(new Timing(3,2));
-        x.addTime(new Timing(2,1));
-        x.addTime(new Timing(2,2));
-        x.addTime(new Timing(1,2));
-        x.addTime(new Timing(2,2));
-        for (Timing t : x) {
-            System.out.println(t);
-        }
+        Schedule ss = (Schedule) Schedule.random();
+        System.out.println(ss);
+
+        System.out.println(ss.studentSchedulesString());
 
     }
 }

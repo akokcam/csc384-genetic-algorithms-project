@@ -104,4 +104,19 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
     public Iterator<Timing> iterator() {
         return new TTIterator();
     }
+
+    @Override
+    public String toString() {
+        String ret = "";
+        for (int time = 0; time < Schedule.getNumTimes(); time++) {
+            ret += "Time " + (time + 1) + " :";
+            for (int day = 0; day < Schedule.getNumDays(); day++) {
+                Timing t = new Timing(day, time);
+                int hits = numHits(t);
+                ret += (hits == 0) ? "_" : hits;
+            }
+            ret += "\n";
+        }
+        return ret;
+    }
 }
