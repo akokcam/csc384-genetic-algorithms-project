@@ -20,7 +20,7 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
      * This class allows us to iterate over the timings in the timetable in 
      * chronological order.
      */
-    private class TTIterator implements Iterator<Timing> {
+    class TTIterator implements Iterator<Timing> {
 
         private Timing current;
         private Integer quantity;
@@ -42,7 +42,9 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
             quantity--;
             if (quantity == 0) {
                 current = times.higherKey(current);
-                quantity = times.get(current);
+                if (current != null) {
+                    quantity = times.get(current);
+                }
             }
             return ret;
         }
@@ -97,15 +99,6 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
      */
     public Timing getEarliest() {
         return times.firstKey();
-    }
-
-    /**
-     *
-     * @param timing
-     * @return
-     */
-    public Timing getNext(Timing timing) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Iterator<Timing> iterator() {

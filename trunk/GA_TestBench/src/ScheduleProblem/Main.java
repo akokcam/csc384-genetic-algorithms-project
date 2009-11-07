@@ -7,12 +7,23 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println("Hello buh");
 
         boolean loadedOK = Schedule.initialize("Instance Input Files\\testinitfile.txt");
 
         if (loadedOK) {
             Schedule.displayInfo();
         }
+
+        TimeTable x = new TimeTable();
+        x.addTime(new Timing(1,2));
+        x.addTime(new Timing(3,2));
+        x.addTime(new Timing(2,1));
+        x.addTime(new Timing(2,2));
+        x.addTime(new Timing(1,2));
+        x.addTime(new Timing(2,2));
+        for (Timing t : x) {
+            System.out.println(t);
+        }
+
     }
 }
