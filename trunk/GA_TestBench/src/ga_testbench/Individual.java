@@ -13,7 +13,7 @@ public abstract class Individual {
     public abstract float fitness();
 
     // Will be called once by the solver before any fitness tests are done
-    public static void initialize(String filename) {
+    public static boolean initialize(String filename) {
         // This must be implemented by the problem instance
         throw new UnsupportedOperationException("The initialize method must " +
                 "be implemented by the Individual class.");

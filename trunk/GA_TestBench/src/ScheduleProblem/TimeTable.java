@@ -1,34 +1,114 @@
 package ScheduleProblem;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  *
  * @author Dave
  */
-public class TimeTable implements TimeTableInterface, Iterable {
+public class TimeTable implements TimeTableInterface, Iterable<Timing> {
 
-    private List<Timing> times;
+    /**
+     * This is the Red-Black tree supporting the operations we can perform on
+     * timetables.
+     */
+    private TreeMap<Timing, Integer> times;
 
+    /**
+     * This class allows us to iterate over the timings in the timetable in 
+     * chronological order.
+     */
+    private class TTIterator implements Iterator<Timing> {
+
+        private Timing current;
+        private Integer quantity;
+
+        private TTIterator() {
+            current = getEarliest();
+            quantity = times.get(current);
+        }
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public Timing next() {
+            if (quantity <= 0) {
+                throw new RuntimeException("TTIterator screwed up some.");
+            }
+            Timing ret = current;
+            quantity--;
+            if (quantity == 0) {
+                current = times.higherKey(current);
+                quantity = times.get(current);
+            }
+            return ret;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+    }
+
+    /**
+     * Constructor to make an empty timetable.
+     */
     public TimeTable() {
-        this.times = new ArrayList<Timing>();
+        this.times = new TreeMap<Timing, Integer>();
     }
 
+    /**
+     * Constructor to make a timetable based on a list of timings.
+     * @param times
+     */
     public TimeTable(List<Timing> times) {
-        this.times = times;
+        this.times = new TreeMap<Timing, Integer>();
+        for (Timing timing : times) {
+            addTime(timing);
+        }
     }
 
-        public void addTime(Timing time) {
-        times.add(time);
+    /**
+     * Get the number of instances of a timing in this timetable
+     * @param timing The timing to check for
+     * @return The number of times that the timing is in this timetable
+     */
+    public int numHits(Timing timing) {
+        Integer ret = times.get(timing);
+        if (ret == null) {
+            return 0;
+        }
+        return ret;
     }
 
-    public int countDuplicates() {
+    /**
+     * Add another timing to this timetable
+     * @param time The timing to add
+     */
+    public void addTime(Timing time) {
+        times.put(time, numHits(time) + 1);
+    }
+
+    /**
+     * Find the first timing in this timetable
+     * @return The first chronological timing
+     */
+    public Timing getEarliest() {
+        return times.firstKey();
+    }
+
+    /**
+     *
+     * @param timing
+     * @return
+     */
+    public Timing getNext(Timing timing) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Iterator iterator() {
-        return times.iterator();
+    public Iterator<Timing> iterator() {
+        return new TTIterator();
     }
 }
