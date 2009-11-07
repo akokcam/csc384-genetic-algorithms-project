@@ -1,5 +1,6 @@
 package ScheduleProblem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,7 +12,15 @@ public class TimeTable implements TimeTableInterface, Iterable {
 
     private List<Timing> times;
 
-    public void addTime(Timing time) {
+    public TimeTable() {
+        this.times = new ArrayList<Timing>();
+    }
+
+    public TimeTable(List<Timing> times) {
+        this.times = times;
+    }
+
+        public void addTime(Timing time) {
         times.add(time);
     }
 

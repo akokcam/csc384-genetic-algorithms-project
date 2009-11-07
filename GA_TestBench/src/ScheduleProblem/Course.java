@@ -4,11 +4,15 @@ class Course implements CourseInterface {
 
     String name;
 
+    public Course(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return this.name;
     }
 
     public Timing getTiming(Schedule sched) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return sched.getTime(this);
     }
 }
