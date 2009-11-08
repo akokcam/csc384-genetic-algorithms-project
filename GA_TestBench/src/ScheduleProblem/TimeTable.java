@@ -25,15 +25,26 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
         private Timing current;
         private Integer quantity;
 
+        /**
+         * Constructor for the TTIterator
+         */
         private TTIterator() {
             current = getEarliest();
             quantity = times.get(current);
         }
 
+        /**
+         * Check iof there are any more timings to iterate over.
+         * @return Whether any timings are left.
+         */
         public boolean hasNext() {
             return current != null;
         }
 
+        /**
+         * Get the next chronological timing.
+         * @return The next timing.
+         */
         public Timing next() {
             if (quantity <= 0) {
                 throw new RuntimeException("TTIterator screwed up some.");
@@ -52,6 +63,15 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
         public void remove() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
+    }
+
+    /**
+     * Get the number of different times indicated by this timetable.
+     * (NOTE: duplicated Timings count as only one timing here.)
+     * @return The number of distinct times in this timetable
+     */
+    public int numTimings() {
+        return times.size();
     }
 
     /**
@@ -101,10 +121,20 @@ public class TimeTable implements TimeTableInterface, Iterable<Timing> {
         return times.firstKey();
     }
 
+    /**
+     * Get an iterator to return the timings in this schedule in chronological
+     * order.
+     * @return An iterator over the timings in this timetable
+     */
     public Iterator<Timing> iterator() {
         return new TTIterator();
     }
 
+    /**
+     * Get a nice String representation of this timetable, indicating the number
+     * of events at each time on every day and time.
+     * @return String representation of a timetable.
+     */
     @Override
     public String toString() {
         String ret = "";

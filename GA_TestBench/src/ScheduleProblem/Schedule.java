@@ -35,6 +35,11 @@ public class Schedule extends ga_testbench.Individual {
      * @return True if initialization went smoothly, false on error
      */
     public static boolean initialize(String filename) {
+        if (initialized) {
+            throw new RuntimeException("Schedule is already initialized. " +
+                    "Cannot be initialized twice.");
+        }
+
         File infile = new File(filename);
         Scanner scanner;
         try {
@@ -123,6 +128,8 @@ public class Schedule extends ga_testbench.Individual {
      * Dump the instance info to the screen in a nice way
      */
     static void displayInfo() {
+        verifyInitialized();
+
         System.out.println("The " + numCourses + " courses in this problem instance are:");
         for (Course course : courses) {
             System.out.println(course.getName());
@@ -146,9 +153,7 @@ public class Schedule extends ga_testbench.Individual {
      * @return A random Schedule
      */
     public static Individual random() {
-        if (!initialized) {
-            throw new RuntimeException("Schedule not initialized.");
-        }
+        verifyInitialized();
 
         Timing[] times = new Timing[numCourses];
         int[] timingRooms = new int[numCourses];
@@ -170,12 +175,6 @@ public class Schedule extends ga_testbench.Individual {
      * @return The course whose name is courseName
      */
     static Course getCourse(String courseName) {
-        /* This is a lazy way of finding the course. We could put them in a
-         *  hash table or something instead.
-         * It's not so bad because we only do this on loading a file
-         *  numStudents * avg(numClasses) times.
-         */
-
         for (Course course : courses) {
             if (course.getName().equals(courseName)) {
                 return course;
@@ -184,15 +183,18 @@ public class Schedule extends ga_testbench.Individual {
         throw new RuntimeException(courseName + "is an unrecognized course name.");
     }
 
-    public static List<Course> getCourses() {
+    static List<Course> getCourses() {
+        verifyInitialized();
         return courses;
     }
 
-    public static List<Room> getRooms() {
+    static List<Room> getRooms() {
+        verifyInitialized();
         return rooms;
     }
 
-    public static List<Student> getStudents() {
+    static List<Student> getStudents() {
+        verifyInitialized();
         return students;
     }
 
@@ -249,12 +251,18 @@ public class Schedule extends ga_testbench.Individual {
     @Override
     public float fitness() {
         float ret = 0;
+        float studentRating = 0.0f;
+        float roomRating = 0.0f;
         for (Student student : students) {
-            ret += student.evaluate(this);
+            studentRating += student.evaluate(this);
         }
         for (Room room : rooms) {
-            ret += room.evaluate(this);
+            roomRating += room.evaluate(this);
         }
+
+        // We care twice as much about students as we do about rooms
+        ret = 2 * studentRating / numStudents + roomRating / numRooms;
+
         return ret;
     }
 
@@ -334,16 +342,40 @@ public class Schedule extends ga_testbench.Individual {
         return ret;
     }
 
+    /**
+     * Give a nicely formatted string showing the exam schedules of all of
+     * the students.
+     * @return String representation of every student's schedule.
+     */
     public String studentSchedulesString() {
         String ret = "";
         for (Student s : students) {
-            ret += s.getName() + "'s schedule:\n";
+            ret += s.getName() + "'s schedule (which (s)he rates at " + s.evaluate(this) + "):\n";
             ret += s.getTimeTable(this);
             ret += "\n";
         }
         return ret;
     }
 
+    /**
+     * Give a nicely formatted string showing the exam schedules of all of
+     * the rooms.
+     * @return String representation of every student's schedule.
+     */
+    public String roomSchedulesString() {
+        String ret = "";
+        for (Room s : rooms) {
+            ret += s.getName() + "'s schedule (which it rates at " + s.evaluate(this) + "):\n";
+            ret += s.getTimeTable(this);
+            ret += "\n";
+        }
+        return ret;
+    }
+
+    /**
+     * Get a String representing all of the exam tines and rooms.
+     * @return
+     */
     @Override
     public String toString() {
         String ret = "Schedule information:\n";

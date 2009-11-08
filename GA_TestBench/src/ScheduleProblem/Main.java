@@ -16,10 +16,16 @@ public class Main {
             Schedule.displayInfo();
         }
 
+        System.out.println("\nWe have now generated a random schedule.");
+
         Schedule ss = (Schedule) Schedule.random();
         System.out.println(ss);
 
         System.out.println(ss.studentSchedulesString());
+        System.out.println(ss.roomSchedulesString());
+
+        float fitness = ss.fitness();
+        System.out.println("The fitness function of this schedule gives: " + fitness);
 
     }
 }
