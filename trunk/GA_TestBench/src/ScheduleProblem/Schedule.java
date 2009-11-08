@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * This is the big daddy class. It keeps static lists of students and rooms
  * which it asks to evaluate itself when it needs to be evaluated.
  */
-public class Schedule extends ga_testbench.Individual {
+public class Schedule extends ga_testbench.Individual implements Cloneable {
 
     private static List<Student> students;
     private static List<Room> rooms;
@@ -233,15 +233,20 @@ public class Schedule extends ga_testbench.Individual {
 
     // THIS MUST BE DONE
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        Timing[] newTimes = times.clone();
-        return super.clone();
+//    protected Object clone() throws CloneNotSupportedException {
+//        Timing[] newTimes = times.clone();
+//        return super.clone();
+//
+//        /* This is totally incomplete
+//         */
+//    }
 
-        /* This is totally incomplete
-         */
+    protected Schedule clone() throws CloneNotSupportedException{
+        Timing[] newTimes = this.times.clone();
+        int[] newTimingRooms = this.timingRooms.clone();
+        Schedule newSchedule = new Schedule(newTimes, newTimingRooms);
 
-
-
+        return newSchedule;
     }
 
     /**
