@@ -26,6 +26,21 @@ public class Main {
 
         float fitness = ss.fitness();
         System.out.println("The fitness function of this schedule gives: " + fitness);
-        
+
+/* the code below is to test schedule's clone method.
+        Schedule c;
+        try{
+            c = ss.clone();
+            System.out.println("\n****************testing c************\n");
+            System.out.println(c);
+
+            System.out.println(c.studentSchedulesString());
+            System.out.println(c.roomSchedulesString());
+
+            fitness = c.fitness();
+            System.out.println("The fitness function of this schedule gives: " + fitness);
+        }
+        catch(Exception e){}
+      */
     }
 }
