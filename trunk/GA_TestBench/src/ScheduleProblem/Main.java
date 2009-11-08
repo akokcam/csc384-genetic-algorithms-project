@@ -26,6 +26,6 @@ public class Main {
 
         float fitness = ss.fitness();
         System.out.println("The fitness function of this schedule gives: " + fitness);
-
+        
     }
 }
