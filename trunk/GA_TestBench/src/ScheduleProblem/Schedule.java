@@ -271,25 +271,41 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         return ret;
     }
 
-    // THIS IS NOT DONE
+    /**
+     * Mutate a schedule.
+     * @param difference The probability that any part of the Schedule will change.
+     * @return A new mutated schedule.
+     */
     @Override
     public Individual mutate(float difference) {
-        Schedule ret;
-        try {
-            int numchanges = (int) difference * numCourses;
-            ret = (Schedule) this.clone();
-            for (int i = 0; i < numchanges; i++) {
-                // DO SOME STUFF
-            }
-            // WHATEVER
+        Timing[] t = new Timing[numCourses];
+        int[] tr = new int[numCourses];
 
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
-            throw new UnsupportedOperationException("Not supported yet.");
+        for (int i = 0; i < numCourses; i++) {
+            if (rand.nextFloat() < difference) {
+                tr[i] = rand.nextInt(numRooms);
+            } else {
+                tr[i] = timingRooms[i];
+            }
+            if (rand.nextFloat() < difference) {
+                int day = rand.nextInt(numDays);
+                int time = rand.nextInt(numTimes);
+                t[i] = new Timing(day, time);
+            } else {
+                t[i] = this.times[i];
+            }
         }
+
+        Schedule ret = new Schedule(t, tr);
         return ret;
     }
 
+    /**
+     * Breed a new schedule from a pair of other schedules.
+     * @param other The schedule to cross with.
+     * @return A new Schedule with all of its parts taken from one of the input
+     * schedule
+     */
     @Override
     public Individual crossWith(Individual other) {
         if (other == null || getClass() != other.getClass()) {
@@ -297,9 +313,8 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         }
         final Schedule otherSched = (Schedule) other;
 
-        // Have to cast other to type Schedule after verifying that it is indeed
-        // that type
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Very cheesy crossover technique
+        return new Schedule(times, otherSched.timingRooms);
     }
 
     /**
