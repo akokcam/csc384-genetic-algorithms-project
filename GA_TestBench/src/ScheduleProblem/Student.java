@@ -44,10 +44,10 @@ class Student implements Evaluator, HasTimetable {
                 ret -= 20.0f;
             } else if (next.getDay() == last.getDay()) {
                 // Having 2 exams on the same day is bad. Max penalty 2
-                ret -= 2.0 * (numTimes - next.getTime() + last.getTime() + 1) / numTimes;
+                ret -= 2 + 2.0 * (numTimes - next.getTime() + last.getTime() + 1) / numTimes;
             } else if (next.getDay() > last.getDay() + 1) {
                 // If exams are 2 days apart, the student likes it. Reward 5.
-                ret += 2.0f;
+                ret += 4.0f;
             }
 
             last = next;

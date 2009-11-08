@@ -18,12 +18,12 @@ import java.util.TreeSet;
 public class Main {
 
     public static final String FILENAME = "Instance Input Files\\tickle.txt";
-    public static final int NUMDAYS = 5;
+    public static final int NUMDAYS = 12;
     public static final int NUMTIMES = 5;
-    public static final int NUMCOURSES = 20;
-    public static final int NUMSTUDENTS = 20;
+    public static final int NUMCOURSES = 40;
+    public static final int NUMSTUDENTS = 50;
     public static final int NUMROOMS = 4;
-    public static final int MAXCOURSESPERSTUDENT = 6;
+    public static final int MAXCOURSESPERSTUDENT = 8;
 
     public static void main(String[] args) {
         Random rand = new Random();
