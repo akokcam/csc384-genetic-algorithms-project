@@ -2,22 +2,22 @@ package ga_testbench;
 
 public abstract class Individual {
 
-    // This should really be static
-    public static Individual random() {
-        // This must be implemented by the problem instance
-        throw new UnsupportedOperationException("The random method must " +
-                "be implemented by the Individual type class.");
-    }
+//    // This should really be static
+//    public Individual random() {
+//        // This must be implemented by the problem instance
+//        throw new UnsupportedOperationException("The random method must " +
+//                "be implemented by the Individual type class.");
+//    }
 
     // Evaluate the instance, as it is
     public abstract float fitness();
 
-    // Will be called once by the solver before any fitness tests are done
-    public static boolean initialize(String filename) {
-        // This must be implemented by the problem instance
-        throw new UnsupportedOperationException("The initialize method must " +
-                "be implemented by the Individual class.");
-    }
+//    // Will be called once by the solver before any fitness tests are done
+//    public boolean initialize(String filename) {
+//        // This must be implemented by the problem instance
+//        throw new UnsupportedOperationException("The initialize method must " +
+//                "be implemented by the Individual class.");
+//    }
 
     // This sort of thing really calls for further subclassing
     //public float pairEvaluate(Individual other);

@@ -1,14 +1,17 @@
 package ga_testbench;
 
+import ScheduleProblem.Schedule;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.TreeMap;
 
 /**
  *
  * @author dave
  */
-public class GAPopulation<T extends Individual> implements Population {
+public class GAPopulation implements Population {
 
     /**
      * The number of individuals to keep for a ganeration.
@@ -17,7 +20,7 @@ public class GAPopulation<T extends Individual> implements Population {
     /**
      * A list containing the members of the current generation.
      */
-    private List<Individual> pop;
+    private List<Schedule> pop;
     /**
      * The fitnesses of the current individuals.
      */
@@ -71,6 +74,11 @@ public class GAPopulation<T extends Individual> implements Population {
      * evaluated.
      */
     private boolean allEvaluated;
+    /**
+     * The Map used to perform uniform selection from the population
+     */
+    private TreeMap<Float, Schedule> selectionTree;
+    private float treemax;
 
     /**
      * Make a new population.
@@ -78,7 +86,7 @@ public class GAPopulation<T extends Individual> implements Population {
      */
     public GAPopulation(int size) {
         this.size = size;
-        this.pop = new ArrayList<Individual>(size);
+        this.pop = new ArrayList<Schedule>(size);
         fitnesses = new float[size];
         this.evals = 0; // No evaluations have been performed yet.
         this.currentGeneration = 0;
@@ -91,7 +99,7 @@ public class GAPopulation<T extends Individual> implements Population {
 
         // Set all of the fitnesses to NaN
         for (int i = 0; i < size; i++) {
-            Individual randomIndividual = T.random();
+            Schedule randomIndividual = (Schedule) Schedule.random();
             this.pop.add(randomIndividual);
             this.fitnesses[i] = Float.NaN; // All of the fitnesses are initialized to Nan
         }
@@ -103,7 +111,21 @@ public class GAPopulation<T extends Individual> implements Population {
      * absolute fitness.
      */
     public Individual getBest() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!allEvaluated) {
+            evaluateAll();
+        }
+
+        float val = Float.NEGATIVE_INFINITY;
+        int index = 0;
+
+        for (int i = 0; i < size; i++) {
+            if (fitnesses[i] > val) {
+                index = i;
+                val = fitnesses[i];
+            }
+        }
+
+        return pop.get(index);
     }
 
     /**
@@ -144,7 +166,7 @@ public class GAPopulation<T extends Individual> implements Population {
 
         // The rounding error should never be more than one.
         int err = size - tot;
-        if (err < -1 || err > 1) {
+        if (err >= -1 || err <= 1) {
             // On rounding error, we fix mutations
             this.numMutations += err;
             assert (this.numMutations >= 0);
@@ -157,12 +179,65 @@ public class GAPopulation<T extends Individual> implements Population {
     }
 
     /**
+     * Add some copies from the current population to the list newList.
+     * Note: we mess with the current generation's fitnesses array, so it
+     * cannot be trusted after calling this.
+     * @param newList The list to add copies to
+     */
+    private void addCopies(List<Schedule> newList, float[] newFitnesses) {
+        // Add the copies
+        TreeMap<Float, Schedule> tree = new TreeMap<Float, Schedule>();
+        for (int i = 0; i < size; i++) {
+            tree.put(fitnesses[i], pop.get(i));
+        }
+
+        for (int i = 0; i < numCopies; i++) {
+            Entry<Float, Schedule> highest = tree.pollLastEntry();
+            int location = newList.size();
+            newList.add(highest.getValue());
+            newFitnesses[location] = highest.getKey();
+        }
+    }
+
+    private void addCrossovers(List<Schedule> newList) {
+        // Add the crossovers
+        for (int i = 0; i < numCrossovers; i++) {
+            Schedule first = getRandomWeightedIndividual();
+            Schedule second = getRandomWeightedIndividual();
+            newList.add((Schedule) first.crossWith(second));
+        }
+    }
+
+    private void addMutations(List<Schedule> newList) {
+        // Add the mutated individiduals
+        for (int i = 0; i < numMutations; i++) {
+            Schedule individual = getRandomWeightedIndividual();
+            // Mutate it by a random amount, weighted a little bit down, so we
+            // always mutate less than half. This is sane.
+            float mutAmt = rand.nextFloat() / 2;
+            newList.add((Schedule) individual.mutate(mutAmt));
+        }
+    }
+
+    private void addRandoms(List<Schedule> newList) {
+        // Add the required number of randoms.
+        for (int i = 0; i < numRandoms; i++) {
+            Schedule randomIndividual = (Schedule) Schedule.random();
+            newList.add(randomIndividual);
+        }
+    }
+
+    /**
      * Get an individual with probability weighted by its normalized fitness.
      * This should only ever be called after a call to evaluateAll()
      * @return A random individual in the current population.
      */
-    private Individual getRandomWeightedIndividual() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private Schedule getRandomWeightedIndividual() {
+        assert (allEvaluated);
+        Float r = rand.nextFloat() * treemax;
+        Schedule ret = selectionTree.ceilingEntry(r).getValue();
+        assert (ret != null);
+        return ret;
     }
 
     /**
@@ -179,57 +254,28 @@ public class GAPopulation<T extends Individual> implements Population {
         // Make sure that all have been evaluated
         evaluateAll();
 
-        List<Individual> newList = new ArrayList<Individual>(size);
+        List<Schedule> newList = new ArrayList<Schedule>(size);
         float[] newFitnesses = new float[size];
         for (int i = 0; i < size; i++) {
             newFitnesses[i] = Float.NaN;
         }
 
-        /* We need to put them all in a nice structure here, so we can select
-         * from them based on a random number < fitness total.
-         * This gets a little bit complicated, what with the selection
-         * process and all.
-         */
-
-        // This should construct a nice structure that can be used to
-
-
-        // Add the required number of randoms.
-        for (int i = 0; i < numRandoms; i++) {
-            Individual randomIndividual = T.random();
-            newList.add(randomIndividual);
-        }
-
-        // Add the mutated individiduals
-        for (int i = 0; i < numMutations; i++) {
-            Individual individual = getRandomWeightedIndividual();
-            // Mutate it by a random amount, weighted a little bit down, so we 
-            // always mutate less than half. This is sane.
-            float mutAmt = rand.nextFloat() / 2;
-
-            newList.add(individual.mutate(mutAmt));
-        }
-
-        // Add the crossovers
-        for (int i = 0; i < numCrossovers; i++) {
-            Individual first = getRandomWeightedIndividual();
-            Individual second = getRandomWeightedIndividual();
-            newList.add(first.crossWith(second));
-        }
-
-        // Add the copies
-        for (int i = 0; i < numCrossovers; i++) {
-            // NOT DONE YET
-            // Remember to update totalfitness and make min/maxFitness correct
-            // for the new population
-        }
+        makeSelectionTree();
+        addRandoms(newList);
+        addMutations(newList);
+        addCrossovers(newList);
+        addCopies(newList, newFitnesses);
 
         this.pop = newList;
         this.fitnesses = newFitnesses;
+        this.fitnessMax = Float.NEGATIVE_INFINITY;
+        this.fitnessMin = Float.POSITIVE_INFINITY;
 
         this.currentGeneration++;
         this.allEvaluated = false;
-        throw new UnsupportedOperationException("Not supported yet.");
+        selectionTree = null;
+
+        evaluateAll();
     }
 
     /**
@@ -279,11 +325,12 @@ public class GAPopulation<T extends Individual> implements Population {
      * they're not known.
      */
     private void evaluateAll() {
-        int i = 0;
         float currentFitness;
-        for (Individual current : pop) {
+        for (int i = 0; i < size; i++) {
+//        for (Schedule current : pop) {
             // If the last generation set the fitness, then we don't need to evaluate it.
-            if (fitnesses[i] == Float.NaN) {
+            if (Float.isNaN(fitnesses[i])) {
+                Individual current = pop.get(i);
                 currentFitness = current.fitness();
 
                 fitnesses[i] = currentFitness;
@@ -291,23 +338,32 @@ public class GAPopulation<T extends Individual> implements Population {
                 updateMinMax(currentFitness);
                 evals++; // We've done another evaluation
             }
-            i++; // Do the next one next
         }
 
         this.allEvaluated = true;
+//
+//        /* Change all of the fitnesses depending on the value of the least fit.
+//         * This makes everything eeasier to weight.
+//         * It is OK to do this now because we will never need to evaluate any
+//         * of these individuals again.
+//         * NOTE: Perhaps statistics should be gathered before this normalizing,
+//         *  or at least we would need to save the value of fitnessMin.
+//         */
+//        for (int j = 0; j < size; j++) {
+//            fitnesses[j] -= fitnessMin;
+//        }
+//        fitnessMax -= fitnessMin;
+//        fitnessMin = 0;
+    }
 
-        /* Change all of the fitnesses depending on the value of the least fit.
-         * This makes everything eeasier to weight.
-         * It is OK to do this now because we will never need to evaluate any
-         * of these individuals again.
-         * NOTE: Perhaps statistics should be gathered before this normalizing,
-         *  or at least we would need to save the value of fitnessMin.
-         */
-        for (int j = 0; j < size; j++) {
-            fitnesses[j] -= fitnessMin;
-        }
-        fitnessMax -= fitnessMin;
-        fitnessMin = 0;
+    /**
+     * Get the normed fitness (where no negative fitnesses are allowed).
+     * @param index The individual to check the fitness of.
+     * @return The normed fitness
+     */
+    private float getNormedFitness(int index) {
+        assert (allEvaluated);
+        return fitnesses[index] - fitnessMin;
     }
 
     /**
@@ -318,5 +374,29 @@ public class GAPopulation<T extends Individual> implements Population {
      */
     private float min(float a, float b) {
         return (a < b) ? a : b;
+    }
+
+    /**
+     * Make the selection tree so that you can select individuals weighted by
+     * their fitness
+     */
+    private void makeSelectionTree() {
+        assert (allEvaluated);
+        selectionTree = new TreeMap<Float, Schedule>();
+
+        float tot = 0;
+        for (int i = 0; i < size; i++) {
+            tot += getNormedFitness(i);
+            selectionTree.put(tot, this.pop.get(i));
+        }
+        treemax = tot;
+    }
+
+    /**
+     * Find out how many fitness evaluations took place
+     * @return The number of times the fitness function was called.
+     */
+    public int numEvaluations() {
+        return evals;
     }
 }

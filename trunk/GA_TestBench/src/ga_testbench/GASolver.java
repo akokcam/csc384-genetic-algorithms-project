@@ -1,5 +1,7 @@
 package ga_testbench;
 
+import ScheduleProblem.Schedule;
+
 /**
  *
  * @author dave
@@ -174,10 +176,14 @@ public class GASolver<T extends Individual> implements Solver {
      * Run the genetic algorithm with the current settings.
      * @return
      */
-    public Individual run() {
-        population = new GAPopulation<T>(popSize);
+    public T run() {
+        boolean loaded = Schedule.initialize(instanceDataFile); // Load the desired problem instance
+        if (!loaded) {
+            throw new RuntimeException("Problem instance couldn't be loaded.");
+        }
+
+        population = new GAPopulation(popSize);
         population.setNextGenerationProportions(copies, mutations, crossovers, randoms);
-        T.initialize(instanceDataFile); // Load the desired problem instance
 
         if (timeLimit <= 0 && maxGens <= 0) {
             throw new RuntimeException("No stopping condition set. Cannot run the GA.");
@@ -211,5 +217,9 @@ public class GASolver<T extends Individual> implements Solver {
         }
         return true;
 
+    }
+
+    public int numEvaluations() {
+        return population.numEvaluations();
     }
 }

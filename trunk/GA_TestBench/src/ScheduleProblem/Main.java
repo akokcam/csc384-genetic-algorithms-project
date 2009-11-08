@@ -1,6 +1,10 @@
 package ScheduleProblem;
 
+import ga_testbench.GASolver;
+
 public class Main {
+
+    public static final String INSTANCEFILE = "Instance Input Files\\tickle.txt";
 
     /**
      * This is the main method. It is used for testing right now.
@@ -8,20 +12,47 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        boolean loadedOK = Schedule.initialize("Instance Input Files\\tickle.txt");
-
-        if (loadedOK) {
-            //Schedule.displayInfo();
-        } else {
-            throw new RuntimeException("Schedule failed to load.");
-        }
-
+//        boolean loadedOK = Schedule.initialize(INSTANCEFILE);
+//
+//        if (loadedOK) {
+//            //Schedule.displayInfo();
+//        } else {
+//            throw new RuntimeException("Schedule failed to load.");
+//        }
+/*
         System.out.println("\nWe have now generated a random schedule.");
 
         Schedule ss = (Schedule) Schedule.random();
-//        System.out.println(ss);
-//        System.out.println(ss.studentSchedulesString());
-//        System.out.println(ss.roomSchedulesString());
+        System.out.println(ss);
+        System.out.println(ss.studentSchedulesString());
+        System.out.println(ss.roomSchedulesString());
+        float fitness = ss.fitness();
+        System.out.println("The fitness function of this schedule gives: " + fitness);
+
+        ss = (Schedule) ss.mutate(0.2f);
+        System.out.println(ss);
+        System.out.println(ss.studentSchedulesString());
+        System.out.println(ss.roomSchedulesString());
+        fitness = ss.fitness();
+        System.out.println("The fitness function of this schedule gives: " + fitness);
+         */
+
+        // Attempt to use GASolver
+        GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
+        worker.setMaxGenerations(100);
+        worker.setPopulationSize(100);
+//        worker.setNextGenerationProportions(1, 10, 8, 4);
+        Schedule best = (Schedule) worker.run();
+
+        int evals = worker.numEvaluations();
+        System.out.println("Evaluate function called " + evals + " times.");
+        System.out.println(best);
+        System.out.println(best.studentSchedulesString());
+        System.out.println(best.roomSchedulesString());
+        System.out.println("The fitness function of this schedule gives: " + best.fitness());
+
+        Schedule randomBest = randomSearch(evals);
+        System.out.println("Random search with same number of evaluations gives fitness: " + randomBest.fitness());
 
 
         /*
@@ -79,5 +110,19 @@ public class Main {
             fitness = c.fitness();
             System.out.println("The fitness function of this schedule gives: " + fitness);
             */
+    }
+
+    private static Schedule randomSearch(int evals) {
+        Schedule best = null;
+        float fitness = Float.NEGATIVE_INFINITY;
+        for (int i = 0; i < evals; i++) {
+            Schedule t = (Schedule) Schedule.random();
+            float f = t.fitness();
+            if (f > fitness) {
+                best = t;
+                fitness = f;
+            }
+        }
+        return best;
     }
 }

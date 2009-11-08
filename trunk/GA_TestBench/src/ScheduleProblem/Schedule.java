@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This is the big daddy class. It keeps static lists of students and rooms
@@ -27,6 +25,8 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     private static int numStudents;
     private static boolean initialized;
     private static Random rand;
+
+
 
     /**
      * This will be called once by the solver. It has to load the instance info
@@ -240,8 +240,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 //        /* This is totally incomplete
 //         */
 //    }
-
-    protected Schedule clone() throws CloneNotSupportedException{
+    protected Schedule clone() throws CloneNotSupportedException {
         Timing[] newTimes = this.times.clone();
         int[] newTimingRooms = this.timingRooms.clone();
         Schedule newSchedule = new Schedule(newTimes, newTimingRooms);

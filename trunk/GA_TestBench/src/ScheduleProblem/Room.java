@@ -40,7 +40,7 @@ class Room implements Evaluator, HasTimetable {
             /* It is good when rooms are not ever used. We can use them for
              * something else for the whole exam period.
              */
-            return 2;
+            return -2;
         }
         Iterator<Timing> it = t.iterator();
         Timing last = it.next();

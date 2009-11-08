@@ -38,6 +38,8 @@ interface Population<T extends Individual> {
     public float fitnessAverage();
     public float fitnessVariance();
 
+    public int numEvaluations();
+
 
     // Should be private
     //public SolutionInstance crossPairWeighted();
