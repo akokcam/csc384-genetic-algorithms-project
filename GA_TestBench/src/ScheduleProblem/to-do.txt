@@ -1,0 +1,9 @@
+potential problems:
+
+- timing: need a time format in timing class, 
+at least we should change time = rand.nextInt(numTimes) to be a time that 0 <= time < 24
+
+- need to input day intervals?
+
+- need to input room size?  or an alternative way is to see if the room is jammed, if 
+yes, will decrease the evaluated scores.
