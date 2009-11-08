@@ -66,5 +66,18 @@ public class Main {
         }
         catch(Exception e){}
          */
+
+ /* the code below is to test schedule's mutation method.
+ 
+     Schedule c = (Schedule) ss.mutate(0.5f);
+                 System.out.println("\n****************testing c************\n");
+            System.out.println(c);
+
+            System.out.println(c.studentSchedulesString());
+            System.out.println(c.roomSchedulesString());
+
+            fitness = c.fitness();
+            System.out.println("The fitness function of this schedule gives: " + fitness);
+            */
     }
 }

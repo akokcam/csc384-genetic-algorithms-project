@@ -270,6 +270,8 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 
         return ret;
     }
+    
+
 
     /**
      * Mutate a schedule.
@@ -295,7 +297,6 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                 t[i] = this.times[i];
             }
         }
-
         Schedule ret = new Schedule(t, tr);
         return ret;
     }
