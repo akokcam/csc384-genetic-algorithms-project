@@ -1,5 +1,7 @@
 package ScheduleProblem;
 
+import java.util.Iterator;
+
 class Room implements Evaluator, HasTimetable {
 
     /**
@@ -25,14 +27,43 @@ class Room implements Evaluator, HasTimetable {
 
     /**
      * Evaluate the quality of a course's timetable
-     * @param s The schedule to evaluate
+     * @param sched The schedule to evaluate
      * @return The "fitness" of this timetable. How much this room likes the
      * schedule.
      */
-    public float evaluate(Schedule s) {
-        /* This doesn't need to particularly efficient, it just needs to work
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
+    public float evaluate(Schedule sched) {
+        float ret = 0.0f;
+        int numTimes = Schedule.getNumTimes();
+
+        TimeTable t = getTimeTable(sched);
+        if (t.numTimings() == 0) {
+            /* It is good when rooms are not ever used. We can use them for
+             * something else for the whole exam period.
+             */
+            return 2;
+        }
+        Iterator<Timing> it = t.iterator();
+        Timing last = it.next();
+        Timing next;
+        while (it.hasNext()) {
+            next = it.next();
+            if (next.equals(last)) {
+                // If two times the room is being used are identical, we hate it
+                ret -= 20;
+            } else if (next.getDay() == last.getDay()) {
+                /* If the room is used more than once on the same day, we like
+                 * it. We like it when the next time is as close as possible to
+                 * the last time, so the envigelators don't have to find some
+                 * way to kill the afternoon.
+                 */
+                ret += 2;
+                ret += 2.0f * (numTimes - next.getTime() + last.getTime()) / numTimes;
+            }
+            last = next;
+        }
+
+
+        return ret;
     }
 
     /**

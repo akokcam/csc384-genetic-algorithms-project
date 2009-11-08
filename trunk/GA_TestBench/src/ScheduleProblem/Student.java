@@ -1,5 +1,6 @@
 package ScheduleProblem;
 
+import java.util.Iterator;
 import java.util.List;
 
 class Student implements Evaluator, HasTimetable {
@@ -30,7 +31,29 @@ class Student implements Evaluator, HasTimetable {
      * @return The "fitness" of the schedule from this student's perspective.
      */
     public float evaluate(Schedule sched) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        float ret = 0.0f;
+        int numTimes = Schedule.getNumTimes();
+
+        Iterator<Timing> it = getTimeTable(sched).iterator();
+        Timing last = it.next();
+        Timing next;
+        while (it.hasNext()) {
+            next = it.next();
+            if (next.equals(last)) {
+                // Penalty for two exams with same time is 10
+                ret -= 20.0f;
+            } else if (next.getDay() == last.getDay()) {
+                // Having 2 exams on the same day is bad. Max penalty 2
+                ret -= 2.0 * (numTimes - next.getTime() + last.getTime() + 1) / numTimes;
+            } else if (next.getDay() > last.getDay() + 1) {
+                // If exams are 2 days apart, the student likes it. Reward 5.
+                ret += 5.0f;
+            }
+
+            last = next;
+        }
+
+        return ret;
     }
 
     /**
