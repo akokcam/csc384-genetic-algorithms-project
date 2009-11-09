@@ -41,16 +41,19 @@ public class Main {
 
         // Attempt to use GASolver
         GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
-        worker.setMaxGenerations(100);
-        worker.setPopulationSize(100);
+        int maxpop = 200, maxgen = 200;
+        worker.setMaxGenerations(maxgen);
+        worker.setPopulationSize(maxpop);
 //        worker.setNextGenerationProportions(1, 10, 8, 4);
+        System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         Schedule best = (Schedule) worker.run();
-
         int evals = worker.numEvaluations();
-        System.out.println(best);
+//        System.out.println(best);
 //        System.out.println(best.studentSchedulesString());
-        System.out.println(best.roomSchedulesString());
+//        System.out.println(best.roomSchedulesString());
+
         System.out.println("Evaluate function called " + evals + " times.");
+
         System.out.println("The fitness function of this schedule gives: " + best.fitness());
 
         Schedule randomBest = randomSearch(evals);
@@ -63,8 +66,8 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
-        System.out.println(hillBest.studentSchedulesString());
-        System.out.println(hillBest.roomSchedulesString());
+//        System.out.println(hillBest.studentSchedulesString());
+//        System.out.println(hillBest.roomSchedulesString());
 
         /*
         // This is for checking a problem instance, generating a few solutions
