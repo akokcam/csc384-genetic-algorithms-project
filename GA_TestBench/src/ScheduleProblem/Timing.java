@@ -48,6 +48,11 @@ public class Timing implements Comparable {
         return hash;
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return new Timing(day, time);
+    }
+
     /**
      * Get a unique integer representing this timing. The first possible slot
      * is 0, and the value of a timing on day x is at lease x * number of times

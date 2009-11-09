@@ -1,6 +1,8 @@
 package ScheduleProblem;
 
 import ga_testbench.GASolver;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 
@@ -45,15 +47,24 @@ public class Main {
         Schedule best = (Schedule) worker.run();
 
         int evals = worker.numEvaluations();
-        System.out.println("Evaluate function called " + evals + " times.");
         System.out.println(best);
-        System.out.println(best.studentSchedulesString());
+//        System.out.println(best.studentSchedulesString());
         System.out.println(best.roomSchedulesString());
+        System.out.println("Evaluate function called " + evals + " times.");
         System.out.println("The fitness function of this schedule gives: " + best.fitness());
 
         Schedule randomBest = randomSearch(evals);
         System.out.println("Random search with same number of evaluations gives fitness: " + randomBest.fitness());
 
+        Schedule hillBest = null;
+        try {
+            hillBest = ((Schedule) Schedule.random()).hillClimb();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
+        System.out.println(hillBest.studentSchedulesString());
+        System.out.println(hillBest.roomSchedulesString());
 
         /*
         // This is for checking a problem instance, generating a few solutions
@@ -98,20 +109,25 @@ public class Main {
         catch(Exception e){}
          */
 
- /* the code below is to test schedule's mutation method.
- 
-     Schedule c = (Schedule) ss.mutate(0.5f);
-                 System.out.println("\n****************testing c************\n");
-            System.out.println(c);
+        /* the code below is to test schedule's mutation method.
 
-            System.out.println(c.studentSchedulesString());
-            System.out.println(c.roomSchedulesString());
+        Schedule c = (Schedule) ss.mutate(0.5f);
+        System.out.println("\n****************testing c************\n");
+        System.out.println(c);
 
-            fitness = c.fitness();
-            System.out.println("The fitness function of this schedule gives: " + fitness);
-            */
+        System.out.println(c.studentSchedulesString());
+        System.out.println(c.roomSchedulesString());
+
+        fitness = c.fitness();
+        System.out.println("The fitness function of this schedule gives: " + fitness);
+         */
     }
 
+    /**
+     * Search randomly for a timetable with high fitness.
+     * @param evals The number of schedule evaluations to perform.
+     * @return The best found schedule.
+     */
     private static Schedule randomSearch(int evals) {
         Schedule best = null;
         float fitness = Float.NEGATIVE_INFINITY;
