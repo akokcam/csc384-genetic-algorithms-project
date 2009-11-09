@@ -56,8 +56,16 @@ class Room implements Evaluator, HasTimetable {
                  * the last time, so the envigelators don't have to find some
                  * way to kill the afternoon.
                  */
-                ret += 2;
-                ret += 2.0f * (numTimes - next.getTime() + last.getTime()) / numTimes;
+                if (next.getTime() == last.getTime() + 1) {
+                    /* We don't like it to be too close to the last exam. We
+                     * need some time to handle the crows after one ends and
+                     * before one starts.
+                     */
+                    ret -= 1;
+                } else {
+                    ret += 2;
+                    ret += 2.0f * (numTimes - next.getTime() + last.getTime()) / numTimes;
+                }
             }
             last = next;
         }
