@@ -183,6 +183,7 @@ public class GAPopulation implements Population {
      * Note: we mess with the current generation's fitnesses array, so it
      * cannot be trusted after calling this.
      * @param newList The list to add copies to
+     * @param newFitnesses The new list of fitnesses
      */
     private void addCopies(List<Schedule> newList, float[] newFitnesses) {
         // Add the copies
@@ -199,6 +200,11 @@ public class GAPopulation implements Population {
         }
     }
 
+    /**
+     * Add some crossed over children from pairs of current individuals to the
+     * list newList.
+     * @param newList The list to add copies to
+     */
     private void addCrossovers(List<Schedule> newList) {
         // Add the crossovers
         for (int i = 0; i < numCrossovers; i++) {
@@ -208,6 +214,11 @@ public class GAPopulation implements Population {
         }
     }
 
+    /**
+     * Modify some of the current individuals wwith mutations and put them on
+     * the new list.
+     * @param newList The list to add copies to
+     */
     private void addMutations(List<Schedule> newList) {
         // Add the mutated individiduals
         for (int i = 0; i < numMutations; i++) {
@@ -219,6 +230,10 @@ public class GAPopulation implements Population {
         }
     }
 
+    /**
+     * Add some completely random individuals to the new list
+     * @param newList The list to add copies to
+     */
     private void addRandoms(List<Schedule> newList) {
         // Add the required number of randoms.
         for (int i = 0; i < numRandoms; i++) {

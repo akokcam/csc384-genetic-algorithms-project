@@ -4,6 +4,7 @@ import ga_testbench.Individual;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -25,8 +26,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     private static int numStudents;
     private static boolean initialized;
     private static Random rand;
-
-
+    private static int hillEvals = 0;
 
     /**
      * This will be called once by the solver. It has to load the instance info
@@ -248,6 +248,32 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         return newSchedule;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Schedule other = (Schedule) obj;
+        if (!Arrays.deepEquals(this.times, other.times)) {
+            return false;
+        }
+        if (!Arrays.equals(this.timingRooms, other.timingRooms)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Arrays.deepHashCode(this.times);
+        hash = 41 * hash + Arrays.hashCode(this.timingRooms);
+        return hash;
+    }
+
     /**
      * Get the overall fitness of this schedule
      * @return The fitness of this schedule
@@ -269,8 +295,6 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 
         return ret;
     }
-    
-
 
     /**
      * Mutate a schedule.
@@ -403,5 +427,73 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             ret += courses.get(i).getName() + " has exam in " + rooms.get(timingRooms[i]).getName() + " at " + times[i] + "\n";
         }
         return ret;
+    }
+
+    /**
+     * Check how many evaluations were required for local hill climbing, and
+     * reset hillEvals to 0.
+     * @return The number of evaluations berformed by a call to hillClimb
+     */
+    public static int getHillEvals() {
+        int ret = hillEvals;
+        hillEvals = 0;
+        return ret;
+    }
+
+    /**
+     * HillClimb from this Schedule to find the best one.
+     * @return A locally optimal schedule
+     * @throws CloneNotSupportedException
+     */
+    public Schedule hillClimb() throws CloneNotSupportedException {
+        Schedule best = this;
+        float fitness = fitness();
+        for (int i = 0; i < numCourses; i++) {
+            for (int j = 0; j < numRooms; j++) {
+                Schedule sched = this.clone();
+                // switch room[i] to j
+                if (sched.timingRooms[i] != j) {
+                    sched.timingRooms[i] = j;
+                    float newfit = sched.fitness();
+                    hillEvals++;
+                    if (newfit > fitness) {
+                        fitness = newfit;
+                        best = sched;
+                    }
+                }
+            }
+            for (int j = 0; j < numDays; j++) {
+                Schedule sched = this.clone();
+                if (sched.times[i].getDay() != j) {
+                    sched.times[i] = new Timing(j, sched.times[i].getTime());
+                    float newfit = sched.fitness();
+                    hillEvals++;
+                    if (newfit > fitness) {
+                        fitness = newfit;
+                        best = sched;
+                    }
+                }
+            }
+            for (int j = 0; j < numTimes; j++) {
+                Schedule sched = this.clone();
+                if (sched.times[i].getTime() != j) {
+                    sched.times[i] = new Timing(sched.times[i].getDay(), j);
+                    float newfit = sched.fitness();
+                    hillEvals++;
+                    if (newfit > fitness) {
+                        fitness = newfit;
+                        best = sched;
+                    }
+                }
+            }
+        }
+
+//        System.out.println("Hillclimbing made " + evals + " fitness evaluations...");
+
+        if (best == this) {
+            return best;
+        } else {
+            return best.hillClimb();
+        }
     }
 }
