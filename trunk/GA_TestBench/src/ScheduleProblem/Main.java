@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class Main {
 
     public static final String INSTANCEFILE = "Instance Input Files/tickle.txt";
-
+    public static final String BIGINSTANCEFILE = "Instance Input Files/biggerinstance.txt";
     /**
      * This is the main method. It is used for testing right now.
      * @param args
@@ -40,8 +40,8 @@ public class Main {
          */
 
         // Attempt to use GASolver
-        GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
-        int maxpop = 100, maxgen = 1500;
+        GASolver<Schedule> worker = new GASolver<Schedule>(BIGINSTANCEFILE);
+        int maxpop = 80, maxgen = 200;
         worker.setMaxGenerations(maxgen);
         worker.setPopulationSize(maxpop);
         worker.setNextGenerationProportions(1, 10, 8, 4);

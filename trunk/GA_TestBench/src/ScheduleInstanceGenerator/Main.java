@@ -1,12 +1,10 @@
 package ScheduleInstanceGenerator;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,12 +15,12 @@ import java.util.TreeSet;
  */
 public class Main {
 
-    public static final String FILENAME = "Instance Input Files\\tickle.txt";
+    public static final String FILENAME = "Instance Input Files/biggerinstance.txt";
     public static final int NUMDAYS = 10;
     public static final int NUMTIMES = 8;
-    public static final int NUMCOURSES = 40;
+    public static final int NUMCOURSES = 200;
     public static final int NUMSTUDENTS = 300;
-    public static final int NUMROOMS = 5;
+    public static final int NUMROOMS = 10;
     public static final int MAXCOURSESPERSTUDENT = 8;
 
     public static void main(String[] args) {
