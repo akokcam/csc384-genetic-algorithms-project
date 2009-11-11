@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class Main {
 
-    public static final String INSTANCEFILE = "Instance Input Files\\tickle.txt";
+    public static final String INSTANCEFILE = "Instance Input Files/tickle.txt";
 
     /**
      * This is the main method. It is used for testing right now.
@@ -41,10 +41,10 @@ public class Main {
 
         // Attempt to use GASolver
         GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
-        int maxpop = 200, maxgen = 200;
+        int maxpop = 100, maxgen = 1500;
         worker.setMaxGenerations(maxgen);
         worker.setPopulationSize(maxpop);
-//        worker.setNextGenerationProportions(1, 10, 8, 4);
+        worker.setNextGenerationProportions(1, 10, 8, 4);
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         Schedule best = (Schedule) worker.run();
         int evals = worker.numEvaluations();
@@ -61,11 +61,12 @@ public class Main {
 
         Schedule hillBest = null;
         try {
-            hillBest = ((Schedule) Schedule.random()).hillClimb();
+            hillBest = ((Schedule) Schedule.random()).hillClimb(evals);
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
+//        System.out.println(hillBest);
 //        System.out.println(hillBest.studentSchedulesString());
 //        System.out.println(hillBest.roomSchedulesString());
 
