@@ -18,9 +18,9 @@ public class Main {
     public static void main(String[] args) {
 
         // Attempt to use GASolver
-        GASolver<Schedule> worker = new GASolver<Schedule>(HUGEINSTANCE);
-        int maxpop = 20;
-        int maxgen = 100;
+        GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
+        int maxpop = 100;
+        int maxgen = 400;
         worker.setMaxGenerations(maxgen);
         worker.setPopulationSize(maxpop);
         worker.setNextGenerationProportions(2, 10, 23, 15);
@@ -38,12 +38,7 @@ public class Main {
         Schedule randomBest = randomSearch(evals);
         System.out.println("Random search with same number of evaluations gives fitness: " + randomBest.fitness());
 
-        Schedule hillBest = null;
-        try {
-            hillBest = ((Schedule) Schedule.random()).hillClimb(evals);
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(evals);
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
 //        System.out.println(hillBest);
 //        System.out.println(hillBest.studentSchedulesString());
