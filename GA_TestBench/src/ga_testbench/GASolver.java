@@ -16,7 +16,7 @@ public class GASolver<T extends Individual> implements Solver {
      * The maximum amount of time, in seconds, that should be spent trying to
      * solve this instance.
      */
-    private float timeLimit;
+    private double timeLimit;
     /**
      * The maximum number of generations that should be processed before
      * returning the best individual encountered.
@@ -26,22 +26,22 @@ public class GASolver<T extends Individual> implements Solver {
      * The proportion of the next generations that should be copies of
      * individuals from the current generation.
      */
-    private float copies;
+    private double copies;
     /**
      * The proportion of the next generation shat should be made by mutating
      * individuals when making a new generation.
      */
-    private float mutations;
+    private double mutations;
     /**
      * The proportion of the next generation that should be made by crossing
      * over pairs of individuals between generations.
      */
-    private float crossovers;
+    private double crossovers;
     /**
      * The proportion of the next generation that should be made by generating
      * new random individuals.
      */
-    private float randoms = -1;
+    private double randoms = -1;
     /**
      * The population at a certain time.
      */
@@ -116,7 +116,7 @@ public class GASolver<T extends Individual> implements Solver {
      * Set a time limit on the computation.
      * @param timeLimit Number of seconds to work for, at max.
      */
-    public void setTimeLimit(float timeLimit) {
+    public void setTimeLimit(double timeLimit) {
         this.timeLimit = timeLimit;
 
         this.startTime = System.currentTimeMillis();
@@ -138,12 +138,12 @@ public class GASolver<T extends Individual> implements Solver {
      * @param randoms The approximate proportion of the next generation that
      *  should be made by creating new random individuals.
      */
-    public void setNextGenerationProportions(float copies,
-            float mutations, float crossovers, float randoms) {
+    public void setNextGenerationProportions(double copies,
+            double mutations, double crossovers, double randoms) {
         if (copies < 0 || mutations < 0 || crossovers < 0 || randoms < 0) {
             throw new RuntimeException("Invalid generation proportions.");
         }
-        float tot = copies + mutations + crossovers + randoms;
+        double tot = copies + mutations + crossovers + randoms;
         this.copies = copies / tot;
         this.mutations = mutations / tot;
         this.crossovers = crossovers / tot;

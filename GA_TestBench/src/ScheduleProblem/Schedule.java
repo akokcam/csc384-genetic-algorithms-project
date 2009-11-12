@@ -279,10 +279,10 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
      * @return The fitness of this schedule
      */
     @Override
-    public float fitness() {
-        float ret = 0;
-        float studentRating = 0.0f;
-        float roomRating = 0.0f;
+    public double fitness() {
+        double ret = 0;
+        double studentRating = 0.0f;
+        double roomRating = 0.0f;
         for (Student student : students) {
             studentRating += student.evaluate(this);
         }
@@ -302,17 +302,17 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
      * @return A new mutated schedule.
      */
     @Override
-    public Individual mutate(float difference) {
+    public Individual mutate(double difference) {
         Timing[] t = new Timing[numCourses];
         int[] tr = new int[numCourses];
 
         for (int i = 0; i < numCourses; i++) {
-            if (rand.nextFloat() < difference) {
+            if (rand.nextDouble() < difference) {
                 tr[i] = rand.nextInt(numRooms);
             } else {
                 tr[i] = timingRooms[i];
             }
-            if (rand.nextFloat() < difference) {
+            if (rand.nextDouble() < difference) {
                 int day = rand.nextInt(numDays);
                 int time = rand.nextInt(numTimes);
                 t[i] = new Timing(day, time);
@@ -336,31 +336,32 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             throw new RuntimeException("Must cross with a Schedule");
         }
         final Schedule otherSched = (Schedule) other;
-
+        /*
         // Very cheesy crossover technique
         return new Schedule(times, otherSched.timingRooms);
+         */
 
+        /* Alternative, poorer technique */
+        Schedule ret = null;
 
-        /* Alternative, poorer technique
-         *         Schedule ret = null;
 
         try {
-        ret = this.clone();
+            ret = this.clone();
         } catch (CloneNotSupportedException ex) {
-        Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Not cloneable. Odd.");
         }
 
         // Very cheesy crossover technique
         for (int i = 0; i < numCourses; i++) {
-        boolean useOther = rand.nextFloat() > 0.5f;
-        if (useOther) {
-        ret.timingRooms[i] = otherSched.timingRooms[i];
-        ret.times[i] = otherSched.times[i];
-        }
+            boolean useOther = rand.nextDouble() > 0.5f;
+            if (useOther) {
+                ret.timingRooms[i] = otherSched.timingRooms[i];
+                ret.times[i] = otherSched.times[i];
+            }
         }
         return ret;
 
-         */
+
     }
 
     /**
@@ -469,14 +470,14 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
      */
     public Schedule hillClimb(int maxEvals) throws CloneNotSupportedException {
         Schedule best = this;
-        float fitness = fitness();
+        double fitness = fitness();
         for (int i = 0; i < numCourses; i++) {
             for (int j = 0; j < numRooms; j++) {
                 Schedule sched = this.clone();
                 // switch room[i] to j
                 if (sched.timingRooms[i] != j) {
                     sched.timingRooms[i] = j;
-                    float newfit = sched.fitness();
+                    double newfit = sched.fitness();
                     hillEvals++;
                     if (newfit > fitness) {
                         fitness = newfit;
@@ -491,7 +492,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                 Schedule sched = this.clone();
                 if (sched.times[i].getDay() != j) {
                     sched.times[i] = new Timing(j, sched.times[i].getTime());
-                    float newfit = sched.fitness();
+                    double newfit = sched.fitness();
                     hillEvals++;
                     if (newfit > fitness) {
                         fitness = newfit;
@@ -506,7 +507,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                 Schedule sched = this.clone();
                 if (sched.times[i].getTime() != j) {
                     sched.times[i] = new Timing(sched.times[i].getDay(), j);
-                    float newfit = sched.fitness();
+                    double newfit = sched.fitness();
                     hillEvals++;
                     if (newfit > fitness) {
                         fitness = newfit;

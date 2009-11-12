@@ -26,8 +26,8 @@ interface Population<T extends Individual> {
      * population module. Just tells it what weights it should place on the
      * different things for the new generation
      */
-    public void setNextGenerationProportions(float copies, float mutations,
-            float crossovers, float randoms);
+    public void setNextGenerationProportions(double copies, double mutations,
+            double crossovers, double randoms);
 
     // Generate a new population based on this one and the current settings.
     public void evolve();
@@ -35,8 +35,8 @@ interface Population<T extends Individual> {
     // Populations know how long since they started off random
     public int currentGenerationNumber();
 
-    public float fitnessAverage();
-    public float fitnessVariance();
+    public double fitnessAverage();
+    public double fitnessVariance();
 
     public int numEvaluations();
 

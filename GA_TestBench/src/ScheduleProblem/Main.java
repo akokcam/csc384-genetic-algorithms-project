@@ -20,10 +20,10 @@ public class Main {
         // Attempt to use GASolver
         GASolver<Schedule> worker = new GASolver<Schedule>(HUGEINSTANCE);
         int maxpop = 20;
-        int maxgen = 400;
+        int maxgen = 100;
         worker.setMaxGenerations(maxgen);
         worker.setPopulationSize(maxpop);
-//        worker.setNextGenerationProportions(2,10, 23, 15);
+        worker.setNextGenerationProportions(2, 10, 23, 15);
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         Schedule best = (Schedule) worker.run();
         int evals = worker.numEvaluations();
@@ -52,16 +52,16 @@ public class Main {
         /*
         // This is for checking a problem instance, generating a few solutions
         // and seeing a decent one
-        float fitness = ss.fitness();
+        double fitness = ss.fitness();
         System.out.println("The fitness function of this schedule gives: " + fitness);
 
         int trials = 20000;
-        float tot = 0;
+        double tot = 0;
         Schedule best = null;
-        float highestf = 0;
+        double highestf = 0;
         for (int i = 0; i < trials; i++) {
         Schedule r = (Schedule) Schedule.random();
-        float f = r.fitness();
+        double f = r.fitness();
         if (f > highestf) {
         highestf = f;
         best = r;
@@ -74,22 +74,6 @@ public class Main {
         System.out.println(best.studentSchedulesString());
         System.out.println(best.roomSchedulesString());
         System.out.println("The fitness function of this schedule gives: " + best.fitness());
-         */
-
-        /* the code below is to test schedule's clone method.
-        Schedule c;
-        try{
-        c = ss.clone();
-        System.out.println("\n****************testing c************\n");
-        System.out.println(c);
-
-        System.out.println(c.studentSchedulesString());
-        System.out.println(c.roomSchedulesString());
-
-        fitness = c.fitness();
-        System.out.println("The fitness function of this schedule gives: " + fitness);
-        }
-        catch(Exception e){}
          */
 
         /* the code below is to test schedule's mutation method.
@@ -113,10 +97,10 @@ public class Main {
      */
     private static Schedule randomSearch(int evals) {
         Schedule best = null;
-        float fitness = Float.NEGATIVE_INFINITY;
+        double fitness = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < evals; i++) {
             Schedule t = (Schedule) Schedule.random();
-            float f = t.fitness();
+            double f = t.fitness();
             if (f > fitness) {
                 best = t;
                 fitness = f;

@@ -10,7 +10,7 @@ public abstract class Individual {
 //    }
 
     // Evaluate the instance, as it is
-    public abstract float fitness();
+    public abstract double fitness();
 
 //    // Will be called once by the solver before any fitness tests are done
 //    public boolean initialize(String filename) {
@@ -20,13 +20,13 @@ public abstract class Individual {
 //    }
 
     // This sort of thing really calls for further subclassing
-    //public float pairEvaluate(Individual other);
+    //public double pairEvaluate(Individual other);
 
     /* mutate(1.0) should make the individual into a random instance. So if
      * there are n things that could sendibly change, n/difference of them
      * change on a call here
      * */
-    public abstract Individual mutate(float difference);
+    public abstract Individual mutate(double difference);
 
     /* Breed two individuals, regarding them as equals, so we would expect half
      * of the "genes" from both to be present in the offsprint. Note "expect".
