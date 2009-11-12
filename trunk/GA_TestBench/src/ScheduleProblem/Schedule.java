@@ -281,14 +281,15 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     @Override
     public double fitness() {
         double ret = 0;
-        double studentRating = 0.0f;
-        double roomRating = 0.0f;
+        double studentRating = 0;
+        double roomRating = 0;
         for (Student student : students) {
             studentRating += student.evaluate(this);
         }
-        for (Room room : rooms) {
-            roomRating += room.evaluate(this);
-        }
+        /* NOT SURE WHETHER WE SHOULD EVEN BOTHER WITH THE ROOM EVALUATIONS */
+//        for (Room room : rooms) {
+//            roomRating += room.evaluate(this);
+//        }
 
         // We care twice as much about students as we do about rooms
         ret = 2 * studentRating / numStudents + roomRating / numRooms;
@@ -468,56 +469,60 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
      * @return A locally optimal schedule
      * @throws CloneNotSupportedException
      */
-    public Schedule hillClimb(int maxEvals) throws CloneNotSupportedException {
+    public Schedule hillClimb(int maxEvals) {
         Schedule best = this;
         double fitness = fitness();
-        for (int i = 0; i < numCourses; i++) {
-            for (int j = 0; j < numRooms; j++) {
-                Schedule sched = this.clone();
-                // switch room[i] to j
-                if (sched.timingRooms[i] != j) {
-                    sched.timingRooms[i] = j;
-                    double newfit = sched.fitness();
-                    hillEvals++;
-                    if (newfit > fitness) {
-                        fitness = newfit;
-                        best = sched;
+        try {
+            for (int i = 0; i < numCourses; i++) {
+                for (int j = 0; j < numRooms; j++) {
+                    Schedule sched = this.clone();
+                    // switch room[i] to j
+                    if (sched.timingRooms[i] != j) {
+                        sched.timingRooms[i] = j;
+                        double newfit = sched.fitness();
+                        hillEvals++;
+                        if (newfit > fitness) {
+                            fitness = newfit;
+                            best = sched;
+                        }
+                        if (hillEvals >= maxEvals) {
+                            return best;
+                        }
                     }
-                    if (hillEvals >= maxEvals) {
-                        return best;
+                }
+                for (int j = 0; j < numDays; j++) {
+                    Schedule sched = this.clone();
+                    if (sched.times[i].getDay() != j) {
+                        sched.times[i] = new Timing(j, sched.times[i].getTime());
+                        double newfit = sched.fitness();
+                        hillEvals++;
+                        if (newfit > fitness) {
+                            fitness = newfit;
+                            best = sched;
+                        }
+                        if (hillEvals >= maxEvals) {
+                            return best;
+                        }
+                    }
+                }
+                for (int j = 0; j < numTimes; j++) {
+                    Schedule sched = this.clone();
+                    if (sched.times[i].getTime() != j) {
+                        sched.times[i] = new Timing(sched.times[i].getDay(), j);
+                        double newfit = sched.fitness();
+                        hillEvals++;
+                        if (newfit > fitness) {
+                            fitness = newfit;
+                            best = sched;
+                        }
+                        if (hillEvals >= maxEvals) {
+                            return best;
+                        }
                     }
                 }
             }
-            for (int j = 0; j < numDays; j++) {
-                Schedule sched = this.clone();
-                if (sched.times[i].getDay() != j) {
-                    sched.times[i] = new Timing(j, sched.times[i].getTime());
-                    double newfit = sched.fitness();
-                    hillEvals++;
-                    if (newfit > fitness) {
-                        fitness = newfit;
-                        best = sched;
-                    }
-                    if (hillEvals >= maxEvals) {
-                        return best;
-                    }
-                }
-            }
-            for (int j = 0; j < numTimes; j++) {
-                Schedule sched = this.clone();
-                if (sched.times[i].getTime() != j) {
-                    sched.times[i] = new Timing(sched.times[i].getDay(), j);
-                    double newfit = sched.fitness();
-                    hillEvals++;
-                    if (newfit > fitness) {
-                        fitness = newfit;
-                        best = sched;
-                    }
-                    if (hillEvals >= maxEvals) {
-                        return best;
-                    }
-                }
-            }
+        } catch (CloneNotSupportedException ex) {
+            throw new RuntimeException("Clone not supported");
         }
 
 //        System.out.println("Hillclimbing made " + evals + " fitness evaluations...");
