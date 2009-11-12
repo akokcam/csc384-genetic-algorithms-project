@@ -345,21 +345,21 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
          *         Schedule ret = null;
 
         try {
-            ret = this.clone();
+        ret = this.clone();
         } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Very cheesy crossover technique
         for (int i = 0; i < numCourses; i++) {
-            boolean useOther = rand.nextFloat() > 0.5f;
-            if (useOther) {
-                ret.timingRooms[i] = otherSched.timingRooms[i];
-                ret.times[i] = otherSched.times[i];
-            }
+        boolean useOther = rand.nextFloat() > 0.5f;
+        if (useOther) {
+        ret.timingRooms[i] = otherSched.timingRooms[i];
+        ret.times[i] = otherSched.times[i];
+        }
         }
         return ret;
-         
+
          */
     }
 
@@ -470,9 +470,6 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     public Schedule hillClimb(int maxEvals) throws CloneNotSupportedException {
         Schedule best = this;
         float fitness = fitness();
-        if (hillEvals > maxEvals) {
-            return this;
-        }
         for (int i = 0; i < numCourses; i++) {
             for (int j = 0; j < numRooms; j++) {
                 Schedule sched = this.clone();
@@ -484,6 +481,9 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                     if (newfit > fitness) {
                         fitness = newfit;
                         best = sched;
+                    }
+                    if (hillEvals >= maxEvals) {
+                        return best;
                     }
                 }
             }
@@ -497,6 +497,9 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                         fitness = newfit;
                         best = sched;
                     }
+                    if (hillEvals >= maxEvals) {
+                        return best;
+                    }
                 }
             }
             for (int j = 0; j < numTimes; j++) {
@@ -508,6 +511,9 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                     if (newfit > fitness) {
                         fitness = newfit;
                         best = sched;
+                    }
+                    if (hillEvals >= maxEvals) {
+                        return best;
                     }
                 }
             }
