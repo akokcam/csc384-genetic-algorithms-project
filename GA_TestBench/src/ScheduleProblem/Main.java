@@ -6,45 +6,24 @@ import java.util.logging.Logger;
 
 public class Main {
 
-    public static final String INSTANCEFILE = "Instance Input Files/tickle.txt";
-    public static final String BIGINSTANCEFILE = "Instance Input Files/biggerinstance.txt";
+    // Sadly, we need backslashes for windows machines
+    public static final String INSTANCEFILE = "Instance Input Files\\tickle.txt";
+    public static final String BIGINSTANCEFILE = "Instance Input Files\\biggerinstance.txt";
+    public static final String HUGEINSTANCE = "Instance Input Files\\super_huge_instance.txt";
+
     /**
      * This is the main method. It is used for testing right now.
      * @param args
      */
     public static void main(String[] args) {
 
-//        boolean loadedOK = Schedule.initialize(INSTANCEFILE);
-//
-//        if (loadedOK) {
-//            //Schedule.displayInfo();
-//        } else {
-//            throw new RuntimeException("Schedule failed to load.");
-//        }
-/*
-        System.out.println("\nWe have now generated a random schedule.");
-
-        Schedule ss = (Schedule) Schedule.random();
-        System.out.println(ss);
-        System.out.println(ss.studentSchedulesString());
-        System.out.println(ss.roomSchedulesString());
-        float fitness = ss.fitness();
-        System.out.println("The fitness function of this schedule gives: " + fitness);
-
-        ss = (Schedule) ss.mutate(0.2f);
-        System.out.println(ss);
-        System.out.println(ss.studentSchedulesString());
-        System.out.println(ss.roomSchedulesString());
-        fitness = ss.fitness();
-        System.out.println("The fitness function of this schedule gives: " + fitness);
-         */
-
         // Attempt to use GASolver
-        GASolver<Schedule> worker = new GASolver<Schedule>(BIGINSTANCEFILE);
-        int maxpop = 80, maxgen = 200;
+        GASolver<Schedule> worker = new GASolver<Schedule>(HUGEINSTANCE);
+        int maxpop = 20;
+        int maxgen = 400;
         worker.setMaxGenerations(maxgen);
         worker.setPopulationSize(maxpop);
-        worker.setNextGenerationProportions(1, 10, 8, 4);
+//        worker.setNextGenerationProportions(2,10, 23, 15);
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         Schedule best = (Schedule) worker.run();
         int evals = worker.numEvaluations();
