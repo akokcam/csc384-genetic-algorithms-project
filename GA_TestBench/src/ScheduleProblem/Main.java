@@ -1,13 +1,12 @@
 package ScheduleProblem;
 
 import ga_testbench.GASolver;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Main {
 
     // Sadly, we need backslashes for windows machines
-    public static final String INSTANCEFILE = "Instance Input Files\\tickle.txt";
+    public static final String TESTINSTANCE = "Instance Input Files\\tickle.txt";
+    public static final String SMALLINSTANCEFILE = "Instance Input Files\\smallish instance.txt";
     public static final String BIGINSTANCEFILE = "Instance Input Files\\biggerinstance.txt";
     public static final String HUGEINSTANCE = "Instance Input Files\\super_huge_instance.txt";
 
@@ -17,9 +16,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // Attempt to use GASolver
-        GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
-        int maxpop = 100;
-        int maxgen = 400;
+        GASolver<Schedule> worker = new GASolver<Schedule>(SMALLINSTANCEFILE);
+        int maxpop = 80;
+        int maxgen = 300;
         worker.setMaxGenerations(maxgen);
         worker.setPopulationSize(maxpop);
         worker.setNextGenerationProportions(2, 10, 23, 15);
@@ -37,7 +36,7 @@ public class Main {
         Schedule randomBest = randomSearch(evals);
         System.out.println("Random search with same number of evaluations gives fitness: " + randomBest.fitness());
 
-        Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(evals);
+        Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(99999999);
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
 //        System.out.println(hillBest);
 //        System.out.println(hillBest.studentSchedulesString());
