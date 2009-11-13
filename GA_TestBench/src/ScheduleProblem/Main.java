@@ -16,7 +16,6 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-
         // Attempt to use GASolver
         GASolver<Schedule> worker = new GASolver<Schedule>(INSTANCEFILE);
         int maxpop = 100;
