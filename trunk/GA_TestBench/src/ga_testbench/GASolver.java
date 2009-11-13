@@ -4,6 +4,7 @@ import ScheduleProblem.Schedule;
 
 /**
  *
+ * @param <T> The class representing a Problem instance that can be solved.
  * @author dave
  */
 public class GASolver<T extends Individual> implements Solver {
@@ -68,6 +69,8 @@ public class GASolver<T extends Individual> implements Solver {
     /**
      * Default constructor. Default values are given, but can be set with the
      * set... methods.
+     * @param instanceDataFile The location of the file containing problem
+     * instance data
      */
     public GASolver(String instanceDataFile) {
         // Initial default population
@@ -219,6 +222,11 @@ public class GASolver<T extends Individual> implements Solver {
 
     }
 
+    /**
+     * Get the number of fitness evaluations that have been performed since
+     * this Solver was created.
+     * @return The number of evaluations that have been performed
+     */
     public int numEvaluations() {
         return population.numEvaluations();
     }

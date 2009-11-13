@@ -1,7 +1,7 @@
 package ScheduleProblem;
 
 /**
- * students and courses are both evaluators. They can tell you how much they
+ * Students and courses are both evaluators. They can tell you how much they
  * like a schedule.
  * @author Dave
  */

@@ -16,8 +16,6 @@ interface Solver<T extends Individual> {
      */
     public void setVerboseMode(String outputFile);
 
-
-
     /* Actually do all of the serious work.
      */
     public T run();

@@ -9,15 +9,28 @@ public class Timing implements Comparable {
     private int day;
     private int time;
 
+    /**
+     * Make a new timing object
+     * @param day The day
+     * @param time The time
+     */
     public Timing(int day, int time) {
         this.day = day;
         this.time = time;
     }
 
+    /**
+     * Get the day of this timing
+     * @return The day of this timing
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     * Get the time of this timing
+     * @return The time of this timing
+     */
     public int getTime() {
         return time;
     }

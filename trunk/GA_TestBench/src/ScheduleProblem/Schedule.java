@@ -100,25 +100,46 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         return true;
     }
 
+    /**
+     * Get tje number of courses in this schedule instance
+     * @return The number of courses in this schedule instance
+     */
     public static int getNumCourses() {
         verifyInitialized();
         return numCourses;
     }
 
+    /**
+     * Get the number of days that the exam period lasts
+     * @return The number of days in the exam period for this instance
+     */
     public static int getNumDays() {
         verifyInitialized();
         return numDays;
     }
 
+    /**
+     * Get the number of times in a day that exams can be scheduled for this
+     * instance
+     * @return The number of times in a day that exams can be scheduled
+     */
     public static int getNumTimes() {
         return numTimes;
     }
 
+    /**
+     * Get the number of rooms that can be used for exams in this instance.
+     * @return The number of rooms that can be used for exams
+     */
     public static int getNumRooms() {
         verifyInitialized();
         return numRooms;
     }
 
+    /**
+     * Get the number of students taking classes in this instance
+     * @return The number of students
+     */
     public static int getNumStudents() {
         verifyInitialized();
         return numStudents;
@@ -220,6 +241,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     /**
      * Constructor for Schedule
      * @param times The Timings that the courses occur at
+     * @param timingRooms The room numbers that the exams occur at
      */
     public Schedule(Timing[] times, int[] timingRooms) {
         verifyInitialized();
@@ -231,15 +253,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         this.timingRooms = timingRooms;
     }
 
-    // THIS MUST BE DONE
     @Override
-//    protected Object clone() throws CloneNotSupportedException {
-//        Timing[] newTimes = times.clone();
-//        return super.clone();
-//
-//        /* This is totally incomplete
-//         */
-//    }
     protected Schedule clone() throws CloneNotSupportedException {
         Timing[] newTimes = this.times.clone();
         int[] newTimingRooms = this.timingRooms.clone();
@@ -466,8 +480,9 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 
     /**
      * HillClimb from this Schedule to find the best one.
+     * @param maxEvals The maximum number of schedule fitness checks that
+     * should be performed.
      * @return A locally optimal schedule
-     * @throws CloneNotSupportedException
      */
     public Schedule hillClimb(int maxEvals) {
         Schedule best = this;
