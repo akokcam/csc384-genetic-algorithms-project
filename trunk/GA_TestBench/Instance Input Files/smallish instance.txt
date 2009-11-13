@@ -1,0 +1,294 @@
+7 5
+
+20
+Course 1
+Course 2
+Course 3
+Course 4
+Course 5
+Course 6
+Course 7
+Course 8
+Course 9
+Course 10
+Course 11
+Course 12
+Course 13
+Course 14
+Course 15
+Course 16
+Course 17
+Course 18
+Course 19
+Course 20
+
+4
+Room 1
+Room 2
+Room 3
+Room 4
+
+50
+Student 1
+2
+Course 3
+Course 13
+Student 2
+5
+Course 19
+Course 13
+Course 14
+Course 17
+Course 16
+Student 3
+4
+Course 13
+Course 4
+Course 8
+Course 17
+Student 4
+3
+Course 18
+Course 15
+Course 10
+Student 5
+3
+Course 2
+Course 9
+Course 17
+Student 6
+2
+Course 8
+Course 5
+Student 7
+3
+Course 8
+Course 16
+Course 20
+Student 8
+5
+Course 5
+Course 15
+Course 3
+Course 20
+Course 4
+Student 9
+1
+Course 14
+Student 10
+1
+Course 7
+Student 11
+3
+Course 15
+Course 20
+Course 8
+Student 12
+5
+Course 11
+Course 3
+Course 15
+Course 4
+Course 5
+Student 13
+1
+Course 16
+Student 14
+2
+Course 9
+Course 19
+Student 15
+5
+Course 10
+Course 2
+Course 20
+Course 6
+Course 14
+Student 16
+2
+Course 12
+Course 2
+Student 17
+2
+Course 12
+Course 15
+Student 18
+1
+Course 13
+Student 19
+1
+Course 15
+Student 20
+3
+Course 9
+Course 7
+Course 20
+Student 21
+5
+Course 6
+Course 5
+Course 13
+Course 11
+Course 4
+Student 22
+4
+Course 2
+Course 13
+Course 18
+Course 10
+Student 23
+2
+Course 19
+Course 11
+Student 24
+4
+Course 12
+Course 19
+Course 4
+Course 10
+Student 25
+5
+Course 7
+Course 9
+Course 4
+Course 20
+Course 12
+Student 26
+3
+Course 16
+Course 1
+Course 13
+Student 27
+1
+Course 3
+Student 28
+4
+Course 8
+Course 1
+Course 19
+Course 9
+Student 29
+2
+Course 18
+Course 4
+Student 30
+2
+Course 7
+Course 18
+Student 31
+5
+Course 14
+Course 15
+Course 13
+Course 8
+Course 12
+Student 32
+5
+Course 16
+Course 20
+Course 7
+Course 15
+Course 9
+Student 33
+5
+Course 4
+Course 6
+Course 13
+Course 14
+Course 9
+Student 34
+1
+Course 14
+Student 35
+4
+Course 14
+Course 5
+Course 10
+Course 15
+Student 36
+4
+Course 6
+Course 8
+Course 16
+Course 15
+Student 37
+5
+Course 4
+Course 3
+Course 14
+Course 9
+Course 19
+Student 38
+4
+Course 4
+Course 2
+Course 9
+Course 1
+Student 39
+5
+Course 7
+Course 3
+Course 6
+Course 13
+Course 17
+Student 40
+3
+Course 6
+Course 16
+Course 20
+Student 41
+5
+Course 17
+Course 10
+Course 3
+Course 2
+Course 8
+Student 42
+3
+Course 16
+Course 6
+Course 5
+Student 43
+4
+Course 16
+Course 20
+Course 4
+Course 10
+Student 44
+5
+Course 15
+Course 5
+Course 4
+Course 6
+Course 18
+Student 45
+2
+Course 6
+Course 9
+Student 46
+4
+Course 19
+Course 5
+Course 11
+Course 8
+Student 47
+5
+Course 10
+Course 17
+Course 11
+Course 20
+Course 18
+Student 48
+3
+Course 18
+Course 11
+Course 16
+Student 49
+4
+Course 11
+Course 3
+Course 9
+Course 2
+Student 50
+1
+Course 17
