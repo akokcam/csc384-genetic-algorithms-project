@@ -25,14 +25,64 @@ class Room implements Evaluator, HasTimetable {
         return name;
     }
 
+//    /**
+//     * Evaluate the quality of a course's timetable
+//     * @param sched The schedule to evaluate
+//     * @return The "fitness" of this timetable. How much this room likes the
+//     * schedule.
+//     */
+//    public float evaluate(Schedule sched) {
+//        float ret = 0.0f;
+//        float penalty = 0;
+//        int numTimes = Schedule.getNumTimes();
+//
+//        TimeTable t = getTimeTable(sched);
+//        if (t.numTimings() == 0) {
+//            /* It is good when rooms are not ever used. We can use them for
+//             * something else for the whole exam period.
+//             */
+//            return -2;
+//        }
+//        Iterator<Timing> it = t.iterator();
+//        Timing last = it.next();
+//        Timing next;
+//        while (it.hasNext()) {
+//            next = it.next();
+//            if (next.equals(last)) {
+//                // If two times the room is being used are identical, we hate it
+//                ret -= 20;
+//            } else if (next.getDay() == last.getDay()) {
+//                /* If the room is used more than once on the same day, we like
+//                 * it. We like it when the next time is as close as possible to
+//                 * the last time, so the envigelators don't have to find some
+//                 * way to kill the afternoon.
+//                 */
+//                if (next.getTime() == last.getTime() + 1) {
+//                    /* We don't like it to be too close to the last exam. We
+//                     * need some time to handle the crows after one ends and
+//                     * before one starts.
+//                     */
+//                    ret -= 1;
+//                } else {
+//                    ret += 2;
+//                    ret += 2.0f * (numTimes - next.getTime() + last.getTime()) / numTimes;
+//                }
+//            }
+//            last = next;
+//        }
+//
+//
+//        return ret;
+//    }
+
     /**
-     * Evaluate the quality of a course's timetable
+     * Evaluate the quality of a course's schedule
      * @param sched The schedule to evaluate
      * @return The "fitness" of this timetable. How much this room likes the
      * schedule.
      */
     public float evaluate(Schedule sched) {
-        float ret = 0.0f;
+        float penalty = 0;
         int numTimes = Schedule.getNumTimes();
 
         TimeTable t = getTimeTable(sched);
@@ -40,8 +90,9 @@ class Room implements Evaluator, HasTimetable {
             /* It is good when rooms are not ever used. We can use them for
              * something else for the whole exam period.
              */
-            return -2;
+            return 1;
         }
+
         Iterator<Timing> it = t.iterator();
         Timing last = it.next();
         Timing next;
@@ -49,7 +100,7 @@ class Room implements Evaluator, HasTimetable {
             next = it.next();
             if (next.equals(last)) {
                 // If two times the room is being used are identical, we hate it
-                ret -= 20;
+                penalty += 30;
             } else if (next.getDay() == last.getDay()) {
                 /* If the room is used more than once on the same day, we like
                  * it. We like it when the next time is as close as possible to
@@ -61,17 +112,18 @@ class Room implements Evaluator, HasTimetable {
                      * need some time to handle the crows after one ends and
                      * before one starts.
                      */
-                    ret -= 1;
-                } else {
-                    ret += 2;
-                    ret += 2.0f * (numTimes - next.getTime() + last.getTime()) / numTimes;
+                    penalty += 5;
                 }
+            } else if (next.getDay() > last.getDay() + 1) {
+                // We like to be used on consecutive days
+                penalty += 0.5;
             }
+
             last = next;
         }
 
 
-        return ret;
+        return 1 / (penalty + 1);
     }
 
     /**

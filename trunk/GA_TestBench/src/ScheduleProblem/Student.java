@@ -25,35 +25,83 @@ class Student implements Evaluator, HasTimetable {
         this.courses = courses;
     }
 
+//    /**
+//     * Evaluate the fitness of a schedule from the perspective of this student
+//     * @param sched The schedule to consider
+//     * @return The "fitness" of the schedule from this student's perspective.
+//     */
+//    public float evaluate(Schedule sched) {
+//        float ret = 0.0f;
+//        int numTimes = Schedule.getNumTimes();
+//
+//        Iterator<Timing> it = getTimeTable(sched).iterator();
+//        Timing last = it.next();
+//        Timing next;
+//        while (it.hasNext()) {
+//            next = it.next();
+//            if (next.equals(last)) {
+//                // Penalty for two exams with same time is 10
+//                ret -= 20.0f;
+//            } else if (next.getDay() == last.getDay()) {
+//                // Having 2 exams on the same day is bad. Max penalty 2
+//                ret -= 2 + 2.0 * (numTimes - next.getTime() + last.getTime() + 1) / numTimes;
+//            } else if (next.getDay() > last.getDay() + 1) {
+//                // If exams are 2 days apart, the student likes it. Reward 5.
+//                ret += 2.0f;
+//            }
+//
+//            last = next;
+//        }
+//
+//        return ret;
+//    }
+
     /**
-     * Evaluate the fitness of a schedule from the perspective of this student
-     * @param sched The schedule to consider
-     * @return The "fitness" of the schedule from this student's perspective.
+     * Evaluate the quality of a student's schedule
+     * @param sched The schedule to evaluate
+     * @return The "fitness" of this timetable. How much this room likes the
+     * schedule.
      */
     public float evaluate(Schedule sched) {
-        float ret = 0.0f;
+        float penalty = 0;
         int numTimes = Schedule.getNumTimes();
 
-        Iterator<Timing> it = getTimeTable(sched).iterator();
+        TimeTable t = getTimeTable(sched);
+        if (t.numTimings() == 0) {
+            /* It is good when rooms are not ever used. We can use them for
+             * something else for the whole exam period.
+             */
+            return 1;
+        }
+        Iterator<Timing> it = t.iterator();
         Timing last = it.next();
         Timing next;
         while (it.hasNext()) {
             next = it.next();
+            // If two consecutive timings are identical, very very bad
             if (next.equals(last)) {
-                // Penalty for two exams with same time is 10
-                ret -= 20.0f;
+                penalty += 50;
+                // If two consecutive exams happen on the same day
             } else if (next.getDay() == last.getDay()) {
-                // Having 2 exams on the same day is bad. Max penalty 2
-                ret -= 2 + 2.0 * (numTimes - next.getTime() + last.getTime() + 1) / numTimes;
-            } else if (next.getDay() > last.getDay() + 1) {
-                // If exams are 2 days apart, the student likes it. Reward 5.
-                ret += 2.0f;
+                // If the exams happen in consecutive time slots, very bad
+                if (next.getTime() == last.getTime() + 1) {
+                    penalty += 5;
+                    // Not as bad if it happens later in the same day, but still bad
+                } else {
+                    penalty += 3;
+//                    ret += 2.0f * (numTimes - next.getTime() + last.getTime()) / numTimes;
+                }
+                // If we have exams on two consecutive days, also slightly bad
+            } else if (next.getDay() == last.getDay() + 1) {
+                // If we have exams on consecutive days
+                penalty += 0.5;
             }
 
             last = next;
         }
 
-        return ret;
+
+        return 1 / (penalty + 1);
     }
 
     /**

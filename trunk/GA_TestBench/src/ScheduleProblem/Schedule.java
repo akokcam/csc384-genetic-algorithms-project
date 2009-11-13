@@ -301,14 +301,14 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             studentRating += student.evaluate(this);
         }
         /* NOT SURE WHETHER WE SHOULD EVEN BOTHER WITH THE ROOM EVALUATIONS */
-//        for (Room room : rooms) {
-//            roomRating += room.evaluate(this);
-//        }
+        for (Room room : rooms) {
+            roomRating += room.evaluate(this);
+        }
 
         // We care twice as much about students as we do about rooms
         ret = 2 * studentRating / numStudents + roomRating / numRooms;
 
-        return ret;
+        return ret / 3;
     }
 
     /**
