@@ -16,21 +16,21 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        int maxpop = 50;
-        int maxgen = 200;
+        int maxpop = 80;
+        int maxgen = 400;
         double copies = 1;
         double mutations = 20;
         double crossovers = 40;
-        double randoms = 20;
+        double randoms = 25;
 
         GAParams params = new GAParams(BIGINSTANCEFILE);
         params.setPopulationSize(maxpop);
         params.setMaxGenerations(maxgen);
         // Set Generation proportions
-//        params.setCopies(copies);
-//        params.setMutations(mutations);
-//        params.setCrossovers(crossovers);
-//        params.setRandoms(randoms);
+        params.setCopies(copies);
+        params.setMutations(mutations);
+        params.setCrossovers(crossovers);
+        params.setRandoms(randoms);
 
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         System.out.println("Proportions are " + params.proportionString());
@@ -49,11 +49,16 @@ public class Main {
         Schedule randomBest = randomSearch(evals);
         System.out.println("Random search with same number of evaluations gives fitness: " + randomBest.fitness());
 
-        
+
         // Do HillClimbing search
         Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(evals);
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
 //        hillBest.showAllInfo();
+
+        // Do mutatesearch
+        Schedule mutateSearchBest = mutateSearch(evals);
+        System.out.println("Mutation Search gives fitness: " + mutateSearchBest.fitness() + " in " + evals + " fitness evaluations");
+
 
         /*
         // This is for checking a problem instance, generating a few solutions
@@ -94,6 +99,28 @@ public class Main {
         fitness = c.fitness();
         System.out.println("The fitness function of this schedule gives: " + fitness);
          */
+    }
+
+    /**
+     * Search by mutating an individual and testing if it's better than the best
+     * seen. Make 1% changes to the current best and check the fitness. If it's
+     * better, replace the best.
+     * @param evals The number of times to perform evaluations
+     * @return
+     */
+    private static Schedule mutateSearch(int evals) {
+        Schedule best = (Schedule) Schedule.random();
+        double bestfit = best.fitness();
+        while (evals > 0) {
+            Schedule tester = (Schedule) best.mutate(0.01);
+            double tfit = tester.fitness();
+            evals--;
+            if (tfit > bestfit) {
+                best = tester;
+                bestfit = tfit;
+            }
+        }
+        return best;
     }
 
     /**
