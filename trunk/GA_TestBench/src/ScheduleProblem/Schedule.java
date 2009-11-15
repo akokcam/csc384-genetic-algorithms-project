@@ -548,4 +548,11 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             return best.hillClimb(maxEvals);
         }
     }
+
+    void showAllInfo() {
+        System.out.println(this);
+        System.out.println(this.studentSchedulesString());
+        System.out.println(this.roomSchedulesString());
+
+    }
 }

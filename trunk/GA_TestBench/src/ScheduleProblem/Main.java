@@ -25,9 +25,7 @@ public class Main {
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         Schedule best = (Schedule) worker.run();
         int evals = worker.numEvaluations();
-//        System.out.println(best);
-//        System.out.println(best.studentSchedulesString());
-//        System.out.println(best.roomSchedulesString());
+//        best.showAllInfo();
 
         System.out.println("Evaluate function called " + evals + " times.");
 
@@ -38,9 +36,7 @@ public class Main {
 
         Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(99999999);
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
-//        System.out.println(hillBest);
-//        System.out.println(hillBest.studentSchedulesString());
-//        System.out.println(hillBest.roomSchedulesString());
+//        hillBest.showAllInfo();
 
         /*
         // This is for checking a problem instance, generating a few solutions
