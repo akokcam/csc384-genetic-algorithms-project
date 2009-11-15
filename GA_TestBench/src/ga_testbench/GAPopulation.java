@@ -17,9 +17,9 @@ import java.util.TreeMap;
 public class GAPopulation implements Population {
 
     /**
-     * The number of individuals to keep for a ganeration.
+     * The parameters for this population
      */
-    private int size;
+    GAParams params;
     /**
      * A list containing the members of the current generation.
      */
@@ -45,26 +45,6 @@ public class GAPopulation implements Population {
      */
     private int evals;
     /**
-     * The quantity of the next generations that should be copies of
-     * individuals from the current generation.
-     */
-    private int numCopies = -1;
-    /**
-     * The quantity of the next generation that should be made by mutating
-     * individuals in this generation.
-     */
-    private int numMutations = -1;
-    /**
-     * The quantity of the next generation that should be made by crossing
-     * over pairs of individuals in this generation.
-     */
-    private int numCrossovers = -1;
-    /**
-     * The quantity of the next generation that should be made by generating
-     * new random individuals.
-     */
-    private int numRandoms = -1;
-    /**
      * The number of times evolve() has been called for this population.
      */
     private int currentGeneration;
@@ -87,10 +67,10 @@ public class GAPopulation implements Population {
      * Make a new population.
      * @param size The number of individuals to keep at every generation.
      */
-    public GAPopulation(int size) {
-        this.size = size;
-        this.pop = new ArrayList<Schedule>(size);
-        fitnesses = new double[size];
+    GAPopulation(GAParams params) {
+        this.params = params;
+        this.pop = new ArrayList<Schedule>(params.getPopSize());
+        fitnesses = new double[params.getPopSize()];
         this.evals = 0; // No evaluations have been performed yet.
         this.currentGeneration = 0;
         this.allEvaluated = false;
@@ -101,7 +81,7 @@ public class GAPopulation implements Population {
         this.fitnessMax = Double.NEGATIVE_INFINITY;
 
         // Set all of the fitnesses to NaN
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < params.getPopSize(); i++) {
             Schedule randomIndividual = (Schedule) Schedule.random();
             this.pop.add(randomIndividual);
             this.fitnesses[i] = Double.NaN; // All of the fitnesses are initialized to Nan
@@ -121,7 +101,7 @@ public class GAPopulation implements Population {
         double val = Double.NEGATIVE_INFINITY;
         int index = 0;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < params.getPopSize(); i++) {
             if (fitnesses[i] > val) {
                 index = i;
                 val = fitnesses[i];
@@ -145,42 +125,41 @@ public class GAPopulation implements Population {
      * @param randoms The approximate proportion of the next generation that
      *  should be made by creating new random individuals.
      */
-    public void setNextGenerationProportions(
-            double copies, double mutations, double crossovers, double randoms) {
-
-        /* Much of this error checking is unnecessary, really, but I like to be 
-         * careful. -DK
-         */
-
-        if (copies < 0 || mutations < 0 || crossovers < 0 || randoms < 0) {
-            throw new RuntimeException("Negative generation proportions " +
-                    "not allowed.");
-        }
-
-        /* Calculate the precise number of each type that should be in the next
-         * generation.
-         */
-        this.numCopies = (int) Math.ceil(copies * this.size);
-        this.numMutations = (int) Math.ceil(mutations * this.size);
-        this.numCrossovers = (int) Math.ceil(crossovers * this.size);
-        this.numRandoms = (int) Math.ceil(randoms * this.size);
-        int tot = this.numCopies + this.numMutations +
-                this.numCrossovers + this.numRandoms;
-
-        // The rounding error should never be more than one.
-        int err = size - tot;
-        if (err >= -1 || err <= 1) {
-            // On rounding error, we fix mutations
-            this.numMutations += err;
-            assert (this.numMutations >= 0);
-        }
-
-        // Test it again.
-        tot = this.numCopies + this.numMutations +
-                this.numCrossovers + this.numRandoms;
-        assert (tot == size);
-    }
-
+//    public void setNextGenerationProportions(
+//            double copies, double mutations, double crossovers, double randoms) {
+//
+//        /* Much of this error checking is unnecessary, really, but I like to be
+//         * careful. -DK
+//         */
+//
+//        if (copies < 0 || mutations < 0 || crossovers < 0 || randoms < 0) {
+//            throw new RuntimeException("Negative generation proportions " +
+//                    "not allowed.");
+//        }
+//
+//        /* Calculate the precise number of each type that should be in the next
+//         * generation.
+//         */
+//        this.numCopies = (int) Math.ceil(copies * this.size);
+//        this.numMutations = (int) Math.ceil(mutations * this.size);
+//        this.numCrossovers = (int) Math.ceil(crossovers * this.size);
+//        this.numRandoms = (int) Math.ceil(randoms * this.size);
+//        int tot = this.numCopies + this.numMutations +
+//                this.numCrossovers + this.numRandoms;
+//
+//        // The rounding error should never be more than one.
+//        int err = size - tot;
+//        if (err >= -1 || err <= 1) {
+//            // On rounding error, we fix mutations
+//            this.numMutations += err;
+//            assert (this.numMutations >= 0);
+//        }
+//
+//        // Test it again.
+//        tot = this.numCopies + this.numMutations +
+//                this.numCrossovers + this.numRandoms;
+//        assert (tot == size);
+//    }
     /**
      * Add some copies from the current population to the list newList.
      * Note: we mess with the current generation's fitnesses array, so it
@@ -191,11 +170,11 @@ public class GAPopulation implements Population {
     private void addCopies(List<Schedule> newList, double[] newFitnesses) {
         // Add the copies
         TreeMap<Double, Schedule> tree = new TreeMap<Double, Schedule>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < params.getPopSize(); i++) {
             tree.put(fitnesses[i], pop.get(i));
         }
 
-        for (int i = 0; i < numCopies; i++) {
+        for (int i = 0; i < params.getNumCopies(); i++) {
             Entry<Double, Schedule> highest = tree.pollLastEntry();
             int location = newList.size();
             newList.add(highest.getValue());
@@ -210,7 +189,7 @@ public class GAPopulation implements Population {
      */
     private void addCrossovers(List<Schedule> newList) {
         // Add the crossovers
-        for (int i = 0; i < numCrossovers; i++) {
+        for (int i = 0; i < params.getNumCrossovers(); i++) {
             Schedule first = getRandomWeightedIndividual();
             Schedule second = getRandomWeightedIndividual();
             newList.add((Schedule) first.crossWith(second));
@@ -224,7 +203,7 @@ public class GAPopulation implements Population {
      */
     private void addMutations(List<Schedule> newList) {
         // Add the mutated individiduals
-        for (int i = 0; i < numMutations; i++) {
+        for (int i = 0; i < params.getNumMutations(); i++) {
             Schedule individual = getRandomWeightedIndividual();
             // Mutate it by a random amount, weighted a little bit down, so we
             // always mutate less than half. This is sane.
@@ -239,7 +218,7 @@ public class GAPopulation implements Population {
      */
     private void addRandoms(List<Schedule> newList) {
         // Add the required number of randoms.
-        for (int i = 0; i < numRandoms; i++) {
+        for (int i = 0; i < params.getNumRandoms(); i++) {
             Schedule randomIndividual = (Schedule) Schedule.random();
             newList.add(randomIndividual);
         }
@@ -263,10 +242,9 @@ public class GAPopulation implements Population {
      * setNextGenerationProportions.
      */
     public void evolve() {
-        if (numCopies < 0 || numMutations < 0 ||
-                numCrossovers < 0 || numRandoms < 0) {
-            throw new RuntimeException("You must initialize the " +
-                    "nextGenerationProportions before evolving.");
+        int size = params.getNumCopies() + params.getNumCrossovers() + params.getNumMutations() + params.getNumRandoms();
+        if (size != params.getPopSize()) {
+            throw new RuntimeException("The size of the population doesn't match its components.");
         }
 
         // Make sure that all have been evaluated
@@ -344,7 +322,7 @@ public class GAPopulation implements Population {
      */
     private void evaluateAll() {
         double currentFitness;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < params.getPopSize(); i++) {
 //        for (Schedule current : pop) {
             // If the last generation set the fitness, then we don't need to evaluate it.
             if (Double.isNaN(fitnesses[i])) {
@@ -403,7 +381,7 @@ public class GAPopulation implements Population {
         selectionTree = new TreeMap<Double, Schedule>();
 
         double tot = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < params.getPopSize(); i++) {
             tot += getNormedFitness(i);
             selectionTree.put(tot, this.pop.get(i));
         }
