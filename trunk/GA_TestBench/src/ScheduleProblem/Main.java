@@ -1,5 +1,6 @@
 package ScheduleProblem;
 
+import ga_testbench.GAParams;
 import ga_testbench.GASolver;
 
 public class Main {
@@ -15,26 +16,42 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        // Attempt to use GASolver
-        GASolver<Schedule> worker = new GASolver<Schedule>(SMALLINSTANCEFILE);
-        int maxpop = 80;
-        int maxgen = 300;
-        worker.setMaxGenerations(maxgen);
-        worker.setPopulationSize(maxpop);
-        worker.setNextGenerationProportions(2, 10, 23, 15);
+        int maxpop = 50;
+        int maxgen = 200;
+        double copies = 1;
+        double mutations = 20;
+        double crossovers = 40;
+        double randoms = 20;
+
+        GAParams params = new GAParams(BIGINSTANCEFILE);
+        params.setPopulationSize(maxpop);
+        params.setMaxGenerations(maxgen);
+        // Set Generation proportions
+//        params.setCopies(copies);
+//        params.setMutations(mutations);
+//        params.setCrossovers(crossovers);
+//        params.setRandoms(randoms);
+
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
+        System.out.println("Proportions are " + params.proportionString());
+
+        // Attempt to use GASolver
+        GASolver<Schedule> worker = new GASolver<Schedule>(params);
         Schedule best = (Schedule) worker.run();
         int evals = worker.numEvaluations();
 //        best.showAllInfo();
 
         System.out.println("Evaluate function called " + evals + " times.");
-
         System.out.println("The fitness function of this schedule gives: " + best.fitness());
 
+
+        // Do Random search
         Schedule randomBest = randomSearch(evals);
         System.out.println("Random search with same number of evaluations gives fitness: " + randomBest.fitness());
 
-        Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(99999999);
+        
+        // Do HillClimbing search
+        Schedule hillBest = ((Schedule) Schedule.random()).hillClimb(evals);
         System.out.println("Random Hillclimbing gives fitness: " + hillBest.fitness() + " in " + Schedule.getHillEvals() + " fitness evaluations");
 //        hillBest.showAllInfo();
 
