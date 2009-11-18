@@ -24,21 +24,21 @@ public class Main {
      * @param args Useless ignored argument parameter
      */
     public static void main(String[] args) {
-        testingMain();
+        davesTestingMain();
     }
 
     /**
-     * This is the main method. It is used for testing right now.
+     * This is the dave test main method. It is used for testing things to make sure
+     * they work right.
      * @param args
      */
-    public static void testingMain() {
+    public static void davesTestingMain() {
         int maxpop = 40;
         int maxgen = 100;
         double copies = 2;
         double mutations = 20;
         double crossovers = 40;
         double randoms = 25;
-        int samplePeriod = 100;
 
         GAParams params = new GAParams(TESTINSTANCE);
         params.setPopulationSize(maxpop);
@@ -48,6 +48,9 @@ public class Main {
         params.setMutations(mutations);
         params.setCrossovers(crossovers);
         params.setRandoms(randoms);
+        params.setVerbose(true);
+
+        int samplePeriod = params.numEvalsPerGeneration();
 
         System.out.println("Running GA with " + maxgen + " generations and " + maxpop + " population...");
         System.out.println("Proportions are " + params.proportionString());
@@ -62,7 +65,8 @@ public class Main {
 
         System.out.println("Evaluate function called " + evals + " times.");
         System.out.println("The fitness function of this schedule gives: " + best.fitness());
-
+        System.out.println(worker.getBestStatsString());
+        System.out.println(worker.getMeanStatsString());
 
         /****************************/
         /* Do Random search         */
@@ -154,6 +158,10 @@ public class Main {
         return best;
     }
 
+    /**
+     * Get the data resulting from a run of the random search method
+     * @return the data resulting from a run of the random search method
+     */
     public static String getRandomSearchString() {
         return randomSearchString + "END-SERIES";
     }
