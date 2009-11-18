@@ -27,6 +27,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     private static boolean initialized;
     private static Random rand;
     private static int hillEvals = 0;
+    private static String hillclimbString = "";
 
     /**
      * This will be called once by the solver. It has to load the instance info
@@ -468,25 +469,57 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     }
 
     /**
-     * Check how many evaluations were required for local hill climbing, and
-     * reset hillEvals to 0.
+     * Check how many evaluations were required for local hill climbing.
      * @return The number of evaluations berformed by a call to hillClimb
      */
     public static int getHillEvals() {
-        int ret = hillEvals;
-        hillEvals = 0;
-        return ret;
+        return hillEvals;
+    }
+
+    /**
+     * Set the value of hillEvals. Used to zero it, really.
+     * @param hillEvals
+     */
+    public static void setHillEvals(int hillEvals) {
+        Schedule.hillEvals = hillEvals;
+    }
+
+    /**
+     * Add a data point to the hillclimb evaluator string
+     * @param fitness The fitness to report
+     */
+    private void addHillDataPoint(double fitness) {
+        hillclimbString += hillEvals + ", " + fitness + "\n";
+    }
+
+    /**
+     * Get the generated hillclimb String for data acquisition.
+     * @return
+     */
+    public static String getHillclimbSearchString() {
+        return hillclimbString + "END-SERIES";
     }
 
     /**
      * HillClimb from this Schedule to find the best one.
      * @param maxEvals The maximum number of schedule fitness checks that
      * should be performed.
+     * Updates string hillclimbString periodically
      * @return A locally optimal schedule
      */
-    public Schedule hillClimb(int maxEvals) {
+    public Schedule hillClimb(int maxEvals, int samplePeriod) {
+        // Label the string if needed
+        if (hillclimbString.equals("")) {
+            hillclimbString = "Hillclimbing Algorithm with Evaluation limit " + maxEvals + "\n";
+        }
+
         Schedule best = this;
+        if (samplePeriod <= 0) {
+            throw new RuntimeException("Sample period must be positive.");
+        }
         double fitness = fitness();
+        hillEvals++;
+        addHillDataPoint(fitness);
         try {
             for (int i = 0; i < numCourses; i++) {
                 for (int j = 0; j < numRooms; j++) {
@@ -500,7 +533,11 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                             fitness = newfit;
                             best = sched;
                         }
+                        if (hillEvals % samplePeriod == 0) {
+                            addHillDataPoint(fitness);
+                        }
                         if (hillEvals >= maxEvals) {
+                            addHillDataPoint(fitness);
                             return best;
                         }
                     }
@@ -515,7 +552,11 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                             fitness = newfit;
                             best = sched;
                         }
+                        if (hillEvals % samplePeriod == 0) {
+                            addHillDataPoint(fitness);
+                        }
                         if (hillEvals >= maxEvals) {
+                            addHillDataPoint(fitness);
                             return best;
                         }
                     }
@@ -530,7 +571,11 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                             fitness = newfit;
                             best = sched;
                         }
+                        if (hillEvals % samplePeriod == 0) {
+                            addHillDataPoint(fitness);
+                        }
                         if (hillEvals >= maxEvals) {
+                            addHillDataPoint(fitness);
                             return best;
                         }
                     }
@@ -543,9 +588,10 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 //        System.out.println("Hillclimbing made " + evals + " fitness evaluations...");
 
         if (best == this) {
+            addHillDataPoint(fitness);
             return best;
         } else {
-            return best.hillClimb(maxEvals);
+            return best.hillClimb(maxEvals, samplePeriod);
         }
     }
 
