@@ -98,6 +98,14 @@ public class GAParams {
     }
 
     /**
+     * Find out the number of evaluations that should be performed per generation.
+     * @return the number of evaluations that should be performed per generation.
+     */
+    public int numEvalsPerGeneration() {
+        return getNumCrossovers() + getNumMutations() + getNumRandoms();
+    }
+
+    /**
      * Get the number of copies that will be in the next generation
      * @return  The number of copies that will be in the next generation
      */

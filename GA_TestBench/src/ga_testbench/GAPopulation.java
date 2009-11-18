@@ -112,55 +112,6 @@ public class GAPopulation implements Population {
     }
 
     /**
-     * Set the proportions for individuals in the next generation. The sum of
-     *  these 4 fields should be equal to 1.
-     * @param copies The portion of the next generation that should be copies
-     *  of the finest members of this generation.
-     * @param mutations The approximate proportion of the next generation that
-     *  should be made by randomly mutating individuals in the current
-     *  generation.
-     * @param crossovers The approximate proportion of the next generation that
-     *  should be made by crossing over pairs of individuals from the current
-     *  generation.
-     * @param randoms The approximate proportion of the next generation that
-     *  should be made by creating new random individuals.
-     */
-//    public void setNextGenerationProportions(
-//            double copies, double mutations, double crossovers, double randoms) {
-//
-//        /* Much of this error checking is unnecessary, really, but I like to be
-//         * careful. -DK
-//         */
-//
-//        if (copies < 0 || mutations < 0 || crossovers < 0 || randoms < 0) {
-//            throw new RuntimeException("Negative generation proportions " +
-//                    "not allowed.");
-//        }
-//
-//        /* Calculate the precise number of each type that should be in the next
-//         * generation.
-//         */
-//        this.numCopies = (int) Math.ceil(copies * this.size);
-//        this.numMutations = (int) Math.ceil(mutations * this.size);
-//        this.numCrossovers = (int) Math.ceil(crossovers * this.size);
-//        this.numRandoms = (int) Math.ceil(randoms * this.size);
-//        int tot = this.numCopies + this.numMutations +
-//                this.numCrossovers + this.numRandoms;
-//
-//        // The rounding error should never be more than one.
-//        int err = size - tot;
-//        if (err >= -1 || err <= 1) {
-//            // On rounding error, we fix mutations
-//            this.numMutations += err;
-//            assert (this.numMutations >= 0);
-//        }
-//
-//        // Test it again.
-//        tot = this.numCopies + this.numMutations +
-//                this.numCrossovers + this.numRandoms;
-//        assert (tot == size);
-//    }
-    /**
      * Add some copies from the current population to the list newList.
      * Note: we mess with the current generation's fitnesses array, so it
      * cannot be trusted after calling this.
@@ -178,6 +129,9 @@ public class GAPopulation implements Population {
             Entry<Double, Schedule> highest = tree.pollLastEntry();
             int location = newList.size();
             newList.add(highest.getValue());
+            // Update the total fitness and individual fitness so that we don't 
+            // reevaluate copies
+            fitnessTotal += highest.getKey();
             newFitnesses[location] = highest.getKey();
         }
     }
@@ -242,7 +196,8 @@ public class GAPopulation implements Population {
      * setNextGenerationProportions.
      */
     public void evolve() {
-        int size = params.getNumCopies() + params.getNumCrossovers() + params.getNumMutations() + params.getNumRandoms();
+        int size = params.getNumCopies() + params.getNumCrossovers() +
+                params.getNumMutations() + params.getNumRandoms();
         if (size != params.getPopSize()) {
             throw new RuntimeException("The size of the population doesn't match its components.");
         }
@@ -260,6 +215,7 @@ public class GAPopulation implements Population {
         addRandoms(newList);
         addMutations(newList);
         addCrossovers(newList);
+        fitnessTotal = 0;
         addCopies(newList, newFitnesses);
 
         this.pop = newList;
@@ -305,7 +261,10 @@ public class GAPopulation implements Population {
      * @return The average fitness of individuals in this generation.
      */
     public double fitnessAverage() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!allEvaluated) {
+            evaluateAll();
+        }
+        return fitnessTotal / params.getPopSize();
     }
 
     /**
@@ -337,19 +296,6 @@ public class GAPopulation implements Population {
         }
 
         this.allEvaluated = true;
-//
-//        /* Change all of the fitnesses depending on the value of the least fit.
-//         * This makes everything eeasier to weight.
-//         * It is OK to do this now because we will never need to evaluate any
-//         * of these individuals again.
-//         * NOTE: Perhaps statistics should be gathered before this normalizing,
-//         *  or at least we would need to save the value of fitnessMin.
-//         */
-//        for (int j = 0; j < size; j++) {
-//            fitnesses[j] -= fitnessMin;
-//        }
-//        fitnessMax -= fitnessMin;
-//        fitnessMin = 0;
     }
 
     /**
