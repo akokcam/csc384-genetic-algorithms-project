@@ -23,6 +23,13 @@ public class Main {
     private static String randomSearchString = "";
     private static String mutateSearchString = "";
 
+
+    private static String GABestStats = "";
+    private static String GAMeanStats = "";
+    private static String randomSearchStats = "";
+    private static String hillClimbingStats = "";
+    private static String mutateSearchStats = "";
+
     /**
      * This is the real main program. We can change it quickly to use any of 
      * the various data-gathering-type main methods that we devise.
@@ -30,7 +37,15 @@ public class Main {
      */
     public static void main(String[] args) {
 //        davesTestingMain();
-        getGAParameterStats();
+        //getGAParameterStats();
+
+        int maxpop = 40;
+        int maxgen = 100;
+        double copies = 2;
+        double mutations = 20;
+        double crossovers = 40;
+        double randoms = 25;
+        getAllStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE);
     }
 
     /**
@@ -81,8 +96,70 @@ public class Main {
                 }
             }
 
-
             out.write("END-SERIES\n");
+            out.close();
+        } catch (IOException ex) {
+            System.err.println("Error opening file " + outFileName + " for write");
+        }
+    }
+
+    public static void getAllStats(int maxpop, int maxgen, double copies, double mutations, double crossovers, double randoms, String instanceFile) {
+        GAParams params = new GAParams(instanceFile, maxpop, maxgen, copies, mutations, crossovers, randoms, true);
+        int samplePeriod = params.numEvalsPerGeneration();
+
+        // Run the 4 different searches, using the number of evaluations made by
+        // the GA search as the max number of evaluations the other algos are allowed to use
+        int maxEvals = getGAStats(params);
+        getRandomSearchStats(maxEvals, samplePeriod);
+        getHillClimbingStats(maxEvals, samplePeriod);
+        getMutateSearchStats(maxEvals, samplePeriod);
+
+        printStats("Data Files\\FullStats_" + maxEvals + ".txt", maxEvals);
+    }
+
+    private static int getGAStats(GAParams params) {
+        GASolver<Schedule> worker = new GASolver<Schedule>(params);
+        worker.run();
+        int evals = worker.numEvaluations();
+
+        GABestStats = worker.getBestStatsString();
+        GAMeanStats = worker.getMeanStatsString();
+        return evals;
+    }
+
+    private static void getRandomSearchStats(int maxEvals, int samplePeriod) {
+        randomSearch(maxEvals, samplePeriod);
+        randomSearchStats = getRandomSearchString();
+    }
+    
+    private static void getHillClimbingStats(int maxEvals, int samplePeriod) {
+        ((Schedule) Schedule.random()).hillClimb(maxEvals, samplePeriod);
+        hillClimbingStats = Schedule.getHillclimbSearchString();
+    }
+
+    private static void getMutateSearchStats(int maxEvals, int samplePeriod) {
+        mutateSearch(maxEvals, samplePeriod);
+        mutateSearchStats = getMutateSearchString();
+    }
+
+    private static void printStats(String outFileName, int maxEvals) {
+        try {
+            FileWriter fstream = new FileWriter(outFileName);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write("Performance of the 4 searches using at most " + maxEvals + " evaluations.\n");
+            // Number of dimensions in data
+            out.write("2\n");
+            out.write("Number of evaluations\n");
+            out.write("Fitness\n");
+            // Number of series
+            out.write("5\n");
+
+            out.write(GABestStats + "\n");
+            out.write(GAMeanStats + "\n");
+            out.write(randomSearchStats + "\n");
+            out.write(hillClimbingStats + "\n");
+            out.write(mutateSearchStats + "\n");
+
             out.close();
         } catch (IOException ex) {
             System.err.println("Error opening file " + outFileName + " for write");
