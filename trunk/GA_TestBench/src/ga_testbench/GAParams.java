@@ -81,6 +81,34 @@ public class GAParams {
     }
 
     /**
+     * Default constructor. Default values are given, but can be set with the
+     * set... methods.
+     * @param instanceDataFile The location of the file containing problem
+     * instance data
+     */
+    public GAParams(String instanceDataFile, int popSize, int maxGens, double copiesP, double mutationsP, double crossoversP, double randomsP, boolean verbose) {
+        // Initial default population
+        this.popSize = popSize;
+
+        // How to know if we're done
+        this.maxGens = maxGens;
+
+        // Default next-generation stuff
+        this.copiesP = copiesP;
+        this.mutationsP = mutationsP;
+        this.crossoversP = crossoversP;
+        this.randomsP = randomsP;
+        this.fixProportions();
+
+        // verbose off by default. Must be set on explicitly.
+        verboseOn = verbose;
+
+        // Set the instanceData field, so where we know where to get the
+        // instance from, when we need it.
+        this.instanceDataFile = instanceDataFile;
+    }
+
+    /**
      * Set the maximum number of generations that should be processed before
      * returning the best found individual.
      * @param maxGens An upper limit on the number of generations to make.
