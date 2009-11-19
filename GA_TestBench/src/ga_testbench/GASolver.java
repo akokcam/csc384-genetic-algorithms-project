@@ -52,7 +52,12 @@ public class GASolver<T extends Individual> implements Solver {
      * @return
      */
     public T run() {
-        boolean loaded = Schedule.initialize(params.getInstanceDataFile()); // Load the desired problem instance
+        boolean loaded = Schedule.isInitialized();
+        if (!loaded) {
+            // Load the desired problem instance
+            loaded = Schedule.initialize(params.getInstanceDataFile());
+        }
+
         if (!loaded) {
             throw new RuntimeException("Problem instance couldn't be loaded.");
         }

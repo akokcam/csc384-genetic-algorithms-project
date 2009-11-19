@@ -2,6 +2,11 @@ package ScheduleProblem;
 
 import ga_testbench.GAParams;
 import ga_testbench.GASolver;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 
@@ -24,7 +29,64 @@ public class Main {
      * @param args Useless ignored argument parameter
      */
     public static void main(String[] args) {
-        davesTestingMain();
+//        davesTestingMain();
+        getGAParameterStats();
+    }
+
+    /**
+     * This should dump some stats to a file so we can evaluate the quality of
+     * various GA parameter settings.
+     */
+    private static void getGAParameterStats() {
+        GAParams params = new GAParams(SMALLINSTANCEFILE);
+        int maxpop = 81;
+        int maxgen = 100;
+        double copies = 1;
+        params.setPopulationSize(maxpop);
+        params.setMaxGenerations(maxgen);
+        params.setCopies(copies);
+        final String outFileName = "Data Files\\GA Parameters Data with population " + maxpop + " and " + maxgen + " generations.txt";
+
+        try {
+            FileWriter fstream = new FileWriter(outFileName);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write("GA Parameters in 3 Dimensions, testing the quality of different settings of the crossover and mutation proportions.\n");
+            // Number of dimensions in data
+            out.write("3\n");
+            out.write("Proportion of Crossovers\n");
+            out.write("Proportion of Mutations\n");
+            out.write("Attained Fitness\n");
+            // Number of series
+            out.write("1\n");
+            out.write("GA with parameters" + "\n");
+
+            for (double crossovers = 0; crossovers < maxpop; crossovers += 1) {
+                for (double mutations = 0; mutations + crossovers < maxpop; mutations += 1) {
+                    double randoms = maxpop - mutations - crossovers - copies;
+
+                    // Set Generation proportions
+                    params.setMutations(mutations);
+                    params.setCrossovers(crossovers);
+                    params.setRandoms(randoms);
+
+                    // Perform the test
+                    GASolver<Schedule> worker = new GASolver<Schedule>(params);
+                    Schedule best = (Schedule) worker.run();
+
+                    String line = crossovers + ", " + mutations + ", " + best.fitness();
+
+                    out.write(line);
+                    out.write("\n");
+                    System.out.println(line);
+                }
+            }
+
+
+            out.write("END-SERIES\n");
+            out.close();
+        } catch (IOException ex) {
+            System.err.println("Error opening file " + outFileName + " for write");
+        }
     }
 
     /**
@@ -40,7 +102,7 @@ public class Main {
         double crossovers = 40;
         double randoms = 25;
 
-        GAParams params = new GAParams(TESTINSTANCE);
+        GAParams params = new GAParams(SMALLINSTANCEFILE);
         params.setPopulationSize(maxpop);
         params.setMaxGenerations(maxgen);
         // Set Generation proportions

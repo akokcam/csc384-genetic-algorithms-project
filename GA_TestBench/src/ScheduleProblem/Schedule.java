@@ -225,6 +225,16 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             throw new RuntimeException("Schedule not initialized.");
         }
     }
+
+    /**
+     * Determine whether the schedule static variables have been initialized or 
+     * not.
+     * @return Whether the schedule static variables have been initialized or 
+     * not
+     */
+    public static boolean isInitialized() {
+        return initialized;
+    }
     /****************************
      *                          *
      * Start non-static portion *
