@@ -1,5 +1,7 @@
 potential problems:
 
+- check crossover method in schedule class
+
 - need to input room size?  or an alternative way is to see if the room is jammed, if 
 yes, will decrease the evaluated scores.
     Kevin:  I don't think this is necessary, just more parameters, and doesn't

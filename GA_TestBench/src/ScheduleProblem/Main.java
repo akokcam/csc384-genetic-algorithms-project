@@ -60,7 +60,7 @@ public class Main {
         params.setPopulationSize(maxpop);
         params.setMaxGenerations(maxgen);
         params.setCopies(copies);
-        final String outFileName = "Data Files\\GA Parameters Data with population " + maxpop + " and " + maxgen + " generations.txt";
+        final String outFileName = "Data Files\\GA_Parameters_Data_with_population_" + maxpop + "_and_" + maxgen + "_generations.txt";
 
         try {
             FileWriter fstream = new FileWriter(outFileName);
