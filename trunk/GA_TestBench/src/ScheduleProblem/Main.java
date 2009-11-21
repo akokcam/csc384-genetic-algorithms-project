@@ -5,8 +5,6 @@ import ga_testbench.GASolver;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Main {
 
@@ -22,8 +20,6 @@ public class Main {
      */
     private static String randomSearchString = "";
     private static String mutateSearchString = "";
-
-
     private static String GABestStats = "";
     private static String GAMeanStats = "";
     private static String randomSearchStats = "";
@@ -37,15 +33,15 @@ public class Main {
      */
     public static void main(String[] args) {
 //        davesTestingMain();
-        //getGAParameterStats();
+        getGASizeStats();
 
-        int maxpop = 40;
-        int maxgen = 100;
-        double copies = 2;
-        double mutations = 20;
-        double crossovers = 40;
-        double randoms = 25;
-        getAllStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE);
+//        int maxpop = 40;
+//        int maxgen = 100;
+//        double copies = 2;
+//        double mutations = 20;
+//        double crossovers = 40;
+//        double randoms = 25;
+//        getAllStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE);
     }
 
     /**
@@ -53,9 +49,11 @@ public class Main {
      * various GA parameter settings.
      */
     private static void getGAParameterStats() {
-        GAParams params = new GAParams(SMALLINSTANCEFILE);
-        int maxpop = 81;
-        int maxgen = 100;
+        GAParams params = new GAParams(TESTINSTANCE);
+        int numTrials = 5;
+        int maxpop = 61;
+        int diff = 1;
+        int maxgen = 150;
         double copies = 1;
         params.setPopulationSize(maxpop);
         params.setMaxGenerations(maxgen);
@@ -74,27 +72,101 @@ public class Main {
             // Number of series
             out.write("1\n");
             out.write("GA with parameters" + "\n");
-
-            for (double crossovers = 0; crossovers < maxpop; crossovers += 1) {
-                for (double mutations = 0; mutations + crossovers < maxpop; mutations += 1) {
+            for (double crossovers = 0; crossovers < maxpop; crossovers += diff) {
+                for (double mutations = 0; mutations + crossovers < maxpop; mutations += diff) {
                     double randoms = maxpop - mutations - crossovers - copies;
+                    double fitness = 0;
 
                     // Set Generation proportions
                     params.setMutations(mutations);
                     params.setCrossovers(crossovers);
                     params.setRandoms(randoms);
 
-                    // Perform the test
-                    GASolver<Schedule> worker = new GASolver<Schedule>(params);
-                    Schedule best = (Schedule) worker.run();
+                    for (int i = 0; i < numTrials; i++) {
+                        // Perform the test
+                        GASolver<Schedule> worker = new GASolver<Schedule>(params);
+                        Schedule best = (Schedule) worker.run();
+                        fitness += best.fitness();
+                    }
 
-                    String line = crossovers + ", " + mutations + ", " + best.fitness();
+                    String line = (int) crossovers + ", " + (int) mutations + ", " + fitness / numTrials;
 
                     out.write(line);
                     out.write("\n");
                     System.out.println(line);
                 }
             }
+
+            out.write("END-SERIES\n");
+            out.close();
+        } catch (IOException ex) {
+            System.err.println("Error opening file " + outFileName + " for write");
+        }
+    }
+
+    /**
+     * This should dump some stats to a file so we can evaluate the quality of
+     * various GA Size parameter settings.
+     */
+    private static void getGASizeStats() {
+        int numTrials = 5;
+
+        int poplow = 5;
+        int pophigh = 100;
+        int popdiff = 5;
+
+        int genlow = 5;
+        int genhigh = 300;
+        int gendiff = 5;
+
+        final String outFileName = "Data Files\\GA_Size_Data_with_ideal_proportions_pop_goes_from_" +
+                poplow + "-" + pophigh + "_and_gen_goes_from_" + genlow + "-" + genhigh + "_with_" + numTrials + "_trials.txt";
+
+        try {
+            FileWriter fstream = new FileWriter(outFileName);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write("GA Size Parameters in 3 Dimensions, testing the quality of " +
+                    "different settings of the population and number of generations.\n");
+            // Number of dimensions in data
+            out.write("3\n");
+            out.write("Population Size\n");
+            out.write("Number of Generations\n");
+            out.write("Attained Fitness\n");
+            // Number of series
+            out.write("1\n");
+            out.write("GA with parameters" + "\n");
+
+            for (int population = poplow; population <= pophigh; population += popdiff) {
+                for (int numgens = genlow; numgens <= genhigh; numgens += gendiff) {
+                    GAParams params = new GAParams(TESTINSTANCE);
+                    double crossovers = 0.93 * population;
+                    double randoms = 0.0;
+                    double mutations = 0.06 * population;
+                    double copies = 1;
+                    // Set Generation proportions
+                    params.setMutations(mutations);
+                    params.setCrossovers(crossovers);
+                    params.setRandoms(randoms);
+                    params.setCopies(copies);
+                    params.setPopulationSize(population);
+                    params.setMaxGenerations(numgens);
+
+                    double fitness = 0;
+                    for (int i = 0; i < numTrials; i++) {
+                        // Perform the test
+                        GASolver<Schedule> worker = new GASolver<Schedule>(params);
+                        Schedule best = (Schedule) worker.run();
+                        fitness += best.fitness();
+                    }
+
+                    String line = (int) population + ", " + (int) numgens + ", " + fitness / numTrials;
+
+                    out.write(line);
+                    out.write("\n");
+                    System.out.println(line);
+                }
+            }
+
 
             out.write("END-SERIES\n");
             out.close();
@@ -131,7 +203,7 @@ public class Main {
         randomSearch(maxEvals, samplePeriod);
         randomSearchStats = getRandomSearchString();
     }
-    
+
     private static void getHillClimbingStats(int maxEvals, int samplePeriod) {
         ((Schedule) Schedule.random()).hillClimb(maxEvals, samplePeriod);
         hillClimbingStats = Schedule.getHillclimbSearchString();

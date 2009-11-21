@@ -284,7 +284,7 @@ public class GAParams {
         }
 
         // Move the weirdness to the randoms
-        randoms -= dif;
+        crossovers -= dif;
     }
 
     /**
