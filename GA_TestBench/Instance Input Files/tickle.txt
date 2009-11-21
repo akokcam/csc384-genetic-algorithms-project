@@ -1,6 +1,6 @@
-10 8
+5 5
 
-40
+25
 Course 1
 Course 2
 Course 3
@@ -26,2060 +26,315 @@ Course 22
 Course 23
 Course 24
 Course 25
-Course 26
-Course 27
-Course 28
-Course 29
-Course 30
-Course 31
-Course 32
-Course 33
-Course 34
-Course 35
-Course 36
-Course 37
-Course 38
-Course 39
-Course 40
 
-5
+4
 Room 1
 Room 2
 Room 3
 Room 4
-Room 5
 
-300
+50
 Student 1
-7
-Course 32
-Course 9
-Course 23
-Course 13
-Course 1
-Course 6
-Course 29
-Student 2
-4
-Course 11
-Course 29
-Course 28
-Course 19
-Student 3
-2
-Course 22
-Course 6
-Student 4
-7
-Course 13
-Course 15
-Course 9
-Course 23
-Course 4
-Course 24
-Course 16
-Student 5
-3
-Course 31
-Course 32
-Course 2
-Student 6
-7
-Course 29
-Course 33
-Course 31
-Course 32
-Course 16
-Course 1
-Course 19
-Student 7
 6
-Course 10
-Course 8
-Course 4
-Course 12
-Course 30
-Course 15
-Student 8
-5
-Course 16
-Course 15
-Course 21
-Course 10
-Course 19
-Student 9
-3
-Course 22
-Course 25
-Course 4
-Student 10
-7
-Course 6
-Course 9
 Course 1
-Course 7
-Course 4
-Course 30
-Course 11
-Student 11
-4
-Course 39
-Course 29
-Course 26
-Course 11
-Student 12
-3
-Course 8
-Course 9
-Course 27
-Student 13
-3
-Course 29
-Course 20
-Course 19
-Student 14
-6
-Course 15
+Course 5
 Course 14
-Course 29
-Course 36
+Course 9
 Course 13
-Course 18
-Student 15
-6
-Course 26
-Course 22
-Course 24
-Course 40
-Course 30
-Course 27
-Student 16
-6
-Course 2
-Course 31
-Course 18
-Course 13
-Course 1
-Course 26
-Student 17
-4
-Course 32
-Course 1
-Course 2
-Course 6
-Student 18
-3
-Course 33
-Course 6
-Course 7
-Student 19
-5
-Course 31
-Course 3
-Course 19
-Course 15
-Course 10
-Student 20
-6
-Course 31
-Course 2
-Course 23
-Course 38
-Course 33
-Course 10
-Student 21
+Course 4
+Student 2
 1
 Course 14
-Student 22
-6
-Course 2
-Course 17
-Course 8
-Course 15
+Student 3
+5
+Course 1
+Course 12
+Course 19
+Course 21
 Course 20
+Student 4
+5
+Course 5
+Course 12
+Course 22
+Course 19
+Course 7
+Student 5
+4
 Course 4
-Student 23
-7
 Course 14
-Course 29
-Course 25
+Course 24
+Course 10
+Student 6
+5
+Course 1
+Course 24
+Course 10
+Course 19
+Course 7
+Student 7
+4
+Course 23
+Course 13
 Course 20
 Course 5
-Course 35
+Student 8
+5
+Course 18
 Course 2
+Course 21
+Course 14
+Course 7
+Student 9
+2
+Course 13
+Course 12
+Student 10
+3
+Course 16
+Course 10
+Course 1
+Student 11
+5
+Course 14
+Course 23
+Course 17
+Course 4
+Course 1
+Student 12
+3
+Course 20
+Course 10
+Course 23
+Student 13
+2
+Course 19
+Course 10
+Student 14
+2
+Course 2
+Course 13
+Student 15
+1
+Course 12
+Student 16
+6
+Course 12
+Course 13
+Course 19
+Course 3
+Course 9
+Course 6
+Student 17
+3
+Course 24
+Course 19
+Course 4
+Student 18
+6
+Course 23
+Course 15
+Course 24
+Course 6
+Course 10
+Course 12
+Student 19
+6
+Course 17
+Course 15
+Course 22
+Course 3
+Course 25
+Course 5
+Student 20
+5
+Course 10
+Course 24
+Course 12
+Course 21
+Course 9
+Student 21
+5
+Course 7
+Course 17
+Course 16
+Course 8
+Course 14
+Student 22
+2
+Course 5
+Course 22
+Student 23
+3
+Course 11
+Course 9
+Course 17
 Student 24
 4
-Course 38
-Course 14
-Course 10
-Course 2
-Student 25
-5
-Course 13
-Course 32
-Course 5
-Course 39
-Course 18
-Student 26
-7
-Course 1
-Course 3
-Course 20
-Course 7
-Course 39
-Course 26
-Course 31
-Student 27
-5
-Course 8
-Course 10
-Course 22
 Course 21
-Course 12
-Student 28
-4
-Course 3
-Course 27
-Course 7
-Course 36
-Student 29
-7
-Course 32
-Course 15
-Course 9
-Course 23
-Course 13
-Course 10
-Course 16
-Student 30
-7
-Course 29
-Course 3
-Course 40
 Course 17
 Course 2
-Course 12
+Course 3
+Student 25
+6
+Course 5
 Course 7
+Course 21
+Course 20
+Course 25
+Course 24
+Student 26
+5
+Course 5
+Course 18
+Course 3
+Course 17
+Course 15
+Student 27
+4
+Course 24
+Course 18
+Course 1
+Course 8
+Student 28
+5
+Course 23
+Course 2
+Course 13
+Course 15
+Course 7
+Student 29
+6
+Course 11
+Course 17
+Course 19
+Course 24
+Course 9
+Course 7
+Student 30
+5
+Course 18
+Course 22
+Course 19
+Course 1
+Course 8
 Student 31
 6
-Course 39
-Course 30
-Course 15
-Course 21
-Course 24
-Course 33
-Student 32
-7
 Course 8
-Course 36
-Course 26
-Course 31
-Course 33
-Course 13
-Course 35
-Student 33
-7
-Course 25
-Course 9
-Course 39
-Course 10
-Course 35
-Course 26
-Course 29
-Student 34
-6
-Course 38
-Course 4
-Course 23
-Course 39
-Course 34
-Course 35
-Student 35
-7
-Course 32
-Course 21
-Course 4
+Course 20
 Course 3
-Course 33
-Course 1
-Course 25
+Course 4
+Course 22
+Course 9
+Student 32
+6
+Course 22
+Course 9
+Course 12
+Course 20
+Course 17
+Course 14
+Student 33
+3
+Course 10
+Course 9
+Course 24
+Student 34
+2
+Course 11
+Course 9
+Student 35
+4
+Course 6
+Course 23
+Course 2
+Course 11
 Student 36
 6
 Course 7
-Course 32
-Course 3
-Course 15
-Course 17
+Course 10
+Course 22
+Course 16
 Course 21
+Course 2
 Student 37
-3
-Course 19
-Course 23
-Course 3
+5
+Course 12
+Course 16
+Course 13
+Course 5
+Course 14
 Student 38
 4
-Course 20
-Course 31
-Course 18
-Course 9
+Course 12
+Course 4
+Course 21
+Course 16
 Student 39
-4
-Course 28
-Course 2
-Course 18
-Course 34
+2
+Course 21
+Course 19
 Student 40
-7
-Course 39
-Course 32
-Course 38
-Course 31
-Course 28
-Course 13
-Course 15
-Student 41
-7
-Course 4
-Course 13
-Course 25
-Course 22
-Course 18
-Course 8
-Course 38
-Student 42
 5
-Course 37
+Course 6
 Course 8
-Course 4
+Course 23
+Course 2
 Course 11
-Course 22
+Student 41
+2
+Course 14
+Course 11
+Student 42
+4
+Course 17
+Course 8
+Course 23
+Course 15
 Student 43
-5
+3
+Course 16
 Course 18
-Course 28
-Course 1
-Course 25
-Course 14
+Course 8
 Student 44
-6
-Course 38
-Course 14
-Course 24
-Course 13
-Course 31
-Course 39
+2
+Course 16
+Course 22
 Student 45
 4
-Course 23
-Course 26
+Course 24
+Course 22
+Course 11
 Course 16
-Course 6
 Student 46
-1
-Course 3
+6
+Course 18
+Course 21
+Course 23
+Course 2
+Course 10
+Course 14
 Student 47
-6
-Course 18
+3
 Course 25
-Course 10
-Course 35
-Course 29
-Course 28
+Course 4
+Course 23
 Student 48
-7
-Course 28
-Course 25
-Course 36
-Course 8
+6
+Course 10
+Course 6
+Course 21
+Course 24
 Course 17
-Course 18
-Course 14
+Course 16
 Student 49
-3
-Course 40
-Course 2
-Course 36
+1
+Course 24
 Student 50
-4
-Course 2
-Course 6
-Course 40
-Course 25
-Student 51
-2
-Course 12
-Course 28
-Student 52
-3
+6
+Course 18
 Course 7
-Course 36
-Course 22
-Student 53
-4
-Course 20
-Course 18
-Course 9
-Course 10
-Student 54
-7
-Course 17
+Course 6
+Course 1
 Course 25
-Course 9
-Course 15
-Course 39
-Course 12
-Course 6
-Student 55
-3
-Course 18
-Course 15
-Course 11
-Student 56
-7
-Course 33
-Course 40
-Course 35
-Course 19
-Course 23
-Course 17
-Course 8
-Student 57
-6
-Course 8
-Course 26
-Course 29
-Course 30
-Course 39
-Course 6
-Student 58
-6
-Course 38
-Course 37
-Course 16
-Course 36
 Course 21
-Course 31
-Student 59
-5
-Course 14
-Course 2
-Course 3
-Course 25
-Course 34
-Student 60
-5
-Course 29
-Course 18
-Course 12
-Course 15
-Course 9
-Student 61
-1
-Course 14
-Student 62
-5
-Course 7
-Course 4
-Course 25
-Course 2
-Course 10
-Student 63
-5
-Course 12
-Course 34
-Course 33
-Course 18
-Course 35
-Student 64
-3
-Course 14
-Course 3
-Course 39
-Student 65
-6
-Course 22
-Course 3
-Course 14
-Course 12
-Course 19
-Course 10
-Student 66
-6
-Course 27
-Course 7
-Course 38
-Course 4
-Course 29
-Course 25
-Student 67
-5
-Course 18
-Course 37
-Course 5
-Course 2
-Course 23
-Student 68
-7
-Course 4
-Course 28
-Course 27
-Course 32
-Course 34
-Course 5
-Course 9
-Student 69
-2
-Course 10
-Course 11
-Student 70
-6
-Course 20
-Course 16
-Course 13
-Course 10
-Course 1
-Course 40
-Student 71
-7
-Course 11
-Course 40
-Course 28
-Course 19
-Course 24
-Course 35
-Course 14
-Student 72
-1
-Course 5
-Student 73
-6
-Course 19
-Course 1
-Course 39
-Course 34
-Course 9
-Course 24
-Student 74
-6
-Course 6
-Course 40
-Course 35
-Course 34
-Course 3
-Course 16
-Student 75
-5
-Course 39
-Course 36
-Course 4
-Course 9
-Course 7
-Student 76
-3
-Course 16
-Course 20
-Course 3
-Student 77
-3
-Course 27
-Course 22
-Course 25
-Student 78
-1
-Course 14
-Student 79
-5
-Course 1
-Course 37
-Course 12
-Course 33
-Course 26
-Student 80
-2
-Course 31
-Course 5
-Student 81
-7
-Course 24
-Course 11
-Course 30
-Course 34
-Course 1
-Course 8
-Course 23
-Student 82
-7
-Course 36
-Course 17
-Course 19
-Course 16
-Course 28
-Course 14
-Course 39
-Student 83
-6
-Course 40
-Course 11
-Course 15
-Course 17
-Course 1
-Course 33
-Student 84
-6
-Course 22
-Course 3
-Course 9
-Course 2
-Course 38
-Course 6
-Student 85
-6
-Course 20
-Course 16
-Course 6
-Course 33
-Course 39
-Course 5
-Student 86
-7
-Course 10
-Course 24
-Course 9
-Course 25
-Course 2
-Course 15
-Course 8
-Student 87
-5
-Course 31
-Course 9
-Course 10
-Course 11
-Course 5
-Student 88
-1
-Course 35
-Student 89
-2
-Course 34
-Course 24
-Student 90
-4
-Course 17
-Course 22
-Course 7
-Course 28
-Student 91
-2
-Course 4
-Course 7
-Student 92
-6
-Course 36
-Course 6
-Course 20
-Course 33
-Course 1
-Course 28
-Student 93
-5
-Course 6
-Course 38
-Course 16
-Course 37
-Course 26
-Student 94
-6
-Course 7
-Course 11
-Course 37
-Course 32
-Course 24
-Course 20
-Student 95
-6
-Course 35
-Course 32
-Course 39
-Course 23
-Course 27
-Course 5
-Student 96
-4
-Course 1
-Course 31
-Course 39
-Course 27
-Student 97
-6
-Course 16
-Course 15
-Course 9
-Course 17
-Course 3
-Course 7
-Student 98
-3
-Course 25
-Course 4
-Course 22
-Student 99
-5
-Course 7
-Course 18
-Course 20
-Course 10
-Course 3
-Student 100
-1
-Course 18
-Student 101
-3
-Course 38
-Course 32
-Course 1
-Student 102
-7
-Course 21
-Course 38
-Course 39
-Course 1
-Course 18
-Course 32
-Course 23
-Student 103
-1
-Course 9
-Student 104
-1
-Course 15
-Student 105
-2
-Course 38
-Course 40
-Student 106
-7
-Course 10
-Course 39
-Course 5
-Course 25
-Course 18
-Course 33
-Course 6
-Student 107
-7
-Course 3
-Course 14
-Course 23
-Course 2
-Course 38
-Course 13
-Course 35
-Student 108
-7
-Course 33
-Course 26
-Course 8
-Course 14
-Course 17
-Course 25
-Course 39
-Student 109
-7
-Course 3
-Course 9
-Course 4
-Course 23
-Course 26
-Course 10
-Course 11
-Student 110
-6
-Course 34
-Course 27
-Course 1
-Course 24
-Course 38
-Course 4
-Student 111
-3
-Course 7
-Course 19
-Course 37
-Student 112
-7
-Course 14
-Course 9
-Course 24
-Course 22
-Course 33
-Course 40
-Course 34
-Student 113
-6
-Course 16
-Course 26
-Course 35
-Course 7
-Course 33
-Course 27
-Student 114
-4
-Course 30
-Course 15
-Course 26
-Course 19
-Student 115
-6
-Course 20
-Course 30
-Course 32
-Course 1
-Course 3
-Course 29
-Student 116
-7
-Course 31
-Course 18
-Course 35
-Course 30
-Course 4
-Course 26
-Course 27
-Student 117
-5
-Course 14
-Course 19
-Course 40
-Course 5
-Course 17
-Student 118
-6
-Course 22
-Course 17
-Course 8
-Course 11
-Course 31
-Course 23
-Student 119
-1
-Course 8
-Student 120
-7
-Course 33
-Course 8
-Course 26
-Course 12
-Course 6
-Course 1
-Course 31
-Student 121
-7
-Course 20
-Course 23
-Course 29
-Course 14
-Course 12
-Course 24
-Course 30
-Student 122
-3
-Course 10
-Course 8
-Course 37
-Student 123
-5
-Course 21
-Course 13
-Course 3
-Course 36
-Course 16
-Student 124
-3
-Course 24
-Course 19
-Course 13
-Student 125
-2
-Course 27
-Course 10
-Student 126
-4
-Course 15
-Course 31
-Course 26
-Course 32
-Student 127
-3
-Course 12
-Course 8
-Course 35
-Student 128
-5
-Course 17
-Course 2
-Course 13
-Course 16
-Course 20
-Student 129
-5
-Course 11
-Course 29
-Course 22
-Course 21
-Course 38
-Student 130
-3
-Course 10
-Course 25
-Course 8
-Student 131
-1
-Course 16
-Student 132
-7
-Course 35
-Course 6
-Course 9
-Course 7
-Course 8
-Course 14
-Course 33
-Student 133
-4
-Course 14
-Course 26
-Course 4
-Course 15
-Student 134
-5
-Course 27
-Course 35
-Course 3
-Course 15
-Course 12
-Student 135
-5
-Course 21
-Course 38
-Course 23
-Course 18
-Course 22
-Student 136
-1
-Course 3
-Student 137
-6
-Course 9
-Course 11
-Course 5
-Course 3
-Course 15
-Course 1
-Student 138
-5
-Course 24
-Course 5
-Course 7
-Course 29
-Course 25
-Student 139
-7
-Course 39
-Course 34
-Course 14
-Course 31
-Course 4
-Course 28
-Course 35
-Student 140
-2
-Course 40
-Course 23
-Student 141
-6
-Course 5
-Course 17
-Course 21
-Course 16
-Course 2
-Course 13
-Student 142
-6
-Course 14
-Course 18
-Course 38
-Course 34
-Course 32
-Course 31
-Student 143
-4
-Course 30
-Course 1
-Course 39
-Course 4
-Student 144
-6
-Course 6
-Course 21
-Course 39
-Course 15
-Course 23
-Course 10
-Student 145
-4
-Course 37
-Course 36
-Course 4
-Course 21
-Student 146
-4
-Course 39
-Course 1
-Course 5
-Course 37
-Student 147
-6
-Course 7
-Course 11
-Course 26
-Course 32
-Course 14
-Course 37
-Student 148
-4
-Course 2
-Course 25
-Course 22
-Course 40
-Student 149
-2
-Course 6
-Course 30
-Student 150
-6
-Course 7
-Course 22
-Course 1
-Course 3
-Course 21
-Course 10
-Student 151
-7
-Course 32
-Course 34
-Course 36
-Course 21
-Course 12
-Course 7
-Course 38
-Student 152
-1
-Course 28
-Student 153
-7
-Course 40
-Course 12
-Course 36
-Course 6
-Course 23
-Course 22
-Course 7
-Student 154
-7
-Course 29
-Course 27
-Course 17
-Course 3
-Course 34
-Course 5
-Course 30
-Student 155
-3
-Course 23
-Course 30
-Course 2
-Student 156
-7
-Course 34
-Course 12
-Course 33
-Course 4
-Course 5
-Course 6
-Course 38
-Student 157
-7
-Course 30
-Course 10
-Course 2
-Course 23
-Course 22
-Course 17
-Course 28
-Student 158
-4
-Course 13
-Course 38
-Course 17
-Course 18
-Student 159
-4
-Course 20
-Course 11
-Course 22
-Course 15
-Student 160
-7
-Course 37
-Course 39
-Course 26
-Course 5
-Course 13
-Course 17
-Course 36
-Student 161
-7
-Course 38
-Course 16
-Course 23
-Course 1
-Course 18
-Course 12
-Course 33
-Student 162
-5
-Course 37
-Course 11
-Course 28
-Course 20
-Course 14
-Student 163
-6
-Course 2
-Course 20
-Course 32
-Course 19
-Course 9
-Course 34
-Student 164
-4
-Course 19
-Course 38
-Course 9
-Course 26
-Student 165
-6
-Course 23
-Course 39
-Course 14
-Course 17
-Course 2
-Course 16
-Student 166
-5
-Course 37
-Course 29
-Course 23
-Course 1
-Course 16
-Student 167
-3
-Course 3
-Course 17
-Course 14
-Student 168
-6
-Course 27
-Course 29
-Course 24
-Course 35
-Course 23
-Course 5
-Student 169
-4
-Course 17
-Course 3
-Course 28
-Course 19
-Student 170
-5
-Course 27
-Course 17
-Course 7
-Course 20
-Course 28
-Student 171
-7
-Course 5
-Course 38
-Course 28
-Course 10
-Course 39
-Course 30
-Course 31
-Student 172
-6
-Course 40
-Course 20
-Course 32
-Course 1
-Course 26
-Course 10
-Student 173
-7
-Course 6
-Course 11
-Course 24
-Course 32
-Course 22
-Course 15
-Course 21
-Student 174
-7
-Course 19
-Course 10
-Course 40
-Course 37
-Course 6
-Course 8
-Course 17
-Student 175
-4
-Course 33
-Course 4
-Course 21
-Course 16
-Student 176
-7
-Course 30
-Course 3
-Course 17
-Course 37
-Course 16
-Course 13
-Course 5
-Student 177
-2
-Course 1
-Course 9
-Student 178
-1
-Course 25
-Student 179
-1
-Course 10
-Student 180
-6
-Course 38
-Course 28
-Course 34
-Course 6
-Course 2
-Course 8
-Student 181
-7
-Course 19
-Course 5
-Course 23
-Course 32
-Course 3
-Course 29
-Course 26
-Student 182
-6
-Course 12
-Course 3
-Course 7
-Course 8
-Course 19
-Course 37
-Student 183
-4
-Course 40
-Course 12
-Course 14
-Course 26
-Student 184
-7
-Course 32
-Course 39
-Course 27
-Course 37
-Course 9
-Course 3
-Course 26
-Student 185
-7
-Course 16
-Course 10
-Course 9
-Course 37
-Course 5
-Course 11
-Course 34
-Student 186
-4
-Course 28
-Course 38
-Course 32
-Course 24
-Student 187
-5
-Course 29
-Course 27
-Course 33
-Course 23
-Course 34
-Student 188
-1
-Course 4
-Student 189
-2
-Course 23
-Course 28
-Student 190
-4
-Course 38
-Course 23
-Course 22
-Course 34
-Student 191
-6
-Course 23
-Course 19
-Course 27
-Course 22
-Course 28
-Course 25
-Student 192
-1
-Course 17
-Student 193
-7
-Course 12
-Course 17
-Course 35
-Course 33
-Course 16
-Course 31
-Course 19
-Student 194
-5
-Course 23
-Course 20
-Course 18
-Course 22
-Course 4
-Student 195
-6
-Course 7
-Course 4
-Course 26
-Course 31
-Course 20
-Course 12
-Student 196
-5
-Course 40
-Course 34
-Course 4
-Course 39
-Course 17
-Student 197
-3
-Course 27
-Course 28
-Course 31
-Student 198
-2
-Course 16
-Course 4
-Student 199
-4
-Course 11
-Course 2
-Course 6
-Course 7
-Student 200
-7
-Course 25
-Course 14
-Course 26
-Course 3
-Course 1
-Course 18
-Course 7
-Student 201
-5
-Course 29
-Course 5
-Course 14
-Course 31
-Course 13
-Student 202
-2
-Course 1
-Course 5
-Student 203
-2
-Course 2
-Course 27
-Student 204
-4
-Course 34
-Course 36
-Course 6
-Course 30
-Student 205
-7
-Course 22
-Course 27
-Course 28
-Course 29
-Course 2
-Course 13
-Course 10
-Student 206
-4
-Course 39
-Course 7
-Course 37
-Course 18
-Student 207
-6
-Course 25
-Course 13
-Course 18
-Course 20
-Course 15
-Course 29
-Student 208
-6
-Course 21
-Course 20
-Course 38
-Course 14
-Course 33
-Course 4
-Student 209
-4
-Course 7
-Course 13
-Course 35
-Course 38
-Student 210
-3
-Course 20
-Course 15
-Course 10
-Student 211
-5
-Course 32
-Course 23
-Course 38
-Course 28
-Course 4
-Student 212
-6
-Course 27
-Course 37
-Course 29
-Course 38
-Course 8
-Course 1
-Student 213
-7
-Course 9
-Course 16
-Course 12
-Course 36
-Course 7
-Course 14
-Course 19
-Student 214
-6
-Course 35
-Course 29
-Course 26
-Course 3
-Course 12
-Course 9
-Student 215
-5
-Course 9
-Course 1
-Course 39
-Course 10
-Course 31
-Student 216
-6
-Course 12
-Course 23
-Course 34
-Course 2
-Course 25
-Course 36
-Student 217
-5
-Course 37
-Course 21
-Course 7
-Course 24
-Course 18
-Student 218
-2
-Course 40
-Course 6
-Student 219
-6
-Course 12
-Course 11
-Course 25
-Course 9
-Course 16
-Course 27
-Student 220
-1
-Course 12
-Student 221
-5
-Course 39
-Course 7
-Course 30
-Course 35
-Course 12
-Student 222
-7
-Course 29
-Course 3
-Course 14
-Course 34
-Course 7
-Course 32
-Course 12
-Student 223
-5
-Course 27
-Course 33
-Course 32
-Course 18
-Course 5
-Student 224
-1
-Course 14
-Student 225
-7
-Course 3
-Course 37
-Course 28
-Course 29
-Course 32
-Course 7
-Course 8
-Student 226
-5
-Course 30
-Course 17
-Course 4
-Course 32
-Course 25
-Student 227
-5
-Course 13
-Course 20
-Course 36
-Course 15
-Course 19
-Student 228
-3
-Course 5
-Course 2
-Course 15
-Student 229
-7
-Course 39
-Course 1
-Course 23
-Course 36
-Course 31
-Course 6
-Course 24
-Student 230
-3
-Course 29
-Course 11
-Course 14
-Student 231
-7
-Course 15
-Course 38
-Course 2
-Course 4
-Course 19
-Course 17
-Course 21
-Student 232
-2
-Course 27
-Course 23
-Student 233
-6
-Course 37
-Course 26
-Course 38
-Course 6
-Course 3
-Course 2
-Student 234
-4
-Course 2
-Course 28
-Course 19
-Course 40
-Student 235
-3
-Course 5
-Course 21
-Course 13
-Student 236
-6
-Course 15
-Course 16
-Course 4
-Course 28
-Course 2
-Course 20
-Student 237
-4
-Course 3
-Course 31
-Course 5
-Course 11
-Student 238
-4
-Course 30
-Course 22
-Course 24
-Course 28
-Student 239
-7
-Course 31
-Course 23
-Course 25
-Course 26
-Course 34
-Course 15
-Course 2
-Student 240
-6
-Course 24
-Course 4
-Course 16
-Course 7
-Course 2
-Course 32
-Student 241
-2
-Course 1
-Course 13
-Student 242
-7
-Course 3
-Course 12
-Course 4
-Course 14
-Course 2
-Course 37
-Course 40
-Student 243
-3
-Course 4
-Course 5
-Course 36
-Student 244
-3
-Course 12
-Course 30
-Course 20
-Student 245
-5
-Course 15
-Course 30
-Course 1
-Course 32
-Course 6
-Student 246
-4
-Course 9
-Course 16
-Course 7
-Course 14
-Student 247
-7
-Course 21
-Course 26
-Course 13
-Course 27
-Course 10
-Course 14
-Course 40
-Student 248
-4
-Course 5
-Course 35
-Course 17
-Course 4
-Student 249
-4
-Course 3
-Course 9
-Course 35
-Course 11
-Student 250
-1
-Course 21
-Student 251
-7
-Course 19
-Course 31
-Course 34
-Course 28
-Course 18
-Course 5
-Course 2
-Student 252
-4
-Course 27
-Course 22
-Course 31
-Course 17
-Student 253
-2
-Course 5
-Course 4
-Student 254
-3
-Course 1
-Course 30
-Course 29
-Student 255
-6
-Course 21
-Course 30
-Course 8
-Course 39
-Course 16
-Course 10
-Student 256
-3
-Course 25
-Course 22
-Course 30
-Student 257
-3
-Course 7
-Course 10
-Course 37
-Student 258
-6
-Course 26
-Course 30
-Course 6
-Course 15
-Course 12
-Course 24
-Student 259
-4
-Course 11
-Course 12
-Course 36
-Course 37
-Student 260
-5
-Course 34
-Course 23
-Course 11
-Course 8
-Course 20
-Student 261
-5
-Course 14
-Course 8
-Course 4
-Course 21
-Course 16
-Student 262
-5
-Course 35
-Course 40
-Course 19
-Course 39
-Course 9
-Student 263
-4
-Course 1
-Course 7
-Course 24
-Course 34
-Student 264
-5
-Course 35
-Course 36
-Course 25
-Course 1
-Course 20
-Student 265
-7
-Course 15
-Course 4
-Course 34
-Course 16
-Course 20
-Course 8
-Course 11
-Student 266
-5
-Course 36
-Course 27
-Course 8
-Course 7
-Course 35
-Student 267
-4
-Course 33
-Course 3
-Course 26
-Course 36
-Student 268
-4
-Course 26
-Course 2
-Course 18
-Course 21
-Student 269
-1
-Course 24
-Student 270
-6
-Course 16
-Course 34
-Course 25
-Course 24
-Course 13
-Course 8
-Student 271
-2
-Course 9
-Course 28
-Student 272
-7
-Course 4
-Course 7
-Course 9
-Course 30
-Course 33
-Course 32
-Course 23
-Student 273
-2
-Course 9
-Course 39
-Student 274
-3
-Course 35
-Course 13
-Course 30
-Student 275
-3
-Course 19
-Course 22
-Course 13
-Student 276
-6
-Course 27
-Course 17
-Course 36
-Course 34
-Course 5
-Course 12
-Student 277
-7
-Course 10
-Course 20
-Course 38
-Course 37
-Course 28
-Course 1
-Course 17
-Student 278
-7
-Course 7
-Course 5
-Course 27
-Course 25
-Course 32
-Course 1
-Course 34
-Student 279
-4
-Course 25
-Course 12
-Course 24
-Course 15
-Student 280
-2
-Course 19
-Course 24
-Student 281
-7
-Course 35
-Course 28
-Course 32
-Course 36
-Course 29
-Course 34
-Course 40
-Student 282
-2
-Course 17
-Course 10
-Student 283
-7
-Course 10
-Course 11
-Course 15
-Course 5
-Course 17
-Course 20
-Course 23
-Student 284
-7
-Course 30
-Course 1
-Course 20
-Course 7
-Course 27
-Course 9
-Course 8
-Student 285
-4
-Course 9
-Course 1
-Course 26
-Course 40
-Student 286
-6
-Course 15
-Course 11
-Course 21
-Course 26
-Course 20
-Course 7
-Student 287
-1
-Course 26
-Student 288
-6
-Course 8
-Course 39
-Course 19
-Course 4
-Course 24
-Course 23
-Student 289
-2
-Course 1
-Course 10
-Student 290
-6
-Course 7
-Course 37
-Course 12
-Course 5
-Course 10
-Course 16
-Student 291
-6
-Course 40
-Course 27
-Course 4
-Course 34
-Course 14
-Course 18
-Student 292
-6
-Course 6
-Course 3
-Course 31
-Course 9
-Course 1
-Course 25
-Student 293
-7
-Course 7
-Course 5
-Course 24
-Course 13
-Course 31
-Course 11
-Course 2
-Student 294
-5
-Course 23
-Course 9
-Course 33
-Course 16
-Course 14
-Student 295
-7
-Course 27
-Course 35
-Course 31
-Course 7
-Course 10
-Course 5
-Course 18
-Student 296
-6
-Course 13
-Course 24
-Course 16
-Course 40
-Course 4
-Course 3
-Student 297
-7
-Course 12
-Course 31
-Course 9
-Course 17
-Course 3
-Course 39
-Course 2
-Student 298
-7
-Course 15
-Course 5
-Course 30
-Course 34
-Course 9
-Course 10
-Course 32
-Student 299
-6
-Course 17
-Course 22
-Course 8
-Course 28
-Course 18
-Course 25
-Student 300
-7
-Course 38
-Course 32
-Course 4
-Course 9
-Course 29
-Course 35
-Course 31
