@@ -161,7 +161,7 @@ public class GAPopulation implements Population {
             Schedule individual = getRandomWeightedIndividual();
             // Mutate it by a random amount, weighted a little bit down, so we
             // always mutate less than half. This is sane.
-            double mutAmt = rand.nextDouble() / 2;
+            double mutAmt = rand.nextDouble() / 20;
             newList.add((Schedule) individual.mutate(mutAmt));
         }
     }

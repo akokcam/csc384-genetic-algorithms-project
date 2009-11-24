@@ -11,7 +11,7 @@ public class Main {
     // Sadly, we need backslashes for windows machines
     public static final String TESTINSTANCE = "Instance Input Files\\tickle.txt";
     public static final String SMALLINSTANCEFILE = "Instance Input Files\\smallish instance.txt";
-    public static final String BIGINSTANCEFILE = "Instance Input Files\\biggerinstance.txt";
+    public static final String MEDIUMINSTANCEFILE = "Instance Input Files\\biggerinstance.txt";
     public static final String HUGEINSTANCE = "Instance Input Files\\super_huge_instance.txt";
     /**
      * These store the data points for the search methods
@@ -33,7 +33,11 @@ public class Main {
      */
     public static void main(String[] args) {
 //        davesTestingMain();
-        getGASizeStats();
+
+//        getGAParameterStats(51, 150, 1);
+//        getGASizeStats();
+
+        getAllStats(60, 152, 1, 5, 54, 0, HUGEINSTANCE);
 
 //        int maxpop = 40;
 //        int maxgen = 100;
@@ -48,17 +52,17 @@ public class Main {
      * This should dump some stats to a file so we can evaluate the quality of
      * various GA parameter settings.
      */
-    private static void getGAParameterStats() {
+    private static void getGAParameterStats(int popSize, int numGens, int numTrials) {
         GAParams params = new GAParams(TESTINSTANCE);
-        int numTrials = 5;
-        int maxpop = 61;
         int diff = 1;
-        int maxgen = 150;
         double copies = 1;
-        params.setPopulationSize(maxpop);
-        params.setMaxGenerations(maxgen);
+        params.setPopulationSize(popSize);
+        params.setMaxGenerations(numGens);
         params.setCopies(copies);
-        final String outFileName = "Data Files\\GA_Parameters_Data_with_population_" + maxpop + "_and_" + maxgen + "_generations.txt";
+        final String outFileName = "Data Files\\Parameters Data with population " +
+                popSize + " and " + numGens + " generations.txt";
+
+        System.out.println(outFileName);
 
         try {
             FileWriter fstream = new FileWriter(outFileName);
@@ -66,21 +70,21 @@ public class Main {
             out.write("GA Parameters in 3 Dimensions, testing the quality of different settings of the crossover and mutation proportions.\n");
             // Number of dimensions in data
             out.write("3\n");
-            out.write("Proportion of Crossovers\n");
+            out.write("Proportion of Randoms\n");
             out.write("Proportion of Mutations\n");
             out.write("Attained Fitness\n");
             // Number of series
             out.write("1\n");
             out.write("GA with parameters" + "\n");
-            for (double crossovers = 0; crossovers < maxpop; crossovers += diff) {
-                for (double mutations = 0; mutations + crossovers < maxpop; mutations += diff) {
-                    double randoms = maxpop - mutations - crossovers - copies;
+            for (double rands = 0; rands < popSize; rands += diff) {
+                for (double mutations = 0; mutations + rands < popSize; mutations += diff) {
+                    double crossovers = popSize - mutations - rands - copies;
                     double fitness = 0;
 
                     // Set Generation proportions
                     params.setMutations(mutations);
                     params.setCrossovers(crossovers);
-                    params.setRandoms(randoms);
+                    params.setRandoms(rands);
 
                     for (int i = 0; i < numTrials; i++) {
                         // Perform the test
@@ -89,7 +93,7 @@ public class Main {
                         fitness += best.fitness();
                     }
 
-                    String line = (int) crossovers + ", " + (int) mutations + ", " + fitness / numTrials;
+                    String line = (int) rands + ", " + (int) mutations + ", " + fitness / numTrials;
 
                     out.write(line);
                     out.write("\n");
@@ -109,18 +113,23 @@ public class Main {
      * various GA Size parameter settings.
      */
     private static void getGASizeStats() {
+        String inputFile = MEDIUMINSTANCEFILE;
         int numTrials = 5;
+        int evalsCutoff = 11000;
 
         int poplow = 5;
-        int pophigh = 100;
-        int popdiff = 5;
+        int pophigh = 150;
+        int popdiff = 2;
 
         int genlow = 5;
-        int genhigh = 300;
+        int genhigh = 250;
         int gendiff = 5;
 
-        final String outFileName = "Data Files\\GA_Size_Data_with_ideal_proportions_pop_goes_from_" +
-                poplow + "-" + pophigh + "_and_gen_goes_from_" + genlow + "-" + genhigh + "_with_" + numTrials + "_trials.txt";
+        final String outFileName = "Data Files\\GA Size Data - Pop from " +
+                poplow + "-" + pophigh + " Gen from " + genlow + "-" +
+                genhigh + " with " + numTrials + " Trials.txt";
+
+        System.out.println(outFileName);
 
         try {
             FileWriter fstream = new FileWriter(outFileName);
@@ -138,10 +147,10 @@ public class Main {
 
             for (int population = poplow; population <= pophigh; population += popdiff) {
                 for (int numgens = genlow; numgens <= genhigh; numgens += gendiff) {
-                    GAParams params = new GAParams(TESTINSTANCE);
-                    double crossovers = 0.93 * population;
+                    GAParams params = new GAParams(inputFile);
+                    double crossovers = 0.91 * population;
                     double randoms = 0.0;
-                    double mutations = 0.06 * population;
+                    double mutations = 0.09 * population;
                     double copies = 1;
                     // Set Generation proportions
                     params.setMutations(mutations);
@@ -150,6 +159,10 @@ public class Main {
                     params.setCopies(copies);
                     params.setPopulationSize(population);
                     params.setMaxGenerations(numgens);
+
+                    if (params.numEvalsPerGeneration() * numgens > evalsCutoff) {
+                        continue;
+                    }
 
                     double fitness = 0;
                     for (int i = 0; i < numTrials; i++) {
@@ -167,7 +180,6 @@ public class Main {
                 }
             }
 
-
             out.write("END-SERIES\n");
             out.close();
         } catch (IOException ex) {
@@ -175,18 +187,34 @@ public class Main {
         }
     }
 
-    public static void getAllStats(int maxpop, int maxgen, double copies, double mutations, double crossovers, double randoms, String instanceFile) {
-        GAParams params = new GAParams(instanceFile, maxpop, maxgen, copies, mutations, crossovers, randoms, true);
-        int samplePeriod = params.numEvalsPerGeneration();
+    public static void getAllStats(int popsize, int numgens, double numCopies,
+            double numMutations, double numCrossovers, double numRandoms, String instanceFile) {
+
+        GAParams params = new GAParams(instanceFile, popsize, numgens, numCopies, numMutations, numCrossovers, numRandoms, true);
+
+        // We don't mind having more points for the non-GA methods
+        int samplePeriod = params.numEvalsPerGeneration() / 5;
 
         // Run the 4 different searches, using the number of evaluations made by
         // the GA search as the max number of evaluations the other algos are allowed to use
+        System.out.println("We expect " + (params.numEvalsPerGeneration() * params.getMaxGenerations()) + " evaluations to be performed.");
         int maxEvals = getGAStats(params);
+        System.out.println("GA Done! (" + maxEvals + " evals performed)");
         getRandomSearchStats(maxEvals, samplePeriod);
+        System.out.println("Random Done!");
         getHillClimbingStats(maxEvals, samplePeriod);
+        System.out.println("HillClimbing Done!");
         getMutateSearchStats(maxEvals, samplePeriod);
+        System.out.println("MutateSearch Done!");
 
-        printStats("Data Files\\FullStats_" + maxEvals + ".txt", maxEvals);
+        // We generate uniform filenames so that it's easy to know what data is in a file
+        String outfile = "Data Files\\FullStats" + " with " + maxEvals + " evals " +
+                params.getPopSize() + " pop " + params.getMaxGenerations() + " gens " +
+                params.getNumCopies() + " copies " + params.getNumMutations() + " mutations " +
+                params.getNumCrossovers() + " crossovers " + params.getNumRandoms() + " randoms" + ".txt";
+
+        printStats(outfile, maxEvals);
+
     }
 
     private static int getGAStats(GAParams params) {
@@ -321,7 +349,7 @@ public class Main {
         mutateSearchString += evals + ", " + bestfit + "\n";
         while (evals < maxEvals) {
             // Gradually shrink the degree of difference from the last one
-            Schedule tester = (Schedule) best.mutate(0.001 + Math.pow(1.0 - (double) evals / maxEvals, 2));
+            Schedule tester = (Schedule) best.mutate(0.01);
             double tfit = tester.fitness();
             evals++;
             if (tfit > bestfit) {

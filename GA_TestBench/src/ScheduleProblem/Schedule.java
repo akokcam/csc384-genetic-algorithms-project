@@ -362,12 +362,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             throw new RuntimeException("Must cross with a Schedule");
         }
         final Schedule otherSched = (Schedule) other;
-        /*
-        // Very cheesy crossover technique
-        return new Schedule(times, otherSched.timingRooms);
-         */
 
-        /* Alternative, poorer technique */
         Schedule ret = null;
 
 
@@ -377,6 +372,15 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
             throw new RuntimeException("Not cloneable. Odd.");
         }
 
+        /*
+        // Pick a point and use this for all before that point, other for the rest
+        int crosspoint = rand.nextInt(numCourses);
+        for (int i = crosspoint; i < numCourses;i++){
+        ret.timingRooms[i] = otherSched.timingRooms[i];
+        ret.times[i] = otherSched.times[i];
+        }
+         */
+
         // Very cheesy crossover technique
         for (int i = 0; i < numCourses; i++) {
             boolean useOther = rand.nextDouble() > 0.5f;
@@ -385,6 +389,9 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                 ret.times[i] = otherSched.times[i];
             }
         }
+
+
+
         return ret;
 
 
@@ -443,7 +450,8 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     public String studentSchedulesString() {
         String ret = "";
         for (Student s : students) {
-            ret += s.getName() + "'s schedule (which (s)he rates at " + s.evaluate(this) + "):\n";
+            ret += s.getName() + "'s schedule (which (s)he rates at " +
+                    s.evaluate(this) + "):\n";
             ret += s.getTimeTable(this);
             ret += "\n";
         }
@@ -473,7 +481,8 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
     public String toString() {
         String ret = "Schedule information:\n";
         for (int i = 0; i < numCourses; i++) {
-            ret += courses.get(i).getName() + " has exam in " + rooms.get(timingRooms[i]).getName() + " at " + times[i] + "\n";
+            ret += courses.get(i).getName() + " has exam in " + rooms.get(timingRooms[i]).getName() +
+                    " at " + times[i] + "\n";
         }
         return ret;
     }
