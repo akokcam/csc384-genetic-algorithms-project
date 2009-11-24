@@ -364,8 +364,6 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         final Schedule otherSched = (Schedule) other;
 
         Schedule ret = null;
-
-
         try {
             ret = this.clone();
         } catch (CloneNotSupportedException ex) {
@@ -389,12 +387,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                 ret.times[i] = otherSched.times[i];
             }
         }
-
-
-
         return ret;
-
-
     }
 
     /**
