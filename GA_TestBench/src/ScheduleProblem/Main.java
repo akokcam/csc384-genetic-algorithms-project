@@ -21,7 +21,6 @@ public class Main {
     private static String randomSearchString = "";
     private static String mutateSearchString = "";
     private static String GABestStats = "";
-    private static String GAMeanStats = "";
     private static String randomSearchStats = "";
     private static String hillClimbingStats = "";
     private static String mutateSearchStats = "";
@@ -37,15 +36,15 @@ public class Main {
 //        getGAParameterStats(51, 150, 1);
 //        getGASizeStats();
 
-        getAllStats(60, 152, 1, 5, 54, 0, HUGEINSTANCE);
+//        getAllStats(60, 152, 1, 5, 54, 0, HUGEINSTANCE);
 
-//        int maxpop = 40;
-//        int maxgen = 100;
-//        double copies = 2;
-//        double mutations = 20;
-//        double crossovers = 40;
-//        double randoms = 25;
-//        getAllStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE);
+        int maxpop = 40;
+        int maxgen = 100;
+        double copies = 2;
+        double mutations = 20;
+        double crossovers = 40;
+        double randoms = 25;
+        getAllStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE);
     }
 
     /**
@@ -223,7 +222,6 @@ public class Main {
         int evals = worker.numEvaluations();
 
         GABestStats = worker.getBestStatsString();
-        GAMeanStats = worker.getMeanStatsString();
         return evals;
     }
 
@@ -255,12 +253,13 @@ public class Main {
             out.write("5\n");
 
             out.write(GABestStats + "\n");
-            out.write(GAMeanStats + "\n");
             out.write(randomSearchStats + "\n");
             out.write(hillClimbingStats + "\n");
             out.write(mutateSearchStats + "\n");
 
             out.close();
+
+            System.out.println("Output written in " + outFileName);
         } catch (IOException ex) {
             System.err.println("Error opening file " + outFileName + " for write");
         }
