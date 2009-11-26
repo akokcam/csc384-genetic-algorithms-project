@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Main {
 
@@ -40,14 +41,14 @@ public class Main {
 //        getGASizeStats();
 
 //        getAllStats(50, 600, 1, 9, 110, 0, HUGEINSTANCE);
-
-        int maxpop = 70;
-        int maxgen = 400;
+        
+        int maxpop = 30;
+        int maxgen = 40;
         double copies = 1;
         double mutations = 6;
         double crossovers = 63;
         double randoms = 0;
-        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 10);
+        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 5);
     }
 
     /**
@@ -192,6 +193,8 @@ public class Main {
     public static void getAllAverageStats(int popsize, int numgens, double numCopies,
             double numMutations, double numCrossovers, double numRandoms, String instanceFile, int numIterations) {
 
+        Random rand = new Random();
+        int randomInstanceNumber = rand.nextInt();
         GAParams params = new GAParams(instanceFile, popsize, numgens, numCopies, numMutations, numCrossovers, numRandoms, true);
 
         // We don't mind having more points for the non-GA methods
@@ -214,21 +217,21 @@ public class Main {
             System.out.println("MutateSearch Done!");
 
             // Generate temporary files holding data of each iteration
-            String outfile = "Data Files\\tempAverageStatsOutput\\" + i + ".txt";
+            String outfile = "Data Files\\tempAverageStatsOutput\\" + randomInstanceNumber + "_" + i + ".txt";
             printStats(outfile, maxEvals);
         }
 
         // We generate uniform filenames so that it's easy to know what data is in a file
-        String outfile = "Data Files\\FullAverageStats over " + numIterations + " iterations with " + maxEvals + " evals " +
+        String outfile = "Data Files\\FullAverageStats(" + randomInstanceNumber + ") over " + numIterations + " iterations with " + maxEvals + " evals " +
                 params.getPopSize() + " pop " + params.getMaxGenerations() + " gens " +
                 params.getNumCopies() + " copies " + params.getNumMutations() + " mutations " +
                 params.getNumCrossovers() + " crossovers " + params.getNumRandoms() + " randoms" + ".txt";
 
-        createAverageStatsFile(outfile, numIterations, maxEvals, samplePeriod);
-        //cleanUpTempStats(numIterations);
+        createAverageStatsFile(outfile, numIterations, maxEvals, samplePeriod, randomInstanceNumber);
+        //cleanUpTempStats(numIterations, randomInstanceNumber);
     }
 
-    private static void createAverageStatsFile(String outFileName, int numIterations, int maxEvals, int samplePeriod) {
+    private static void createAverageStatsFile(String outFileName, int numIterations, int maxEvals, int samplePeriod, int instanceNumber) {
         String header = "";
         String GATitle = "";
         String RandomTitle = "";
@@ -244,7 +247,7 @@ public class Main {
         fitnessIntervals[0] = 1;
 
         for (int i = 1; i <= numIterations; i++) {
-            File infile = new File("Data Files\\tempAverageStatsOutput\\" + i + ".txt");
+            File infile = new File("Data Files\\tempAverageStatsOutput\\" + instanceNumber + "_" + i + ".txt");
             Scanner scanner = null;
             try {
                 scanner = new Scanner(infile);
@@ -358,9 +361,9 @@ public class Main {
         }
     }
 
-    private static void cleanUpTempStats(int numIterations) {
+    private static void cleanUpTempStats(int numIterations, int instanceNumber) {
         for (int i = 1; i <= numIterations; ++i) {
-            String fileName = "Data Files\\tempAverageStatsOutput\\" + i + ".txt";
+            String fileName = "Data Files\\tempAverageStatsOutput\\" + instanceNumber + "_" + i + ".txt";
             File f = new File(fileName);
             f.delete();
         }
