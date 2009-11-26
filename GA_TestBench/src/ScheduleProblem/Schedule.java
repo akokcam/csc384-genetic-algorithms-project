@@ -176,7 +176,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
      */
     public static Individual random() {
         verifyInitialized();
-
+        
         Timing[] times = new Timing[numCourses];
         int[] timingRooms = new int[numCourses];
         for (int i = 0; i < numCourses; i++) {
@@ -509,7 +509,10 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
      * @return
      */
     public static String getHillclimbSearchString() {
-        return hillclimbString + "END-SERIES";
+        String retString = hillclimbString + "END-SERIES";
+        hillclimbString = "";
+        hillEvals = 0;
+        return retString;
     }
 
     /**
@@ -531,7 +534,9 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
         }
         double fitness = fitness();
         hillEvals++;
-        addHillDataPoint(fitness);
+        if (hillEvals == 1)
+            addHillDataPoint(fitness);
+        
         try {
             for (int i = 0; i < numCourses; i++) {
                 for (int j = 0; j < numRooms; j++) {
@@ -549,7 +554,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                             addHillDataPoint(fitness);
                         }
                         if (hillEvals >= maxEvals) {
-                            addHillDataPoint(fitness);
+                            //addHillDataPoint(fitness);
                             return best;
                         }
                     }
@@ -568,7 +573,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                             addHillDataPoint(fitness);
                         }
                         if (hillEvals >= maxEvals) {
-                            addHillDataPoint(fitness);
+                            //addHillDataPoint(fitness);
                             return best;
                         }
                     }
@@ -587,7 +592,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
                             addHillDataPoint(fitness);
                         }
                         if (hillEvals >= maxEvals) {
-                            addHillDataPoint(fitness);
+                            //addHillDataPoint(fitness);
                             return best;
                         }
                     }
@@ -600,7 +605,7 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 //        System.out.println("Hillclimbing made " + evals + " fitness evaluations...");
 
         if (best == this) {
-            addHillDataPoint(fitness);
+            //addHillDataPoint(fitness);
             return best;
         } else {
             return best.hillClimb(maxEvals, samplePeriod);

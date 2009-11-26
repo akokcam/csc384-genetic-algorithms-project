@@ -3,8 +3,11 @@ package ScheduleProblem;
 import ga_testbench.GAParams;
 import ga_testbench.GASolver;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -38,13 +41,13 @@ public class Main {
 
 //        getAllStats(60, 152, 1, 5, 54, 0, HUGEINSTANCE);
 
-        int maxpop = 40;
-        int maxgen = 100;
-        double copies = 2;
-        double mutations = 20;
-        double crossovers = 40;
-        double randoms = 25;
-        getAllStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE);
+        int maxpop = 28;
+        int maxgen = 55;
+        double copies = 3;
+        double mutations = 4;
+        double crossovers = 100;
+        double randoms = 5;
+        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, MEDIUMINSTANCEFILE, 10);
     }
 
     /**
@@ -186,6 +189,179 @@ public class Main {
         }
     }
 
+    public static void getAllAverageStats(int popsize, int numgens, double numCopies,
+            double numMutations, double numCrossovers, double numRandoms, String instanceFile, int numIterations) {
+
+        GAParams params = new GAParams(instanceFile, popsize, numgens, numCopies, numMutations, numCrossovers, numRandoms, true);
+
+        // We don't mind having more points for the non-GA methods
+        int samplePeriod = params.numEvalsPerGeneration();
+        
+        System.out.println(samplePeriod);
+        int maxEvals = 0;
+        for (int i = 1; i <= numIterations; i++) {
+            System.out.println("--- Running iteration number " + i + " ---");
+            // Run the 4 different searches, using the number of evaluations made by
+            // the GA search as the max number of evaluations the other algos are allowed to use
+            System.out.println("We expect " + (params.numEvalsPerGeneration() * params.getMaxGenerations()) + " evaluations to be performed.");
+            maxEvals = getGAStats(params);
+            System.out.println("GA Done! (" + maxEvals + " evals performed)");
+            getRandomSearchStats(maxEvals, samplePeriod);
+            System.out.println("Random Done!");
+            getHillClimbingStats(maxEvals, samplePeriod);
+            System.out.println("HillClimbing Done!");
+            getMutateSearchStats(maxEvals, samplePeriod);
+            System.out.println("MutateSearch Done!");
+
+            // Generate temporary files holding data of each iteration
+            String outfile = "Data Files\\tempAverageStatsOutput\\" + i + ".txt";
+            printStats(outfile, maxEvals);
+        }
+
+        // We generate uniform filenames so that it's easy to know what data is in a file
+        String outfile = "Data Files\\FullAverageStats over " + numIterations + " iterations with " + maxEvals + " evals " +
+                params.getPopSize() + " pop " + params.getMaxGenerations() + " gens " +
+                params.getNumCopies() + " copies " + params.getNumMutations() + " mutations " +
+                params.getNumCrossovers() + " crossovers " + params.getNumRandoms() + " randoms" + ".txt";
+
+        createAverageStatsFile(outfile, numIterations, maxEvals, samplePeriod);
+        //cleanUpTempStats(numIterations);
+    }
+
+    private static void createAverageStatsFile(String outFileName, int numIterations, int maxEvals, int samplePeriod) {
+        String header = "";
+        String GATitle = "";
+        String RandomTitle = "";
+        String HillTitle = "";
+        String MutateTitle = "";
+
+        int[] fitnessIntervals = new int[maxEvals/samplePeriod+1];
+        double[] GAStatsSum = new double[maxEvals/samplePeriod+1];
+        double[] RandomStatsSum = new double[maxEvals/samplePeriod+1];
+        double[] HillStatsSum = new double[maxEvals/samplePeriod+1];
+        double[] MutateStatsSum = new double[maxEvals/samplePeriod+1];
+
+        fitnessIntervals[0] = 1;
+
+        for (int i = 1; i <= numIterations; i++) {
+            File infile = new File("Data Files\\tempAverageStatsOutput\\" + i + ".txt");
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(infile);
+            }
+            catch (FileNotFoundException ex) {
+                System.out.println(ex.getMessage());
+                System.exit(0); //UGLY, but just want to get it done, am supposing this is working anyway.
+            }
+
+            // Get header or skip it if we already have it.
+            for (int j = 0; j < 5; j++) {
+                if (i == 1) header = header + scanner.nextLine() + "\n";
+                else scanner.nextLine();
+            }
+
+            GATitle = scanner.nextLine() + "\n";
+            // Get GA data and the intervals if this is first pass through
+            for (int j = 1; j <= maxEvals/samplePeriod; j++) {
+                String temp = scanner.nextLine();
+                String[] vals = temp.split(", ");
+
+                if (i == 1) fitnessIntervals[j] = Integer.parseInt(vals[0]);
+                GAStatsSum[j] += Double.parseDouble(vals[1]);
+            }
+
+            scanner.nextLine(); // Skip "END-SERIES"
+
+
+            RandomTitle = scanner.nextLine() + "\n";
+            // Get Random data
+            for (int j = 0; j <= maxEvals/samplePeriod; j++) {
+                String temp = scanner.nextLine();
+                String[] vals = temp.split(", ");
+                RandomStatsSum[j] += Double.parseDouble(vals[1]);
+            }
+
+            scanner.nextLine(); // Skip "END-SERIES"
+
+            HillTitle = scanner.nextLine() + "\n";
+            // Get Hill Climbing data
+            for (int j = 0; j <= maxEvals/samplePeriod; j++) {
+                String temp = scanner.nextLine();
+                String[] vals = temp.split(", ");
+                HillStatsSum[j] += Double.parseDouble(vals[1]);
+            }
+
+            scanner.nextLine(); // Skip "END-SERIES"
+
+            MutateTitle = scanner.nextLine() + "\n";
+            // Get Mutate data
+            for (int j = 0; j <= maxEvals/samplePeriod; j++) {
+                String temp = scanner.nextLine();
+                String[] vals = temp.split(", ");
+                MutateStatsSum[j] += Double.parseDouble(vals[1]);
+            }
+
+            scanner.nextLine(); // Skip "END-SERIES"
+            scanner.close();
+        }
+
+        // Calcultate average
+        RandomStatsSum[0] = RandomStatsSum[0] / numIterations;
+        HillStatsSum[0] = HillStatsSum[0] / numIterations;
+        MutateStatsSum[0] = MutateStatsSum[0] / numIterations;
+        for (int i = 1; i <= maxEvals/samplePeriod; i++) {
+            GAStatsSum[i] = GAStatsSum[i] / numIterations;
+            RandomStatsSum[i] = RandomStatsSum[i] / numIterations;
+            HillStatsSum[i] = HillStatsSum[i] / numIterations;
+            MutateStatsSum[i] = MutateStatsSum[i] / numIterations;
+        }
+        
+        // Print this shit out
+        try {
+            FileWriter fstream = new FileWriter(outFileName);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(header);
+
+            out.write(GATitle);
+            for (int i = 1; i <= maxEvals/samplePeriod; i++) {
+                out.write(fitnessIntervals[i] + ", " + GAStatsSum[i] + "\n");
+            }
+            out.write("END-SERIES\n");
+
+            out.write(RandomTitle);
+            for (int i = 0; i <= maxEvals/samplePeriod; i++) {
+                out.write(fitnessIntervals[i] + ", " + RandomStatsSum[i] + "\n");
+            }
+            out.write("END-SERIES\n");
+
+            out.write(HillTitle);
+            for (int i = 0; i <= maxEvals/samplePeriod; i++) {
+                out.write(fitnessIntervals[i] + ", " + HillStatsSum[i] + "\n");
+            }
+            out.write("END-SERIES\n");
+            
+            out.write(MutateTitle);
+            for (int i = 0; i <= maxEvals/samplePeriod; i++) {
+                out.write(fitnessIntervals[i] + ", " + MutateStatsSum[i] + "\n");
+            }
+            out.write("END-SERIES\n");
+
+            out.close();
+
+            System.out.println("Output written in " + outFileName);
+        } catch (IOException ex) {
+            System.err.println("Error opening file " + outFileName + " for write");
+        }
+    }
+
+    private static void cleanUpTempStats(int numIterations) {
+        for (int i = 1; i <= numIterations; ++i) {
+            String fileName = "Data Files\\tempAverageStatsOutput\\" + i + ".txt";
+            File f = new File(fileName);
+            f.delete();
+        }
+    }
+
     public static void getAllStats(int popsize, int numgens, double numCopies,
             double numMutations, double numCrossovers, double numRandoms, String instanceFile) {
 
@@ -250,7 +426,7 @@ public class Main {
             out.write("Number of evaluations\n");
             out.write("Fitness\n");
             // Number of series
-            out.write("5\n");
+            out.write("4\n");
 
             out.write(GABestStats + "\n");
             out.write(randomSearchStats + "\n");
@@ -359,7 +535,7 @@ public class Main {
                 mutateSearchString += evals + ", " + bestfit + "\n";
             }
         }
-        mutateSearchString += evals + ", " + bestfit + "\n";
+        //mutateSearchString += evals + ", " + bestfit + "\n";
         return best;
     }
 
@@ -387,12 +563,12 @@ public class Main {
                 best = t;
                 fitness = f;
             }
-            if (i % samplePeriod == 0) {
+            if (i % samplePeriod == 0 || i == 1) {
                 randomSearchString += i + ", " + fitness + "\n";
             }
         }
 
-        randomSearchString += maxEvals + ", " + fitness + "\n";
+        //randomSearchString += maxEvals + ", " + fitness + "\n";
         return best;
     }
 
