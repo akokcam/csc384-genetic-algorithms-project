@@ -39,15 +39,15 @@ public class Main {
 //        getGAParameterStats(51, 150, 1);
 //        getGASizeStats();
 
-//        getAllStats(60, 152, 1, 5, 54, 0, HUGEINSTANCE);
+//        getAllStats(50, 600, 1, 9, 110, 0, HUGEINSTANCE);
 
-        int maxpop = 28;
-        int maxgen = 55;
-        double copies = 3;
-        double mutations = 4;
-        double crossovers = 100;
-        double randoms = 5;
-        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, MEDIUMINSTANCEFILE, 10);
+        int maxpop = 70;
+        int maxgen = 400;
+        double copies = 1;
+        double mutations = 6;
+        double crossovers = 63;
+        double randoms = 0;
+        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 10);
     }
 
     /**
@@ -196,14 +196,14 @@ public class Main {
 
         // We don't mind having more points for the non-GA methods
         int samplePeriod = params.numEvalsPerGeneration();
-        
-        System.out.println(samplePeriod);
+
+        System.out.println("The sample period is " + samplePeriod);
         int maxEvals = 0;
         for (int i = 1; i <= numIterations; i++) {
-            System.out.println("--- Running iteration number " + i + " ---");
+            System.out.println("\n--- Running iteration number " + i + " of " + numIterations + " ---");
             // Run the 4 different searches, using the number of evaluations made by
             // the GA search as the max number of evaluations the other algos are allowed to use
-            System.out.println("We expect " + (params.numEvalsPerGeneration() * params.getMaxGenerations()) + " evaluations to be performed.");
+            System.out.println("We expect " + (params.numEvalsPerGeneration() * params.getMaxGenerations() + params.getPopSize()) + " evaluations to be performed.");
             maxEvals = getGAStats(params);
             System.out.println("GA Done! (" + maxEvals + " evals performed)");
             getRandomSearchStats(maxEvals, samplePeriod);
@@ -235,11 +235,11 @@ public class Main {
         String HillTitle = "";
         String MutateTitle = "";
 
-        int[] fitnessIntervals = new int[maxEvals/samplePeriod+1];
-        double[] GAStatsSum = new double[maxEvals/samplePeriod+1];
-        double[] RandomStatsSum = new double[maxEvals/samplePeriod+1];
-        double[] HillStatsSum = new double[maxEvals/samplePeriod+1];
-        double[] MutateStatsSum = new double[maxEvals/samplePeriod+1];
+        int[] fitnessIntervals = new int[maxEvals / samplePeriod + 1];
+        double[] GAStatsSum = new double[maxEvals / samplePeriod + 1];
+        double[] RandomStatsSum = new double[maxEvals / samplePeriod + 1];
+        double[] HillStatsSum = new double[maxEvals / samplePeriod + 1];
+        double[] MutateStatsSum = new double[maxEvals / samplePeriod + 1];
 
         fitnessIntervals[0] = 1;
 
@@ -248,25 +248,29 @@ public class Main {
             Scanner scanner = null;
             try {
                 scanner = new Scanner(infile);
-            }
-            catch (FileNotFoundException ex) {
+            } catch (FileNotFoundException ex) {
                 System.out.println(ex.getMessage());
                 System.exit(0); //UGLY, but just want to get it done, am supposing this is working anyway.
             }
 
             // Get header or skip it if we already have it.
             for (int j = 0; j < 5; j++) {
-                if (i == 1) header = header + scanner.nextLine() + "\n";
-                else scanner.nextLine();
+                if (i == 1) {
+                    header = header + scanner.nextLine() + "\n";
+                } else {
+                    scanner.nextLine();
+                }
             }
 
             GATitle = scanner.nextLine() + "\n";
             // Get GA data and the intervals if this is first pass through
-            for (int j = 1; j <= maxEvals/samplePeriod; j++) {
+            for (int j = 1; j <= maxEvals / samplePeriod; j++) {
                 String temp = scanner.nextLine();
                 String[] vals = temp.split(", ");
 
-                if (i == 1) fitnessIntervals[j] = Integer.parseInt(vals[0]);
+                if (i == 1) {
+                    fitnessIntervals[j] = Integer.parseInt(vals[0]);
+                }
                 GAStatsSum[j] += Double.parseDouble(vals[1]);
             }
 
@@ -275,7 +279,7 @@ public class Main {
 
             RandomTitle = scanner.nextLine() + "\n";
             // Get Random data
-            for (int j = 0; j <= maxEvals/samplePeriod; j++) {
+            for (int j = 0; j <= maxEvals / samplePeriod; j++) {
                 String temp = scanner.nextLine();
                 String[] vals = temp.split(", ");
                 RandomStatsSum[j] += Double.parseDouble(vals[1]);
@@ -285,7 +289,7 @@ public class Main {
 
             HillTitle = scanner.nextLine() + "\n";
             // Get Hill Climbing data
-            for (int j = 0; j <= maxEvals/samplePeriod; j++) {
+            for (int j = 0; j <= maxEvals / samplePeriod; j++) {
                 String temp = scanner.nextLine();
                 String[] vals = temp.split(", ");
                 HillStatsSum[j] += Double.parseDouble(vals[1]);
@@ -295,7 +299,7 @@ public class Main {
 
             MutateTitle = scanner.nextLine() + "\n";
             // Get Mutate data
-            for (int j = 0; j <= maxEvals/samplePeriod; j++) {
+            for (int j = 0; j <= maxEvals / samplePeriod; j++) {
                 String temp = scanner.nextLine();
                 String[] vals = temp.split(", ");
                 MutateStatsSum[j] += Double.parseDouble(vals[1]);
@@ -309,13 +313,13 @@ public class Main {
         RandomStatsSum[0] = RandomStatsSum[0] / numIterations;
         HillStatsSum[0] = HillStatsSum[0] / numIterations;
         MutateStatsSum[0] = MutateStatsSum[0] / numIterations;
-        for (int i = 1; i <= maxEvals/samplePeriod; i++) {
+        for (int i = 1; i <= maxEvals / samplePeriod; i++) {
             GAStatsSum[i] = GAStatsSum[i] / numIterations;
             RandomStatsSum[i] = RandomStatsSum[i] / numIterations;
             HillStatsSum[i] = HillStatsSum[i] / numIterations;
             MutateStatsSum[i] = MutateStatsSum[i] / numIterations;
         }
-        
+
         // Print this shit out
         try {
             FileWriter fstream = new FileWriter(outFileName);
@@ -323,25 +327,25 @@ public class Main {
             out.write(header);
 
             out.write(GATitle);
-            for (int i = 1; i <= maxEvals/samplePeriod; i++) {
+            for (int i = 1; i <= maxEvals / samplePeriod; i++) {
                 out.write(fitnessIntervals[i] + ", " + GAStatsSum[i] + "\n");
             }
             out.write("END-SERIES\n");
 
             out.write(RandomTitle);
-            for (int i = 0; i <= maxEvals/samplePeriod; i++) {
+            for (int i = 0; i <= maxEvals / samplePeriod; i++) {
                 out.write(fitnessIntervals[i] + ", " + RandomStatsSum[i] + "\n");
             }
             out.write("END-SERIES\n");
 
             out.write(HillTitle);
-            for (int i = 0; i <= maxEvals/samplePeriod; i++) {
+            for (int i = 0; i <= maxEvals / samplePeriod; i++) {
                 out.write(fitnessIntervals[i] + ", " + HillStatsSum[i] + "\n");
             }
             out.write("END-SERIES\n");
-            
+
             out.write(MutateTitle);
-            for (int i = 0; i <= maxEvals/samplePeriod; i++) {
+            for (int i = 0; i <= maxEvals / samplePeriod; i++) {
                 out.write(fitnessIntervals[i] + ", " + MutateStatsSum[i] + "\n");
             }
             out.write("END-SERIES\n");
@@ -372,7 +376,9 @@ public class Main {
 
         // Run the 4 different searches, using the number of evaluations made by
         // the GA search as the max number of evaluations the other algos are allowed to use
-        System.out.println("We expect " + (params.numEvalsPerGeneration() * params.getMaxGenerations()) + " evaluations to be performed.");
+        int nevals = (params.numEvalsPerGeneration() * params.getMaxGenerations());
+        System.out.println("We expect " + nevals + " evaluations to be performed per phase.");
+        System.out.println("If we're doing huge, that's " + (4 * nevals * 0.2 / 60) + " minutes total.");
         int maxEvals = getGAStats(params);
         System.out.println("GA Done! (" + maxEvals + " evals performed)");
         getRandomSearchStats(maxEvals, samplePeriod);
