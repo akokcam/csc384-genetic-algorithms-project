@@ -604,7 +604,8 @@ public class Schedule extends ga_testbench.Individual implements Cloneable {
 
 //        System.out.println("Hillclimbing made " + evals + " fitness evaluations...");
 
-        if (best == this) {
+        //if (best == this) {
+        if (hillEvals >= maxEvals) {
             //addHillDataPoint(fitness);
             return best;
         } else {
