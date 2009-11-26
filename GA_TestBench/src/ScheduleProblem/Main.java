@@ -42,13 +42,13 @@ public class Main {
 
 //        getAllStats(50, 600, 1, 9, 110, 0, HUGEINSTANCE);
         
-        int maxpop = 30;
-        int maxgen = 40;
-        double copies = 1;
-        double mutations = 6;
-        double crossovers = 63;
+        int maxpop = 125;
+        int maxgen = 200;
+        double copies = 0;
+        double mutations = 0;
+        double crossovers = 100;
         double randoms = 0;
-        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 5);
+        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 3);
     }
 
     /**
@@ -249,6 +249,7 @@ public class Main {
         for (int i = 1; i <= numIterations; i++) {
             File infile = new File("Data Files\\tempAverageStatsOutput\\" + instanceNumber + "_" + i + ".txt");
             Scanner scanner = null;
+            String temp = null;
             try {
                 scanner = new Scanner(infile);
             } catch (FileNotFoundException ex) {
@@ -265,50 +266,54 @@ public class Main {
                 }
             }
 
-            GATitle = scanner.nextLine() + "\n";
             // Get GA data and the intervals if this is first pass through
-            for (int j = 1; j <= maxEvals / samplePeriod; j++) {
-                String temp = scanner.nextLine();
+            GATitle = scanner.nextLine() + "\n";
+            temp = scanner.nextLine();
+            int j = 1;
+            while (!temp.contentEquals("END-SERIES")) {
                 String[] vals = temp.split(", ");
-
                 if (i == 1) {
                     fitnessIntervals[j] = Integer.parseInt(vals[0]);
                 }
                 GAStatsSum[j] += Double.parseDouble(vals[1]);
+                temp = scanner.nextLine();
+                j++;
             }
 
-            scanner.nextLine(); // Skip "END-SERIES"
-
-
-            RandomTitle = scanner.nextLine() + "\n";
             // Get Random data
-            for (int j = 0; j <= maxEvals / samplePeriod; j++) {
-                String temp = scanner.nextLine();
+            RandomTitle = scanner.nextLine() + "\n";
+            temp = scanner.nextLine();
+            j = 0;
+            while (!temp.contentEquals("END-SERIES")) {
                 String[] vals = temp.split(", ");
                 RandomStatsSum[j] += Double.parseDouble(vals[1]);
+                temp = scanner.nextLine();
+                j++;
             }
-
-            scanner.nextLine(); // Skip "END-SERIES"
-
-            HillTitle = scanner.nextLine() + "\n";
+            
             // Get Hill Climbing data
-            for (int j = 0; j <= maxEvals / samplePeriod; j++) {
-                String temp = scanner.nextLine();
+            HillTitle = scanner.nextLine() + "\n";
+            temp = scanner.nextLine();
+            j = 0;
+            while (!temp.contentEquals("END-SERIES")) {
                 String[] vals = temp.split(", ");
                 HillStatsSum[j] += Double.parseDouble(vals[1]);
+                temp = scanner.nextLine();
+                j++;
             }
 
-            scanner.nextLine(); // Skip "END-SERIES"
 
-            MutateTitle = scanner.nextLine() + "\n";
             // Get Mutate data
-            for (int j = 0; j <= maxEvals / samplePeriod; j++) {
-                String temp = scanner.nextLine();
+            MutateTitle = scanner.nextLine() + "\n";
+            temp = scanner.nextLine();
+            j = 0;
+            while (!temp.contentEquals("END-SERIES")) {
                 String[] vals = temp.split(", ");
                 MutateStatsSum[j] += Double.parseDouble(vals[1]);
+                temp = scanner.nextLine();
+                j++;
             }
 
-            scanner.nextLine(); // Skip "END-SERIES"
             scanner.close();
         }
 
