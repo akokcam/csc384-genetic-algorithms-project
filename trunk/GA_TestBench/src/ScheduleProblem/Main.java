@@ -40,15 +40,15 @@ public class Main {
 //        getGAParameterStats(51, 150, 1);
 //        getGASizeStats();
 
-//        getAllStats(50, 600, 1, 9, 110, 0, HUGEINSTANCE);
-        
-        int maxpop = 125;
-        int maxgen = 200;
-        double copies = 0;
-        double mutations = 0;
-        double crossovers = 100;
-        double randoms = 0;
-        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 3);
+        getAllStats(60, 400, 1, 4, 55, 0, MEDIUMINSTANCEFILE, "MEDIUM");
+
+//        int maxpop = 40;
+//        int maxgen = 400;
+//        double copies = 1;
+//        double mutations = 3;
+//        double crossovers = 36;
+//        double randoms = 0;
+//        getAllAverageStats(maxpop, maxgen, copies, mutations, crossovers, randoms, SMALLINSTANCEFILE, 3, "TEST");
     }
 
     /**
@@ -191,11 +191,12 @@ public class Main {
     }
 
     public static void getAllAverageStats(int popsize, int numgens, double numCopies,
-            double numMutations, double numCrossovers, double numRandoms, String instanceFile, int numIterations) {
+            double numMutations, double numCrossovers, double numRandoms, String instanceFile, int numIterations, String outFilePrepend) {
 
         Random rand = new Random();
         int randomInstanceNumber = rand.nextInt();
         GAParams params = new GAParams(instanceFile, popsize, numgens, numCopies, numMutations, numCrossovers, numRandoms, true);
+
 
         // We don't mind having more points for the non-GA methods
         int samplePeriod = params.numEvalsPerGeneration();
@@ -222,16 +223,16 @@ public class Main {
         }
 
         // We generate uniform filenames so that it's easy to know what data is in a file
-        String outfile = "Data Files\\FullAverageStats(" + randomInstanceNumber + ") over " + numIterations + " iterations with " + maxEvals + " evals " +
+        String outfile = "Data Files\\" + outFilePrepend + " " + "FullAverageStats(" + randomInstanceNumber + ") over " + numIterations + " iterations with " + maxEvals + " evals " +
                 params.getPopSize() + " pop " + params.getMaxGenerations() + " gens " +
                 params.getNumCopies() + " copies " + params.getNumMutations() + " mutations " +
                 params.getNumCrossovers() + " crossovers " + params.getNumRandoms() + " randoms" + ".txt";
 
-        createAverageStatsFile(outfile, numIterations, maxEvals, samplePeriod, randomInstanceNumber);
+        createAverageStatsFile(outfile, numIterations, maxEvals, samplePeriod, randomInstanceNumber, outFilePrepend);
         //cleanUpTempStats(numIterations, randomInstanceNumber);
     }
 
-    private static void createAverageStatsFile(String outFileName, int numIterations, int maxEvals, int samplePeriod, int instanceNumber) {
+    private static void createAverageStatsFile(String outFileName, int numIterations, int maxEvals, int samplePeriod, int instanceNumber, String outFilePrepend) {
         String header = "";
         String GATitle = "";
         String RandomTitle = "";
@@ -290,7 +291,7 @@ public class Main {
                 temp = scanner.nextLine();
                 j++;
             }
-            
+
             // Get Hill Climbing data
             HillTitle = scanner.nextLine() + "\n";
             temp = scanner.nextLine();
@@ -374,8 +375,22 @@ public class Main {
         }
     }
 
+    /**
+     * Get statistics for 5  (4?) methods and put them in a uniformly named file
+     * in the data files directory.
+     * @param popsize The population size to use for the test
+     * @param numgens The number of generations to use for the test
+     * @param numCopies The number of copies to use for the generations
+     * @param numMutations The number of mutts to use for the generations
+     * @param numCrossovers The number of crossovers to use for the generations
+     * @param numRandoms The number of randoms to use for the generations
+     * @param instanceFile The input file containing a schedule problem instance
+     * @param outFilePrepend The name to prepend to the output file, indicating
+     * the type of the data. eg. TEST or HUGE or MEDIUM or TINY
+     */
     public static void getAllStats(int popsize, int numgens, double numCopies,
-            double numMutations, double numCrossovers, double numRandoms, String instanceFile) {
+            double numMutations, double numCrossovers, double numRandoms,
+            String instanceFile, String outFilePrepend) {
 
         GAParams params = new GAParams(instanceFile, popsize, numgens, numCopies, numMutations, numCrossovers, numRandoms, true);
 
@@ -397,7 +412,7 @@ public class Main {
         System.out.println("MutateSearch Done!");
 
         // We generate uniform filenames so that it's easy to know what data is in a file
-        String outfile = "Data Files\\FullStats" + " with " + maxEvals + " evals " +
+        String outfile = "Data Files\\" + outFilePrepend + " FullStats" + " with " + maxEvals + " evals " +
                 params.getPopSize() + " pop " + params.getMaxGenerations() + " gens " +
                 params.getNumCopies() + " copies " + params.getNumMutations() + " mutations " +
                 params.getNumCrossovers() + " crossovers " + params.getNumRandoms() + " randoms" + ".txt";
