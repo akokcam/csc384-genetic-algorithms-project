@@ -1,0 +1,2164 @@
+10 8
+
+200
+Course 1
+Course 2
+Course 3
+Course 4
+Course 5
+Course 6
+Course 7
+Course 8
+Course 9
+Course 10
+Course 11
+Course 12
+Course 13
+Course 14
+Course 15
+Course 16
+Course 17
+Course 18
+Course 19
+Course 20
+Course 21
+Course 22
+Course 23
+Course 24
+Course 25
+Course 26
+Course 27
+Course 28
+Course 29
+Course 30
+Course 31
+Course 32
+Course 33
+Course 34
+Course 35
+Course 36
+Course 37
+Course 38
+Course 39
+Course 40
+Course 41
+Course 42
+Course 43
+Course 44
+Course 45
+Course 46
+Course 47
+Course 48
+Course 49
+Course 50
+Course 51
+Course 52
+Course 53
+Course 54
+Course 55
+Course 56
+Course 57
+Course 58
+Course 59
+Course 60
+Course 61
+Course 62
+Course 63
+Course 64
+Course 65
+Course 66
+Course 67
+Course 68
+Course 69
+Course 70
+Course 71
+Course 72
+Course 73
+Course 74
+Course 75
+Course 76
+Course 77
+Course 78
+Course 79
+Course 80
+Course 81
+Course 82
+Course 83
+Course 84
+Course 85
+Course 86
+Course 87
+Course 88
+Course 89
+Course 90
+Course 91
+Course 92
+Course 93
+Course 94
+Course 95
+Course 96
+Course 97
+Course 98
+Course 99
+Course 100
+Course 101
+Course 102
+Course 103
+Course 104
+Course 105
+Course 106
+Course 107
+Course 108
+Course 109
+Course 110
+Course 111
+Course 112
+Course 113
+Course 114
+Course 115
+Course 116
+Course 117
+Course 118
+Course 119
+Course 120
+Course 121
+Course 122
+Course 123
+Course 124
+Course 125
+Course 126
+Course 127
+Course 128
+Course 129
+Course 130
+Course 131
+Course 132
+Course 133
+Course 134
+Course 135
+Course 136
+Course 137
+Course 138
+Course 139
+Course 140
+Course 141
+Course 142
+Course 143
+Course 144
+Course 145
+Course 146
+Course 147
+Course 148
+Course 149
+Course 150
+Course 151
+Course 152
+Course 153
+Course 154
+Course 155
+Course 156
+Course 157
+Course 158
+Course 159
+Course 160
+Course 161
+Course 162
+Course 163
+Course 164
+Course 165
+Course 166
+Course 167
+Course 168
+Course 169
+Course 170
+Course 171
+Course 172
+Course 173
+Course 174
+Course 175
+Course 176
+Course 177
+Course 178
+Course 179
+Course 180
+Course 181
+Course 182
+Course 183
+Course 184
+Course 185
+Course 186
+Course 187
+Course 188
+Course 189
+Course 190
+Course 191
+Course 192
+Course 193
+Course 194
+Course 195
+Course 196
+Course 197
+Course 198
+Course 199
+Course 200
+
+10
+Room 1
+Room 2
+Room 3
+Room 4
+Room 5
+Room 6
+Room 7
+Room 8
+Room 9
+Room 10
+
+300
+Student 1
+5
+Course 143
+Course 193
+Course 82
+Course 197
+Course 157
+Student 2
+6
+Course 62
+Course 154
+Course 152
+Course 149
+Course 146
+Course 148
+Student 3
+5
+Course 123
+Course 82
+Course 97
+Course 83
+Course 179
+Student 4
+3
+Course 109
+Course 117
+Course 116
+Student 5
+5
+Course 179
+Course 41
+Course 48
+Course 56
+Course 55
+Student 6
+7
+Course 137
+Course 153
+Course 149
+Course 188
+Course 154
+Course 160
+Course 156
+Student 7
+2
+Course 134
+Course 89
+Student 8
+5
+Course 28
+Course 130
+Course 169
+Course 161
+Course 179
+Student 9
+5
+Course 42
+Course 57
+Course 49
+Course 55
+Course 44
+Student 10
+3
+Course 102
+Course 108
+Course 119
+Student 11
+5
+Course 146
+Course 147
+Course 152
+Course 158
+Course 135
+Student 12
+3
+Course 181
+Course 3
+Course 199
+Student 13
+6
+Course 156
+Course 147
+Course 145
+Course 144
+Course 149
+Course 138
+Student 14
+6
+Course 148
+Course 80
+Course 35
+Course 21
+Course 67
+Course 30
+Student 15
+2
+Course 134
+Course 63
+Student 16
+4
+Course 60
+Course 64
+Course 72
+Course 63
+Student 17
+2
+Course 139
+Course 131
+Student 18
+6
+Course 13
+Course 148
+Course 146
+Course 155
+Course 3
+Course 92
+Student 19
+7
+Course 176
+Course 26
+Course 66
+Course 118
+Course 70
+Course 62
+Course 73
+Student 20
+2
+Course 82
+Course 85
+Student 21
+2
+Course 36
+Course 3
+Student 22
+6
+Course 33
+Course 30
+Course 34
+Course 31
+Course 39
+Course 27
+Student 23
+2
+Course 23
+Course 25
+Student 24
+2
+Course 151
+Course 155
+Student 25
+6
+Course 174
+Course 164
+Course 170
+Course 167
+Course 38
+Course 177
+Student 26
+2
+Course 36
+Course 35
+Student 27
+7
+Course 131
+Course 125
+Course 181
+Course 127
+Course 192
+Course 135
+Course 114
+Student 28
+6
+Course 18
+Course 4
+Course 10
+Course 16
+Course 3
+Course 12
+Student 29
+5
+Course 139
+Course 173
+Course 136
+Course 131
+Course 175
+Student 30
+6
+Course 75
+Course 58
+Course 65
+Course 62
+Course 63
+Course 80
+Student 31
+4
+Course 182
+Course 92
+Course 91
+Course 95
+Student 32
+6
+Course 191
+Course 168
+Course 183
+Course 63
+Course 197
+Course 155
+Student 33
+2
+Course 68
+Course 73
+Student 34
+4
+Course 156
+Course 173
+Course 166
+Course 115
+Student 35
+5
+Course 97
+Course 88
+Course 188
+Course 78
+Course 9
+Student 36
+5
+Course 165
+Course 161
+Course 178
+Course 164
+Course 189
+Student 37
+4
+Course 183
+Course 35
+Course 199
+Course 40
+Student 38
+2
+Course 110
+Course 107
+Student 39
+3
+Course 148
+Course 143
+Course 142
+Student 40
+6
+Course 121
+Course 6
+Course 17
+Course 186
+Course 8
+Course 9
+Student 41
+7
+Course 106
+Course 104
+Course 93
+Course 81
+Course 108
+Course 150
+Course 15
+Student 42
+4
+Course 199
+Course 185
+Course 181
+Course 196
+Student 43
+7
+Course 14
+Course 15
+Course 9
+Course 10
+Course 12
+Course 5
+Course 1
+Student 44
+3
+Course 22
+Course 35
+Course 37
+Student 45
+4
+Course 119
+Course 168
+Course 196
+Course 200
+Student 46
+4
+Course 75
+Course 3
+Course 79
+Course 23
+Student 47
+6
+Course 107
+Course 184
+Course 159
+Course 113
+Course 103
+Course 110
+Student 48
+2
+Course 54
+Course 82
+Student 49
+6
+Course 3
+Course 108
+Course 155
+Course 153
+Course 143
+Course 115
+Student 50
+6
+Course 80
+Course 143
+Course 99
+Course 105
+Course 63
+Course 61
+Student 51
+3
+Course 96
+Course 89
+Course 167
+Student 52
+5
+Course 62
+Course 77
+Course 173
+Course 104
+Course 66
+Student 53
+3
+Course 5
+Course 4
+Course 18
+Student 54
+3
+Course 199
+Course 150
+Course 152
+Student 55
+6
+Course 104
+Course 134
+Course 111
+Course 186
+Course 100
+Course 109
+Student 56
+5
+Course 91
+Course 89
+Course 85
+Course 83
+Course 16
+Student 57
+4
+Course 77
+Course 181
+Course 186
+Course 193
+Student 58
+6
+Course 140
+Course 13
+Course 5
+Course 12
+Course 125
+Course 105
+Student 59
+7
+Course 17
+Course 10
+Course 7
+Course 108
+Course 1
+Course 8
+Course 19
+Student 60
+2
+Course 122
+Course 165
+Student 61
+4
+Course 29
+Course 23
+Course 57
+Course 190
+Student 62
+7
+Course 70
+Course 72
+Course 75
+Course 180
+Course 79
+Course 107
+Course 77
+Student 63
+4
+Course 13
+Course 12
+Course 19
+Course 154
+Student 64
+4
+Course 7
+Course 3
+Course 8
+Course 2
+Student 65
+5
+Course 88
+Course 98
+Course 51
+Course 128
+Course 81
+Student 66
+6
+Course 149
+Course 151
+Course 103
+Course 160
+Course 157
+Course 137
+Student 67
+7
+Course 180
+Course 30
+Course 176
+Course 87
+Course 164
+Course 171
+Course 161
+Student 68
+7
+Course 110
+Course 119
+Course 117
+Course 128
+Course 200
+Course 108
+Course 101
+Student 69
+7
+Course 32
+Course 83
+Course 85
+Course 96
+Course 90
+Course 88
+Course 82
+Student 70
+7
+Course 18
+Course 5
+Course 99
+Course 73
+Course 20
+Course 112
+Course 8
+Student 71
+6
+Course 130
+Course 137
+Course 135
+Course 124
+Course 121
+Course 138
+Student 72
+6
+Course 14
+Course 20
+Course 9
+Course 7
+Course 17
+Course 89
+Student 73
+2
+Course 168
+Course 124
+Student 74
+2
+Course 118
+Course 101
+Student 75
+7
+Course 143
+Course 67
+Course 34
+Course 160
+Course 29
+Course 27
+Course 24
+Student 76
+7
+Course 82
+Course 92
+Course 95
+Course 69
+Course 91
+Course 99
+Course 87
+Student 77
+7
+Course 152
+Course 144
+Course 200
+Course 137
+Course 1
+Course 155
+Course 71
+Student 78
+4
+Course 100
+Course 10
+Course 3
+Course 20
+Student 79
+2
+Course 100
+Course 8
+Student 80
+4
+Course 176
+Course 18
+Course 20
+Course 92
+Student 81
+3
+Course 12
+Course 14
+Course 107
+Student 82
+5
+Course 130
+Course 141
+Course 56
+Course 145
+Course 155
+Student 83
+5
+Course 163
+Course 95
+Course 106
+Course 155
+Course 111
+Student 84
+7
+Course 28
+Course 33
+Course 35
+Course 31
+Course 27
+Course 22
+Course 3
+Student 85
+6
+Course 75
+Course 100
+Course 95
+Course 99
+Course 154
+Course 87
+Student 86
+7
+Course 181
+Course 102
+Course 120
+Course 108
+Course 119
+Course 99
+Course 117
+Student 87
+2
+Course 132
+Course 135
+Student 88
+2
+Course 49
+Course 75
+Student 89
+4
+Course 5
+Course 13
+Course 7
+Course 20
+Student 90
+4
+Course 77
+Course 104
+Course 32
+Course 16
+Student 91
+5
+Course 171
+Course 162
+Course 117
+Course 165
+Course 180
+Student 92
+5
+Course 193
+Course 196
+Course 195
+Course 198
+Course 192
+Student 93
+4
+Course 188
+Course 191
+Course 193
+Course 199
+Student 94
+4
+Course 160
+Course 119
+Course 120
+Course 110
+Student 95
+7
+Course 195
+Course 192
+Course 197
+Course 191
+Course 200
+Course 181
+Course 184
+Student 96
+4
+Course 33
+Course 132
+Course 108
+Course 77
+Student 97
+3
+Course 142
+Course 147
+Course 152
+Student 98
+4
+Course 124
+Course 89
+Course 91
+Course 155
+Student 99
+4
+Course 164
+Course 122
+Course 31
+Course 180
+Student 100
+7
+Course 68
+Course 10
+Course 2
+Course 14
+Course 6
+Course 9
+Course 13
+Student 101
+2
+Course 53
+Course 5
+Student 102
+6
+Course 129
+Course 124
+Course 34
+Course 39
+Course 134
+Course 131
+Student 103
+5
+Course 71
+Course 62
+Course 75
+Course 72
+Course 74
+Student 104
+2
+Course 51
+Course 45
+Student 105
+2
+Course 155
+Course 149
+Student 106
+2
+Course 61
+Course 64
+Student 107
+7
+Course 40
+Course 181
+Course 189
+Course 197
+Course 19
+Course 199
+Course 5
+Student 108
+6
+Course 80
+Course 77
+Course 65
+Course 57
+Course 79
+Course 116
+Student 109
+3
+Course 3
+Course 16
+Course 9
+Student 110
+7
+Course 125
+Course 131
+Course 128
+Course 22
+Course 132
+Course 127
+Course 155
+Student 111
+6
+Course 3
+Course 11
+Course 4
+Course 89
+Course 18
+Course 1
+Student 112
+3
+Course 77
+Course 122
+Course 85
+Student 113
+7
+Course 61
+Course 69
+Course 73
+Course 40
+Course 65
+Course 75
+Course 62
+Student 114
+3
+Course 167
+Course 24
+Course 170
+Student 115
+6
+Course 137
+Course 138
+Course 177
+Course 50
+Course 124
+Course 128
+Student 116
+4
+Course 191
+Course 196
+Course 142
+Course 183
+Student 117
+4
+Course 158
+Course 50
+Course 162
+Course 56
+Student 118
+5
+Course 94
+Course 82
+Course 194
+Course 77
+Course 91
+Student 119
+6
+Course 116
+Course 97
+Course 53
+Course 79
+Course 103
+Course 54
+Student 120
+6
+Course 196
+Course 193
+Course 192
+Course 69
+Course 66
+Course 198
+Student 121
+4
+Course 159
+Course 183
+Course 190
+Course 187
+Student 122
+2
+Course 150
+Course 154
+Student 123
+6
+Course 160
+Course 142
+Course 159
+Course 157
+Course 141
+Course 94
+Student 124
+2
+Course 102
+Course 103
+Student 125
+3
+Course 164
+Course 120
+Course 119
+Student 126
+2
+Course 112
+Course 117
+Student 127
+6
+Course 64
+Course 141
+Course 155
+Course 81
+Course 196
+Course 84
+Student 128
+2
+Course 131
+Course 169
+Student 129
+2
+Course 89
+Course 144
+Student 130
+4
+Course 50
+Course 64
+Course 200
+Course 30
+Student 131
+7
+Course 109
+Course 116
+Course 108
+Course 80
+Course 114
+Course 112
+Course 151
+Student 132
+3
+Course 136
+Course 121
+Course 96
+Student 133
+7
+Course 193
+Course 89
+Course 167
+Course 181
+Course 91
+Course 13
+Course 196
+Student 134
+6
+Course 156
+Course 154
+Course 153
+Course 151
+Course 150
+Course 144
+Student 135
+6
+Course 148
+Course 10
+Course 7
+Course 40
+Course 19
+Course 11
+Student 136
+7
+Course 126
+Course 102
+Course 74
+Course 122
+Course 13
+Course 60
+Course 133
+Student 137
+2
+Course 46
+Course 96
+Student 138
+7
+Course 149
+Course 191
+Course 147
+Course 3
+Course 105
+Course 159
+Course 160
+Student 139
+4
+Course 87
+Course 96
+Course 99
+Course 84
+Student 140
+3
+Course 125
+Course 191
+Course 16
+Student 141
+6
+Course 94
+Course 96
+Course 83
+Course 93
+Course 81
+Course 95
+Student 142
+2
+Course 146
+Course 168
+Student 143
+2
+Course 73
+Course 62
+Student 144
+5
+Course 145
+Course 20
+Course 59
+Course 52
+Course 57
+Student 145
+5
+Course 49
+Course 136
+Course 116
+Course 133
+Course 122
+Student 146
+2
+Course 1
+Course 5
+Student 147
+4
+Course 90
+Course 93
+Course 100
+Course 95
+Student 148
+5
+Course 131
+Course 10
+Course 97
+Course 170
+Course 138
+Student 149
+4
+Course 53
+Course 19
+Course 106
+Course 103
+Student 150
+3
+Course 106
+Course 117
+Course 29
+Student 151
+6
+Course 25
+Course 32
+Course 139
+Course 31
+Course 36
+Course 104
+Student 152
+3
+Course 196
+Course 12
+Course 18
+Student 153
+3
+Course 168
+Course 159
+Course 36
+Student 154
+7
+Course 119
+Course 141
+Course 27
+Course 32
+Course 102
+Course 22
+Course 179
+Student 155
+3
+Course 65
+Course 76
+Course 77
+Student 156
+2
+Course 84
+Course 28
+Student 157
+5
+Course 13
+Course 158
+Course 46
+Course 6
+Course 72
+Student 158
+5
+Course 122
+Course 12
+Course 196
+Course 139
+Course 124
+Student 159
+7
+Course 63
+Course 168
+Course 71
+Course 67
+Course 79
+Course 78
+Course 72
+Student 160
+6
+Course 151
+Course 52
+Course 24
+Course 102
+Course 121
+Course 142
+Student 161
+7
+Course 108
+Course 101
+Course 107
+Course 105
+Course 110
+Course 119
+Course 115
+Student 162
+7
+Course 160
+Course 71
+Course 156
+Course 144
+Course 146
+Course 152
+Course 149
+Student 163
+2
+Course 172
+Course 170
+Student 164
+7
+Course 54
+Course 57
+Course 16
+Course 43
+Course 96
+Course 59
+Course 41
+Student 165
+3
+Course 48
+Course 97
+Course 90
+Student 166
+4
+Course 35
+Course 28
+Course 108
+Course 26
+Student 167
+2
+Course 111
+Course 172
+Student 168
+3
+Course 49
+Course 4
+Course 78
+Student 169
+4
+Course 42
+Course 45
+Course 48
+Course 54
+Student 170
+3
+Course 134
+Course 159
+Course 135
+Student 171
+3
+Course 146
+Course 65
+Course 139
+Student 172
+4
+Course 52
+Course 54
+Course 44
+Course 47
+Student 173
+7
+Course 71
+Course 124
+Course 65
+Course 66
+Course 67
+Course 94
+Course 127
+Student 174
+6
+Course 34
+Course 170
+Course 176
+Course 163
+Course 172
+Course 109
+Student 175
+5
+Course 166
+Course 164
+Course 70
+Course 167
+Course 179
+Student 176
+4
+Course 92
+Course 81
+Course 87
+Course 86
+Student 177
+3
+Course 138
+Course 123
+Course 139
+Student 178
+5
+Course 57
+Course 100
+Course 59
+Course 43
+Course 42
+Student 179
+5
+Course 64
+Course 89
+Course 86
+Course 88
+Course 97
+Student 180
+6
+Course 85
+Course 163
+Course 83
+Course 84
+Course 97
+Course 82
+Student 181
+2
+Course 13
+Course 15
+Student 182
+3
+Course 23
+Course 34
+Course 31
+Student 183
+4
+Course 62
+Course 152
+Course 64
+Course 75
+Student 184
+3
+Course 178
+Course 175
+Course 53
+Student 185
+6
+Course 85
+Course 170
+Course 92
+Course 93
+Course 185
+Course 84
+Student 186
+2
+Course 116
+Course 112
+Student 187
+2
+Course 167
+Course 146
+Student 188
+3
+Course 53
+Course 45
+Course 147
+Student 189
+6
+Course 189
+Course 198
+Course 190
+Course 193
+Course 182
+Course 181
+Student 190
+6
+Course 71
+Course 73
+Course 63
+Course 100
+Course 19
+Course 66
+Student 191
+2
+Course 101
+Course 109
+Student 192
+7
+Course 119
+Course 38
+Course 106
+Course 157
+Course 114
+Course 34
+Course 117
+Student 193
+6
+Course 142
+Course 76
+Course 151
+Course 157
+Course 152
+Course 143
+Student 194
+2
+Course 160
+Course 50
+Student 195
+5
+Course 57
+Course 56
+Course 47
+Course 58
+Course 62
+Student 196
+4
+Course 46
+Course 44
+Course 52
+Course 64
+Student 197
+6
+Course 70
+Course 79
+Course 72
+Course 54
+Course 67
+Course 121
+Student 198
+2
+Course 150
+Course 159
+Student 199
+5
+Course 160
+Course 147
+Course 153
+Course 68
+Course 21
+Student 200
+7
+Course 191
+Course 94
+Course 95
+Course 86
+Course 142
+Course 83
+Course 93
+Student 201
+6
+Course 182
+Course 193
+Course 117
+Course 50
+Course 185
+Course 195
+Student 202
+3
+Course 98
+Course 141
+Course 147
+Student 203
+5
+Course 2
+Course 105
+Course 109
+Course 107
+Course 113
+Student 204
+2
+Course 4
+Course 8
+Student 205
+5
+Course 81
+Course 86
+Course 85
+Course 95
+Course 82
+Student 206
+4
+Course 181
+Course 193
+Course 199
+Course 186
+Student 207
+5
+Course 157
+Course 170
+Course 166
+Course 127
+Course 5
+Student 208
+2
+Course 127
+Course 124
+Student 209
+5
+Course 26
+Course 25
+Course 35
+Course 21
+Course 30
+Student 210
+2
+Course 10
+Course 17
+Student 211
+6
+Course 166
+Course 174
+Course 105
+Course 163
+Course 177
+Course 191
+Student 212
+6
+Course 123
+Course 74
+Course 73
+Course 79
+Course 83
+Course 189
+Student 213
+7
+Course 193
+Course 9
+Course 54
+Course 53
+Course 131
+Course 56
+Course 129
+Student 214
+5
+Course 145
+Course 5
+Course 146
+Course 152
+Course 158
+Student 215
+4
+Course 45
+Course 57
+Course 46
+Course 41
+Student 216
+4
+Course 99
+Course 89
+Course 85
+Course 58
+Student 217
+6
+Course 141
+Course 143
+Course 181
+Course 192
+Course 194
+Course 184
+Student 218
+4
+Course 47
+Course 170
+Course 30
+Course 168
+Student 219
+5
+Course 186
+Course 181
+Course 200
+Course 195
+Course 55
+Student 220
+6
+Course 184
+Course 197
+Course 196
+Course 187
+Course 185
+Course 32
+Student 221
+7
+Course 32
+Course 54
+Course 60
+Course 42
+Course 43
+Course 50
+Course 48
+Student 222
+4
+Course 82
+Course 83
+Course 89
+Course 101
+Student 223
+6
+Course 70
+Course 57
+Course 32
+Course 68
+Course 163
+Course 160
+Student 224
+4
+Course 131
+Course 9
+Course 86
+Course 85
+Student 225
+5
+Course 13
+Course 51
+Course 163
+Course 191
+Course 175
+Student 226
+4
+Course 34
+Course 70
+Course 192
+Course 66
+Student 227
+6
+Course 109
+Course 108
+Course 19
+Course 120
+Course 113
+Course 114
+Student 228
+4
+Course 148
+Course 150
+Course 158
+Course 156
+Student 229
+3
+Course 171
+Course 53
+Course 148
+Student 230
+7
+Course 22
+Course 30
+Course 32
+Course 96
+Course 176
+Course 23
+Course 76
+Student 231
+4
+Course 34
+Course 151
+Course 24
+Course 156
+Student 232
+5
+Course 198
+Course 193
+Course 83
+Course 77
+Course 197
+Student 233
+2
+Course 136
+Course 134
+Student 234
+6
+Course 59
+Course 31
+Course 173
+Course 21
+Course 22
+Course 28
+Student 235
+3
+Course 60
+Course 164
+Course 126
+Student 236
+5
+Course 28
+Course 127
+Course 59
+Course 35
+Course 33
+Student 237
+2
+Course 79
+Course 189
+Student 238
+4
+Course 143
+Course 113
+Course 110
+Course 104
+Student 239
+3
+Course 1
+Course 11
+Course 193
+Student 240
+4
+Course 7
+Course 107
+Course 196
+Course 115
+Student 241
+2
+Course 62
+Course 114
+Student 242
+5
+Course 92
+Course 84
+Course 86
+Course 89
+Course 88
+Student 243
+5
+Course 33
+Course 123
+Course 39
+Course 51
+Course 109
+Student 244
+3
+Course 97
+Course 93
+Course 85
+Student 245
+6
+Course 19
+Course 16
+Course 71
+Course 2
+Course 17
+Course 12
+Student 246
+5
+Course 42
+Course 10
+Course 46
+Course 41
+Course 58
+Student 247
+3
+Course 181
+Course 105
+Course 182
+Student 248
+5
+Course 60
+Course 27
+Course 31
+Course 30
+Course 24
+Student 249
+5
+Course 119
+Course 44
+Course 166
+Course 154
+Course 118
+Student 250
+2
+Course 12
+Course 17
+Student 251
+2
+Course 169
+Course 165
+Student 252
+5
+Course 100
+Course 81
+Course 98
+Course 92
+Course 93
+Student 253
+6
+Course 125
+Course 128
+Course 137
+Course 140
+Course 130
+Course 129
+Student 254
+2
+Course 170
+Course 177
+Student 255
+7
+Course 148
+Course 143
+Course 157
+Course 149
+Course 170
+Course 80
+Course 160
+Student 256
+4
+Course 35
+Course 199
+Course 12
+Course 24
+Student 257
+3
+Course 84
+Course 100
+Course 83
+Student 258
+5
+Course 64
+Course 10
+Course 72
+Course 71
+Course 79
+Student 259
+7
+Course 113
+Course 106
+Course 114
+Course 119
+Course 127
+Course 15
+Course 107
+Student 260
+7
+Course 10
+Course 13
+Course 1
+Course 123
+Course 7
+Course 19
+Course 17
+Student 261
+3
+Course 122
+Course 127
+Course 131
+Student 262
+5
+Course 141
+Course 67
+Course 125
+Course 121
+Course 145
+Student 263
+2
+Course 43
+Course 129
+Student 264
+6
+Course 36
+Course 22
+Course 29
+Course 40
+Course 199
+Course 159
+Student 265
+3
+Course 142
+Course 158
+Course 161
+Student 266
+2
+Course 98
+Course 32
+Student 267
+6
+Course 37
+Course 120
+Course 104
+Course 36
+Course 106
+Course 122
+Student 268
+6
+Course 179
+Course 176
+Course 172
+Course 48
+Course 170
+Course 166
+Student 269
+3
+Course 173
+Course 174
+Course 169
+Student 270
+7
+Course 64
+Course 99
+Course 76
+Course 193
+Course 3
+Course 69
+Course 163
+Student 271
+3
+Course 103
+Course 83
+Course 108
+Student 272
+6
+Course 199
+Course 187
+Course 189
+Course 181
+Course 28
+Course 188
+Student 273
+3
+Course 197
+Course 147
+Course 173
+Student 274
+2
+Course 101
+Course 13
+Student 275
+4
+Course 166
+Course 134
+Course 139
+Course 130
+Student 276
+5
+Course 86
+Course 85
+Course 10
+Course 97
+Course 88
+Student 277
+7
+Course 24
+Course 36
+Course 40
+Course 22
+Course 80
+Course 26
+Course 34
+Student 278
+6
+Course 71
+Course 118
+Course 107
+Course 106
+Course 119
+Course 115
+Student 279
+6
+Course 198
+Course 16
+Course 197
+Course 193
+Course 82
+Course 181
+Student 280
+7
+Course 39
+Course 77
+Course 162
+Course 89
+Course 31
+Course 199
+Course 40
+Student 281
+7
+Course 146
+Course 75
+Course 78
+Course 70
+Course 52
+Course 65
+Course 64
+Student 282
+7
+Course 27
+Course 34
+Course 29
+Course 40
+Course 83
+Course 148
+Course 38
+Student 283
+2
+Course 40
+Course 28
+Student 284
+4
+Course 94
+Course 48
+Course 46
+Course 57
+Student 285
+5
+Course 102
+Course 112
+Course 45
+Course 113
+Course 77
+Student 286
+2
+Course 53
+Course 59
+Student 287
+6
+Course 47
+Course 58
+Course 45
+Course 42
+Course 51
+Course 57
+Student 288
+6
+Course 79
+Course 151
+Course 55
+Course 74
+Course 76
+Course 68
+Student 289
+2
+Course 175
+Course 174
+Student 290
+5
+Course 68
+Course 158
+Course 23
+Course 36
+Course 39
+Student 291
+7
+Course 65
+Course 54
+Course 172
+Course 163
+Course 11
+Course 16
+Course 166
+Student 292
+5
+Course 187
+Course 189
+Course 99
+Course 151
+Course 198
+Student 293
+6
+Course 54
+Course 45
+Course 56
+Course 16
+Course 44
+Course 115
+Student 294
+6
+Course 126
+Course 123
+Course 129
+Course 5
+Course 137
+Course 77
+Student 295
+3
+Course 70
+Course 61
+Course 63
+Student 296
+3
+Course 158
+Course 150
+Course 153
+Student 297
+5
+Course 60
+Course 48
+Course 92
+Course 182
+Course 52
+Student 298
+2
+Course 49
+Course 46
+Student 299
+2
+Course 36
+Course 175
+Student 300
+2
+Course 128
+Course 8
