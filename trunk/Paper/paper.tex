@@ -4,6 +4,7 @@
 \usepackage{helvet}
 \usepackage{courier}
 \usepackage{url}
+\usepackage[table]{xcolor}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PDFMARK for TeX and GhostScript
 % Uncomment and complete the following for metadata if
@@ -260,18 +261,26 @@
       
       The following table characterized the problem instances that we used:
       
-      \begin{tabular}{|c|c|c|c|c|c|c|}
-      \hline  & Tiny & Medium & Large & Tiny /w Cor. & Med /w Cor. & Large /w Cor. \\ 
-      \hline d & 7 & 10 & 7 & 7 & 10 & 7 \\ 
-      \hline t & 5 & 8 & 8 & 5 & 8 & 8 \\ 
-      \hline $|C|$ & 20 & 200 & 603 & 20 & 200 & 600 \\ 
-      \hline $|R|$ & 4 & 10 & 43 & 4 & 10 & 43 \\ 
-      \hline $|S|$ & 50 & 300 & 21945 & 50 & 300 & 21945 \\ 
-      \hline $|L_s|$ & 1-5 & 1-6 & 1-5 & 2-6 & 2-6 & 2-6 \\ 
-      \hline \# Course Types & N/A & N/A & N/A & 4 & 10 & 20 \\ 
+      \definecolor{light-gray}{gray}{0.87}
+      \rowcolors{1}{light-gray}{white}
+      \begin{center}
+      \begin{tabular}{c*{6}{m{0.7cm}}}
       \hline 
-	\end{tabular} 
-	
+         		& T 	& M 	& L 	& $T_{Cor}$ & $M_{Cor}$ & $L_{Cor}$ \\ 
+      \hline \hline
+       d 		& 7 	& 10	& 7 	& 7 	& 10 	& 7 	\\ 
+       t 		& 5		& 8 	& 8 	& 5 	& 8 	& 8 	\\ 
+       $|C|$	& 20 	& 200 	& 603 	& 20 	& 200 	& 600 	\\ 
+       $|R|$	& 4 	& 10 	& 43 	& 4 	& 10 	& 43	\\ 
+       $|S|$	& 50 	& 300 	& 21945 & 50 	& 300 	& 21945	\\ 
+       $|L_s|$	& 1-5 	& 1-6 	& 1-5 	& 2-6 	& 2-6 	& 2-6 	\\ 
+       $|T|$	& N/A 	& N/A 	& N/A 	& 4 	& 10 	& 20 	\\ 
+       s		& $1.394 \cdot 10^{182}$ & $5.668 \cdot 10^{1840}$ & $1.009 \cdot 10^{6695}$ & $1.394 \cdot 10^{182}$ & $5.668 \cdot 10^{1840}$ & $6.14 \cdot 10^{6689}$ \\
+      \hline 
+	  \end{tabular} 
+	  \end{center}
+	  
+	  
 	  The full input files for these instances are available in our repository in the 
 	  directory "Instance Input Files".
 	  
