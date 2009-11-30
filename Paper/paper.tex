@@ -182,11 +182,11 @@
       in the present generation, applies the mutation operator to schedules, or uses the
       crossover operator on 2 schedules. When performing mutation or crossover, the 
       schedules are selected with a probability proportional to their fitness, allowing 
-      the schedules with high quality tobe selected more frequently and make more 
+      the schedules with high quality to be selected more frequently and make more 
       "offspring". 
       
       The free parameters in our GA are the size of the population, number of
-      generations to simulate, and proportions of new generations toi be made by the copy, 
+      generations to simulate, and proportions of new generations to be made by the copy, 
       random, mutation, and crossover methods.
       
     \subsubsection{Representation}
@@ -255,7 +255,7 @@
   \subsection{Options for the Genetic Algorithm}
     \subsubsection{Scheduling Problem Instances}
       We generated 2 sets of 3 scheduling problem instances to test the algorithms above with. 
-      The package ScheduleInstanceGenerator in our code repository manages the generation of 
+      The package \emph{ScheduleInstanceGenerator} in our code repository manages the generation of 
       random problem instances with many free parameters to specify characteristics of the 
       output instance.
       
@@ -264,7 +264,8 @@
       \definecolor{light-gray}{gray}{0.87}
       \rowcolors{1}{light-gray}{white}
       \begin{center}
-      \begin{tabular}{c*{6}{m{0.7cm}}}
+      \begin{small}
+      \begin{tabular}{*{7}{c}}
       \hline 
          		& T 	& M 	& L 	& $T_{Cor}$ & $M_{Cor}$ & $L_{Cor}$ \\ 
       \hline \hline
@@ -275,17 +276,20 @@
        $|S|$	& 50 	& 300 	& 21945 & 50 	& 300 	& 21945	\\ 
        $|L_s|$	& 1-5 	& 1-6 	& 1-5 	& 2-6 	& 2-6 	& 2-6 	\\ 
        $|T|$	& N/A 	& N/A 	& N/A 	& 4 	& 10 	& 20 	\\ 
-       s		& $1.394 \cdot 10^{182}$ & $5.668 \cdot 10^{1840}$ & $1.009 \cdot 10^{6695}$ & $1.394 \cdot 10^{182}$ & $5.668 \cdot 10^{1840}$ & $6.14 \cdot 10^{6689}$ \\
+       s		& $10^{182}$ & $10^{1840}$ & $10^{6695}$ & $10^{182}$ & $10^{1840}$ & $10^{6689}$ \\
       \hline 
 	  \end{tabular} 
+	  \end{small}
 	  \end{center}
 	  
-	  
+	  The large data set was created with parameters inspired from the University of 
+	  Toronto's Faculty of Arts and Science \cite{website:uoftstats,website:artscistats}.
 	  The full input files for these instances are available in our repository in the 
-	  directory "Instance Input Files".
+	  directory \emph{Instance Input Files}.
 	  
     \subsubsection{Selecting Parameters for the GA}
       [\ldots]
+      
   \subsection{Comparison Between the Different Searches}
     [\ldots]
   
@@ -294,10 +298,11 @@
     [\ldots]
     Seeing as our fitness function gives a very high penalty for schedules that have direct
     conflicts (either a student with two exams at the same moment, or two different exams
-    in a same room at the same moment), if such a schedule exists given the input data, our
-    algorithms will very quickly tend to reject all such schedules.
+    in a same room at the same moment), if such schedules exists given the input data, 
+    our algorithms will tend to very quickly reject them. 
   
 \section{Conclusion}
+  [\ldots]
   We come up with a conclusion that in this particular problem, genetic algorithm
   is better than random search, and it is better than hill-climbing if the input 
   is a large data set. But it may not be the best solution for this problem, since
