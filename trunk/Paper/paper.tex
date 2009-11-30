@@ -43,9 +43,14 @@
 \maketitle
 
 \begin{abstract}
-  This concise, one-paragraph summary should describe the general thesis
-  and conclusion of your paper. A reader should be able to learn the purpose
-  of the paper and the reason for its importance from the abstract.
+  We examine the exam scheduling problem with soft constraints for problems of varying
+  sizes using a genetic algorithm, random search, hillclimbing, and a variant of simulated
+  annealing. This is done in the context of maximizing the fitness of a schedule, where the
+  fitness is relatively computationally expensive to compute for any schedule. The genetic
+  algorithm is discussed in detail. We consider selecting parameters for the GA that
+  maximize the quality of the schedule found after a constant number of evaluations. The
+  GA, with a naive crossover operator, performs much better than the random search, but
+  simulated annealing is far superior in this search space.
 \end{abstract}
 
 \section{The Problem}
@@ -99,8 +104,8 @@
   poorly any schedule where she has 2 consecutive exams, and very poorly any 
   schedule which expects her to take two exams at the same time.)
   
-  \[ Q_s(K)=f\left(TT_s(K)\right):\textit{ Schedules}\rightarrow [0,\ 1] \]
-  \[ Q_r(K)=g\left(TT_r(K)\right):\textit{ Schedules}\rightarrow [0,\ 1] \]
+  \[ Q_s(K)=q_{student}\left(TT_s(K)\right):\textit{ Schedules}\rightarrow [0,\ 1] \]
+  \[ Q_r(K)=q_{room}\left(TT_r(K)\right):\textit{ Schedules}\rightarrow [0,\ 1] \]
   
   We will consider later how to define these functions in a reasonable way.
 
@@ -160,6 +165,8 @@
     it is difficult to use it for other purposes if it will still be used for exams 
     soon.)
     
+    The details of the function we used are essentially arbitrary.
+    
   \subsection{Genetic Algorithm Search}
     Although there are many readily available open source genetic algorithm software
     packages available (see JGAP \cite{website:JGAP}, Jenes\cite{website:jenes}) we 
@@ -169,11 +176,47 @@
     the scheduling problem under consideration here.
     
     \subsubsection{General Description}
-      [\ldots]
+      The genetic algorithm maintains a population of schedules and constructs subsequent
+      generations by adding new random schedules, making copies of high quality schedules 
+      in the present generation, applies the mutation operator to schedules, or uses the
+      crossover operator on 2 schedules. When performing mutation or crossover, the 
+      schedules are selected with a probability proportional to their fitness, allowing 
+      the schedules with high quality tobe selected more frequently and make more 
+      "offspring". 
+      
+      The free parameters in our GA are the size of the population, number of
+      generations to simulate, and proportions of new generations toi be made by the copy, 
+      random, mutation, and crossover methods.
+      
+    \subsubsection{Representation}
+      We use the naive representation of schedules. A schedule contains lists of size $|C|$
+      containing the room in which each course's exam is to occur and the timing
+      (corresponding to a pair or integers representing the day and time) of each course's
+      exam.
+      
     \subsubsection{Mutation Operator}
-      [\ldots]
+      The mutation operator takes a probability and a schedule. We loop over the courses,
+      and, with the given probability, each is or is not set to a random room at a random time.
+      
     \subsubsection{Crossover Operator}
-      [\ldots]
+      Given two schedules, the crossover operator loops over the courses, and chooses at
+      random which schedule to take the room and timing from for that course. This results 
+      in an interleaving of the original courses' data.
+      
+      There is, unfortunately, no good reason to expect that the result of applying 
+      crossover to two relatively high quality schedules will produce a high quality 
+      schedule, since the quality of schedules can be very subtle, as they are a more 
+      global property of the schedule than this process captures. The crossover of two 
+      schedules where no student or room has a timing conflict is unlikely to result in 
+      a schedule with much more than average quality. There is no obvious reason to think 
+      that this sort of procedure will produce schedules with better than random fitness. 
+      Luckily, the schedules produced in practice are better than random.
+      
+      If a different representation were chosen, such that the mutated schedules were
+      different from, but likely to have quality similar to their parents, the GA would 
+      likely be able to perform much better than it does, but we could not discover such a
+      representation and are satisfied with this method for present purposes.
+      
   \subsection{Other Search Algorithms}
     \subsubsection{Random Search}
       The random search method simply generates random schedules, evaluates their fitness,
@@ -196,13 +239,47 @@
       and will always return a local maximum
 
     \subsubsection{Mutate Search}
-      Mutate Search starts by generating a random schedule. It modifies this schedule (by
-      using the same mutate operator made for the genetic algorithm) by 1\% and rolls back if
-      the mutation didn't increase the schedule's fitness. This operation is repeated until it has
-      performed as many evaluations as it is allowed to.
-      This algorithm is a variation of simulated annealing, where instead of accepting a change
-      through a probabilistic function, it always accepts a change that leads to a higher fitness.
+      Mutate Search starts by generating a random schedule. It makes an alternative schedule
+      (by using the same mutate operator made for the genetic algorithm) with 1\% of the
+      data randomized and chooses which of the schedules is better. This operation is
+      repeated until it has performed as many evaluations as it is allowed to.
+      
+      This method can be changed to true simulated annealing by varying the degree of
+      modification made to the current best schedule with the number of evaluations
+      remaining. Not being the focus of our investigation, little effort was made to 
+      optimize the parameters. 1\% does seem to give better performance than other nearby 
+      values, though we did not collect data to substantiate this. Finding ideal parameters 
+      for simulated annealing on this problem would make for a project-sized inquiry in itself.
 
+  \subsection{Options for the Genetic Algorithm}
+    \subsubsection{Scheduling Problem Instances}
+      We generated 2 sets of 3 scheduling problem instances to test the algorithms above with. 
+      The package ScheduleInstanceGenerator in our code repository manages the generation of 
+      random problem instances with many free parameters to specify characteristics of the 
+      output instance.
+      
+      The following table characterized the problem instances that we used:
+      
+      \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline  & Tiny & Medium & Large & Tiny /w Cor. & Med /w Cor. & Large /w Cor. \\ 
+      \hline d & 7 & 10 & 7 & 7 & 10 & 7 \\ 
+      \hline t & 5 & 8 & 8 & 5 & 8 & 8 \\ 
+      \hline $|C|$ & 20 & 200 & 603 & 20 & 200 & 600 \\ 
+      \hline $|R|$ & 4 & 10 & 43 & 4 & 10 & 43 \\ 
+      \hline $|S|$ & 50 & 300 & 21945 & 50 & 300 & 21945 \\ 
+      \hline $|L_s|$ & 1-5 & 1-6 & 1-5 & 2-6 & 2-6 & 2-6 \\ 
+      \hline \# Course Types & N/A & N/A & N/A & 4 & 10 & 20 \\ 
+      \hline 
+	\end{tabular} 
+	
+	  The full input files for these instances are available in our repository in the 
+	  directory "Instance Input Files".
+	  
+    \subsubsection{Selecting Parameters for the GA}
+      [\ldots]
+  \subsection{Comparison Between the Different Searches}
+    [\ldots]
+  
 \section{Evaluation}
   \subsection{Success}
     [\ldots]
@@ -210,20 +287,13 @@
     conflicts (either a student with two exams at the same moment, or two different exams
     in a same room at the same moment), if such a schedule exists given the input data, our
     algorithms will very quickly tend to reject all such schedules.
-  \subsection{The Genetic Algorithm's Parameters}
-    [\ldots]
-  \subsection{Comparison Between the Different Searches}
-    [\ldots]
   
 \section{Conclusion}
   We come up with a conclusion that in this particular problem, genetic algorithm
   is better than random search, and it is better than hill-climbing if the input 
   is a large data set. But it may not be the best solution for this problem, since
-  the MutateSearch performs way better.
+  the Mutate Search performs way better.
   
-  %\cite{website:jgap} 
-  %\cite{website:jenes} 
-  %\cite{website:coderepos} 
 \bibliographystyle{aaai}
 \bibliography{paperBib}
 \end{document}
