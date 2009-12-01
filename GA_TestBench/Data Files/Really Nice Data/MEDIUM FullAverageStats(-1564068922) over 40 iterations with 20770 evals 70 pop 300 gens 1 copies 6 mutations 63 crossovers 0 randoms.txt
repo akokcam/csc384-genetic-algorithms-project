@@ -3,7 +3,7 @@ Performance of the 4 searches using at most 20770 evaluations.
 Number of evaluations
 Fitness
 4
-Genetic Algorithm with parameters Copies: 1, Mutations: 6, Crossovers: 63, Randoms: 0
+GA
 70, 0.30447572204663376
 139, 0.3093201653288367
 208, 0.31185375874499893
@@ -306,7 +306,7 @@ Genetic Algorithm with parameters Copies: 1, Mutations: 6, Crossovers: 63, Rando
 20701, 0.5005967328322197
 20770, 0.5006291475553427
 END-SERIES
-Random Search with Evaluation limit 20770
+Random Search
 1, 0.2708963523542302
 70, 0.3032126511370298
 139, 0.308838903800869
@@ -610,7 +610,7 @@ Random Search with Evaluation limit 20770
 20701, 0.33991558092849383
 20770, 0.33991558092849383
 END-SERIES
-Hillclimbing Algorithm with Evaluation limit 20770
+Hillclimbing
 1, 0.27185645703999844
 70, 0.27398377175191935
 139, 0.2742480247432056
@@ -914,7 +914,7 @@ Hillclimbing Algorithm with Evaluation limit 20770
 20701, 0.316471443921845
 20770, 0.3165432274454894
 END-SERIES
-Mutate Search with Evaluation limit 20770
+Mutate Search
 1, 0.2700509872804654
 70, 0.319819822796103
 139, 0.3597746803656595

@@ -3,7 +3,7 @@ Performance of the 4 searches using at most 35820 evaluations.
 Number of evaluations
 Fitness
 4
-Genetic Algorithm with parameters Copies: 1, Mutations: 6, Crossovers: 110, Randoms: 3
+GA
 120, 0.3441963884790004
 239, 0.3441963884790004
 358, 0.34803713005755466
@@ -306,7 +306,7 @@ Genetic Algorithm with parameters Copies: 1, Mutations: 6, Crossovers: 110, Rand
 35701, 0.4659001872202728
 35820, 0.4667026837091353
 END-SERIES
-Random Search with Evaluation limit 35820
+Random Search
 1, 0.3436027980451217
 120, 0.3436027980451217
 239, 0.3436027980451217
@@ -610,7 +610,7 @@ Random Search with Evaluation limit 35820
 35701, 0.3588729521402744
 35820, 0.3588729521402744
 END-SERIES
-Hillclimbing Algorithm with Evaluation limit 35820
+Hillclimbing
 1, 0.31044783953902877
 120, 0.31087776859003696
 239, 0.31087776859003696
@@ -914,7 +914,7 @@ Hillclimbing Algorithm with Evaluation limit 35820
 35701, 0.3191926899361416
 35820, 0.3191926899361416
 END-SERIES
-Mutate Search with Evaluation limit 35820
+Mutate Search
 1, 0.32360703529225393
 120, 0.37709918408941806
 239, 0.4060297820925623
