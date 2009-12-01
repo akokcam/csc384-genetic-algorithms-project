@@ -7,6 +7,7 @@
 \usepackage[table]{xcolor}
 \usepackage{graphicx}
 \usepackage{epstopdf}
+\usepackage{float}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PDFMARK for TeX and GhostScript
 % Uncomment and complete the following for metadata if
@@ -326,7 +327,12 @@
         size of the population is fixed, so the number of random individuals used at each 
         point is 60?-(m+c). This corresponds to the distance from the diagonal.
         
-        [GRAPH]
+        \begin{figure}[H]
+  		  \centering
+  		  \includegraphics[width=8cm]{GAParametersData}
+  	      \caption{Effectiveness of the GA's proportion parameters}
+  	      \label{graph:GAParam1}
+		\end{figure}	
         
         The graph above indicates that for a fixed number of evaluations, best results are 
         achieved by selecting parameters that have the majority of individuals in the next 
@@ -342,7 +348,12 @@
       \paragraph{Size Parameters}
         Blah blah blaj. We investigated the population size and 
         
-        [Insert fancy 3D graph here = WIN]
+        \begin{figure}[H]
+  		  \centering
+  		  \includegraphics[width=8cm]{MEDIUM-GA_Size_Data}
+  	      \caption{Effectiveness of the GA's population parameters}
+  	      \label{graph:GAParam2}
+		\end{figure}	
       
   \subsection{Comparison Between the Different Searches}
     [\ldots]
