@@ -1,8 +1,8 @@
 GA Size Parameters in 3 Dimensions, testing the quality of different settings of the population and number of generations.
 3
-Population Size
-Number of Generations
-Attained Fitness
+Population
+Generations
+Fitness
 1
 GA with parameters
 5, 5, 0.29076293490330374
