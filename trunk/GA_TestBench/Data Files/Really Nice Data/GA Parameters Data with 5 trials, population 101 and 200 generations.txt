@@ -1,8 +1,8 @@
 GA Parameters in 3 Dimensions, testing the quality of different settings of the crossover and mutation proportions.
 3
-Proportion of Crossovers
-Proportion of Mutations
-Attained Fitness
+Crossovers
+Mutations
+Fitness
 1
 GA with parameters
 0, 0, 0.6855183645089467
