@@ -5,6 +5,7 @@
 \usepackage{courier}
 \usepackage{url}
 \usepackage[table]{xcolor}
+\usepackage{graphicx}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PDFMARK for TeX and GhostScript
 % Uncomment and complete the following for metadata if
@@ -170,7 +171,7 @@
     
   \subsection{Genetic Algorithm Search}
     Although there are many readily available open source genetic algorithm software
-    packages available (see JGAP \cite{website:JGAP}, Jenes\cite{website:jenes}) we 
+    packages available (see JGAP, Jenes) we 
     decided to write a simple, yet general, genetic algorithm package, in Java, that
     can interface with data types designed by others, so long as they implement a few
     necessary methods. The package we wrote is more than adequate for investigating
@@ -255,9 +256,30 @@
   \subsection{Options for the Genetic Algorithm}
     \subsubsection{Scheduling Problem Instances}
       We generated 2 sets of 3 scheduling problem instances to test the algorithms above with. 
-      The package \emph{ScheduleInstanceGenerator} in our code repository manages the generation of 
+      The package \texttt{ScheduleInstanceGenerator} in our code repository manages the generation of 
       random problem instances with many free parameters to specify characteristics of the 
       output instance.
+      
+      The first set of instances were generated with the parameters in the table below. 
+      The rooms and courses and students were given arbitrary names and the courses that each 
+      student attended were selected with uniform probability from the complete set of courses.
+      
+      The second set was generated with a sort of correlation between the courses that each student 
+      took, rendering the dataset more true to the sort of data that would be found in real-world 
+      instances of the exam scheduling problem. The set of courses that each student takes was 
+      selected in the following way. Each student was assigned, with uniform probability, a \emph{major} 
+      and a random number of courses between 2 and 6. Each course was then selected, with probability 
+      0.7, from among the $|S|/\#Majors$ courses in their major, or, with probability 0.3, uniformly from 
+      the set of all courses. We can expect that each student takes 70\% of their courses from a small 
+      subset of the courses, representing the field that they specialize in, and 30\% from other fields. 
+      This simulates the way in which we expect student bodies to choose their courses, though the true 
+      data is likely to exhibit far more structure, due to program requirements, notorious professors, etc.
+      
+      The 3 sizes vary from manageable to large. The smallest could potentially be solved exactly, 
+      with methods not under consideration here, while the others have search spaces much too large 
+      for any hope of an exact solution. For the largest, which simulates a UofT exam schedule, a 
+      single evaluation of the fitness function took 0.2 seconds on the fastest machine owned by any 
+      of the authors.
       
       The following table characterized the problem instances that we used:
       
@@ -267,7 +289,7 @@
       \begin{small}
       \begin{tabular}{*{7}{c}}
       \hline 
-         		& T 	& M 	& L 	& $T_{Cor}$ & $M_{Cor}$ & $L_{Cor}$ \\ 
+      	& S 	& M 	& L 	& $S_{Cor}$ & $M_{Cor}$ & $L_{Cor}$ \\ 
       \hline \hline
        d 		& 7 	& 10	& 7 	& 7 	& 10 	& 7 	\\ 
        t 		& 5		& 8 	& 8 	& 5 	& 8 	& 8 	\\ 
@@ -275,15 +297,15 @@
        $|R|$	& 4 	& 10 	& 43 	& 4 	& 10 	& 43	\\ 
        $|S|$	& 50 	& 300 	& 21945 & 50 	& 300 	& 21945	\\ 
        $|L_s|$	& 1-5 	& 1-6 	& 1-5 	& 2-6 	& 2-6 	& 2-6 	\\ 
-       $|T|$	& N/A 	& N/A 	& N/A 	& 4 	& 10 	& 20 	\\ 
-       s		& $10^{182}$ & $10^{1840}$ & $10^{6695}$ & $10^{182}$ & $10^{1840}$ & $10^{6689}$ \\
+       \begin{tiny}$\#$Maj\end{tiny}	& N/A 	& N/A 	& N/A 	& 4 	& 10 	& 20 	\\ 
+       \begin{tiny}\textsc{sss}\end{tiny}	& $10^{182}$ & $10^{1840}$ & $10^{6695}$ & $10^{182}$ & $10^{1840}$ & $10^{6689}$ \\
       \hline 
 	  \end{tabular} 
 	  \end{small}
 	  \end{center}
 	  
 	  The large data set was created with parameters inspired from the University of 
-	  Toronto's Faculty of Arts and Science \cite{website:uoftstats,website:artscistats}.
+	  Toronto's Faculty of Arts and Science.
 	  The full input files for these instances are available in our repository in the 
 	  directory \emph{Instance Input Files}.
 	  
@@ -292,6 +314,14 @@
       
   \subsection{Comparison Between the Different Searches}
     [\ldots]
+    \begin{figure}[h!]
+  	  \centering
+  	  \setlength\fboxsep{0pt}
+	  \setlength\fboxrule{0.5pt}
+	  \fbox{\includegraphics[width=8.35cm]{SMALL_FullAverageStats}}
+      \caption{Search statistics on Small data set}
+	\end{figure}
+    
   
 \section{Evaluation}
   \subsection{Success}
@@ -308,6 +338,7 @@
   is a large data set. But it may not be the best solution for this problem, since
   the Mutate Search performs way better.
   
+  \nocite{*}
 \bibliographystyle{aaai}
 \bibliography{paperBib}
 \end{document}
