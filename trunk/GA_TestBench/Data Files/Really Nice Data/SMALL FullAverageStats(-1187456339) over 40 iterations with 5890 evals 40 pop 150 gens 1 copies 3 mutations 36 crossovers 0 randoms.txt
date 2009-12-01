@@ -3,7 +3,7 @@ Performance of the 4 searches using at most 5890 evaluations.
 Number of evaluations
 Fitness
 4
-Genetic Algorithm with parameters Copies: 1, Mutations: 3, Crossovers: 36, Randoms: 0
+GA
 40, 0.5795780836724056
 79, 0.5935335296057553
 118, 0.6054717675650804
@@ -156,7 +156,7 @@ Genetic Algorithm with parameters Copies: 1, Mutations: 3, Crossovers: 36, Rando
 5851, 0.7408148628616086
 5890, 0.7408148628616086
 END-SERIES
-Random Search with Evaluation limit 5890
+Random Search
 1, 0.460971237933496
 40, 0.5782998635597372
 79, 0.5921941449043807
@@ -310,7 +310,7 @@ Random Search with Evaluation limit 5890
 5851, 0.6644571236750731
 5890, 0.6644571236750731
 END-SERIES
-Hillclimbing Algorithm with Evaluation limit 5890
+Hillclimbing
 1, 0.45136369105622487
 40, 0.4938592098016912
 79, 0.5102548681683062
@@ -464,7 +464,7 @@ Hillclimbing Algorithm with Evaluation limit 5890
 5851, 0.7570299236724776
 5890, 0.7570299236724776
 END-SERIES
-Mutate Search with Evaluation limit 5890
+Mutate Search
 1, 0.43848754852078853
 40, 0.5207322457861154
 79, 0.5838714710886899
