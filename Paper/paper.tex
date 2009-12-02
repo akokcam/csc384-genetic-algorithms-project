@@ -170,6 +170,9 @@
     it is difficult to use it for other purposes if it will still be used for exams 
     soon.)
     
+    We chose the weighting constants $w_s=2$ and $w_r=1$, which suggest that we are 
+    more concerned with the students' schedules than the rooms'.
+    
     The details of the function we used are essentially arbitrary, and we expect 
     similar results would be attained for any other penalty-based fitness function 
     modelling the preferences of students and requirements of rooms.
@@ -259,10 +262,9 @@
       values, though we did not collect data to substantiate this. Finding ideal parameters 
       for simulated annealing on this problem would make for a project-sized inquiry in itself.
 
-  \subsection{Options for the Genetic Algorithm}
-    \subsubsection{Scheduling Problem Instances}
+    \subsection{Scheduling Problem Instances}
       We generated 2 sets of 3 scheduling problem instances to test the algorithms above with. 
-      The package \texttt{ScheduleInstanceGenerator} in our code repository manages the generation of 
+      The package \texttt{Schedule Instance Generator} in our code repository manages the generation of 
       random problem instances with many free parameters to specify characteristics of the 
       output instance.
       
@@ -313,7 +315,8 @@
 	  The large data set was created with parameters inspired from the University of 
 	  Toronto's Faculty of Arts and Science.
 	  
-    \subsubsection{Selecting Parameters for the GA}
+\section{Evaluation}
+   \subsection{Selecting Parameters for the GA}
       In order to select parameters for the genetic algorithm (that is, the population, 
       number of generations to simulate, proportions of copies, randoms, mutations, and 
       crossovers for the next generation) we performed tests using the small uncorrelated 
@@ -329,7 +332,7 @@
         
         \begin{figure}[H]
   		  \centering
-  		  \includegraphics[width=6cm]{GAParametersData}
+  		  \includegraphics[width=8cm]{GAParametersData}
   	      \caption{Effectiveness of the GA's proportion parameters}
   	      \label{graph:GAParam1}
 		\end{figure}	
@@ -346,50 +349,57 @@
         preference.
         
       \paragraph{Size Parameters}
-       [\ldots]  Duis accumsan sagittis velit vel consectetur. Nullam sed ligula nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi quis neque eu justo accumsan auctor. Cras a risus ac est aliquam malesuada quis ac tellus. Aliquam nunc diam, ultrices et cursus ac, ornare mollis tellus. Ut venenatis lacus nec risus eleifend placerat. 
+        We also performed tests to gauge the optimal population size and number of generations 
+        to calculate. We determined that very small values for either the population or number 
+        of generations result in very poor generated solutions. A population of around 50 is 
+        sufficient for good diversity to be retained in the population, and having a number of 
+        generations relatively large compared to the population size seemed to be effective.
+       
+        We gathered data from the small and medium problem instances, but the precise qualities 
+        provided by particular parameters will not necessarily hold in larger instances. The 
+        optimal population size and number of generations (for a fixed number of fitness 
+        evaluations) is likely to vary for larger problem instances, but it seemed clear that 
+        the number of generations should be set somewhat higher than the population.
         
-        \begin{figure}[H]
-  		  \centering
-  		  \includegraphics[width=8cm]{MEDIUM-GA_Size_Data}
-  	      \caption{Effectiveness of the GA's population parameters}
-  	      \label{graph:GAParam2}
-		\end{figure}
-		
-		[\ldots]  Praesent eros nulla, ullamcorper non euismod in, pretium et nisi. Nam eu augue ut lacus dignissim gravida. Vivamus euismod convallis lorem, bibendum pellentesque arcu pulvinar a. Phasellus suscipit vehicula nunc non laoreet.
+        %\begin{figure}[H]
+  		%  \centering
+  		%  \includegraphics[width=8cm]{MEDIUM-GA_Size_Data}
+  	    %  \caption{Effectiveness of the GA's population parameters}
+  	    %  \label{graph:GAParam2}
+		%\end{figure}
       
   \subsection{Comparison Between the Different Searches}
-    [\ldots] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum vehicula tellus, id varius enim cursus nec. In auctor lacus ac diam iaculis id fringilla est tincidunt. Sed tincidunt dictum dolor non dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus bibendum nisl quis felis accumsan vel hendrerit nulla gravida. Fusce convallis velit eu nisi pellentesque quis sagittis dolor imperdiet. Sed magna velit, convallis in mattis vel, varius vel ante. Nunc euismod aliquam lacus vitae consectetur. 
+    We tested the 4 search methods on all 6 of our peoblem instances. The results for 
+    only two of the problems are shown, she small and large problems, since the medium 
+    problem exhibited characteristics very similar to the large problem.
+    
+    Since all methods produced nearly indistinguishable results for the uncorrelated 
+    versions. This suggests that it may be possible to use the expected internal 
+    correlations more effectively that the methods we have proposed do.
+    
+    On the graphs for the small instance, the results shown are averages over many trial 
+    runs. Individually, however, the different methods all produced similar results, in 
+    particular the ranking of the algorithms was very consistent for any particular problem 
+    instance.
     
     \begin{figure}[H]
   	  \centering
-  	  \setlength\fboxsep{0pt}
-	  \setlength\fboxrule{0.5pt}
-	  \fbox{\includegraphics[width=8cm]{SMALL-TYPE2_FullAverageStats}}
+  	  \includegraphics[width=8cm]{SMALL-TYPE2_FullAverageStats}
       \caption{Comparison of the different searches on a small data set}
 	\end{figure}
 	
 	\begin{figure}[H]
   	  \centering
-  	  \setlength\fboxsep{0pt}
-	  \setlength\fboxrule{0.5pt}
-	  \fbox{\includegraphics[width=8cm]{MEDIUM-TYPE2_FullAverageStats}}
-      \caption{Comparison of the different searches on a medium data set}
-	\end{figure}
-	
-	\begin{figure}[H]
-  	  \centering
-  	  \setlength\fboxsep{0pt}
-	  \setlength\fboxrule{0.5pt}
-	  \fbox{\includegraphics[width=8cm]{HUGE-TYPE2_FullAverageStats}}
+  	  \includegraphics[width=8cm]{HUGE-TYPE2_FullAverageStats}
       \caption{Comparison of the different searches on a large data set}
 	\end{figure}
 	
-	[\ldots]Vivamus vehicula metus nibh. Morbi id ante dolor, eget pretium justo. Phasellus sit amet arcu vitae eros malesuada ornare. Proin vulputate volutpat eros, a laoreet ipsum lacinia vel. Vivamus commodo odio non tellus convallis pharetra. Cras varius fringilla tempor. Sed mollis, augue quis euismod pellentesque, turpis mi convallis purus, sed bibendum eros lacus volutpat felis. Quisque velit lectus, dapibus eget tincidunt sed, tincidunt a lectus. Phasellus vel luctus eros. Vestibulum vitae quam mi. Nullam posuere aliquam magna vitae bibendum.
-  
-\section{Evaluation}
+	The mutate search algorithm performed remarkably well in all tests, finding a 
+	schedule at least somewhat better than every other method for every size problem 
+	instance.
   
 \section{Conclusion}
-  [\ldots]Suspendisse dapibus pretium eros, quis varius nisi tincidunt ac. Duis purus nibh, ullamcorper in ullamcorper eu, pharetra eu nunc. Praesent id ipsum quis est elementum ultricies elementum et odio. Aliquam a mi diam, at posuere lorem. Donec vel nisl lorem. Sed metus nulla, tincidunt sed ornare ac, adipiscing eu augue. Aenean accumsan odio ac sem rutrum feugiat. In hac habitasse platea dictumst. Mauris fringilla dui eget lectus iaculis at venenatis sem tincidunt. Aliquam ullamcorper nibh eget enim consectetur vel bibendum tellus molestie. Etiam mauris lectus, auctor vel ornare eu, accumsan nec enim. Vivamus blandit, est ac vehicula blandit, odio tortor semper lectus, quis luctus eros dolor a elit. Donec consequat tempor purus, eleifend suscipit velit rhoncus vel. Nam sed purus justo, id dapibus urna. Nullam semper mollis tempor.
+  [\ldots]
   
 \nocite{*}
 \bibliographystyle{aaai}
