@@ -409,16 +409,30 @@
 	wasn't so much better than GA for this problem.
   
 \section{Conclusion}
-  \subsection{Fitness Function Modifications}
-    The fitness function can be modified by any monotone function to obtain identical 
-    results for the 3 non-GA methods, which only need to choose the better fitness 
-    and do not use the fitness values in any important way. The GA, however, uses the 
-    fitness values to decide the probability of schedules being selected and modified 
-    for subsequent generations. Modifying the fitness function in a variety of ways 
-    (perhaps calculating the total penalty that a schedule gets instead averaging over 
-    the values given by each student and room) might improve the quality of the GA 
-    approach to this problem. The fitness function used here could be modified in many 
-    ways, and investigating this would be very interesting.
+  Any monotone function can be applied to the fitness values to obtain identical 
+  results for the 3 non-GA methods, which only need to choose the better fitness 
+  and do not use the fitness values in any important way. The GA, however, uses 
+  the fitness values to decide the probability of schedules being selected and 
+  modified for subsequent generations. It might be possible to reduce or increase 
+  the probability of poor functions being selected for mutation or crossover.
+  
+  Modifying the fitness function in a variety of ways (perhaps calculating the 
+  total penalty that a schedule gets instead averaging over the values given by 
+  each student and room) might improve the  quality of the GA approach to this 
+  problem. The fitness function used here could  be modified in many ways, and 
+  investigating this would be very interesting.
+
+  Unfortunately, without further investigation and modification, the GA given 
+  should not be used. Perhaps a novel form for representing schedules could make 
+  a GA approach for this problem perform better than mutate search. We recommend 
+  Mutate search for solving problems of this type. A typical PC can generate a 
+  relatively good schedule for a large exam scheduling problem overnight using the
+  mutate search method. Mutate search is very easy to implement, making it even 
+  more attractive.
+
+  Mutate search can be modified to change the rate of mutation and number of attempts 
+  at each step, which suggests that much better methods can be developed based on the 
+  it. This could be an interesting direction for further research.
   
 \nocite{*}
 \bibliographystyle{aaai}
