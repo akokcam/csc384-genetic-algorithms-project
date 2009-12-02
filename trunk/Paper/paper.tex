@@ -71,10 +71,7 @@
 
   A schedule, then, is a mapping from courses to rooms at times, 
   which we can express like this:
-  
   \[ C \rightarrow \left\{(r,\ a,\ b)\ |\ r\in R,\ a\in \{1..d\},\ b\in \{1..t\}\right\} \]
-
-
   Typically, with relatively loose constraints on the number of rooms and 
   particular schedules of students, it is not difficult to find some consistent
   schedule; that is, one where no student is asked to write 2 exams
@@ -88,33 +85,26 @@
   
   The timetable that a student $s \in S$ has under some particular schedule 
   $K$ may be represented in this way:
-  
   \[ TT_s(K) = \left\{(a, b)\ |\ \exists r \in R, \exists c \in L_s, K(c)=(r, a, b) \right\} \]
-  
   which may, in general, be a multiset.
   
   Similarly, the timetable for a room $r \in R$ is
-  
   \[ TT_r(K)=\left\{(a, b)\ |\ \exists c\in C,\ K(c)=(r, a, b)\right\} \]
   
   We define two quality functions, mapping schedules to real numbers in [0,1],
   one for students and one for rooms. These are meant to capture how much they
-  "like" the schedule under consideration. (For instance, a student will rate
+  ``like" the schedule under consideration. (For instance, a student will rate
   poorly any schedule where she has 2 consecutive exams, and very poorly any 
   schedule which expects her to take two exams at the same time. A room will 
   rate poorly a schedule that assigns two different exams to be held in it at 
   the same moment).
-  
   \[ Q_s(K)=q_{student}\left(TT_s(K)\right):\textit{ Schedules}\rightarrow [0,\ 1] \]
   \[ Q_r(K)=q_{room}\left(TT_r(K)\right):\textit{ Schedules}\rightarrow [0,\ 1] \]
-  
   We will consider later how to define these functions in a reasonable way.
 
   The quality of a schedule, then, is given by
-  
   \[ Q(K)= \frac{\left(w_s\left(\sum_{s \in S}{\frac{Q_s(K)}{|S|}}\right) +
      w_r\left(\sum_{r\in R}{\frac{Q_r(K)}{|R|}} \right)\right)}{(w_s+w_r)} \]
-  
   where $w_s$ and $w_r$ are the weightings we can use to indicate that we 
   care somewhat more about students preferences than rooms, giving a quality
   (or fitness, in the terminology of genetic algorithms) in the range [0,1] for
@@ -128,7 +118,7 @@
   but also touch on a few other methods.
 
 \section{Approach and Implementation}
-  \subsection{Differences From Natural Exam Scheduling Problems}
+  \subsection{Differences From Natural Exam Scheduling}
     The problem we have constructed here is a compromise between more mathematically
     pure problems with the same sort of properties (which might ignore the rooms' 
     constraints completely) and the problem that must be solved in the real world 
@@ -149,9 +139,7 @@
     how much each student or room likes their given timetable. We do this by giving 
     penalties to schedules when they have properties that are disliked by the 
     student or room, and then using the formula
-    
     \[ q(TT)=\frac{1}{1+penalty_{TT}} \]
-    
     This function will be in the desired range of [0,1].
     
     We assign 50 point penalties for inconsistent schedules, 3-5 points when 
@@ -192,9 +180,7 @@
       We use the naive representation of schedules. A schedule contains lists of size $|C|$
       containing the room in which each course's exam is to occur and the timing
       (corresponding to a pair or integers representing the day and time) of each course's
-      exam. 
-      
-      We will see that this representation is far from ideal, but there is no clear 
+      exam. We will see that this representation is far from ideal, but there is no clear 
       alternative.
             
     \subsubsection{Mutation Operator}
@@ -235,16 +221,15 @@
       to, or it has found a schedule whose neighbour are all equal or inferior to it.
       
       The neighbouring schedules are those where only one course meets in either a different
-      room, on a different day, or at a different time. This leads to a total of
-      $ |C|(d+t+|R|-3) $ schedules in the neighbourhood of any given schedule.
-      
+      room, on a different day, or at a different time. 
+%      This leads to a total of $ |C|(d+t+|R|-3) $ schedules in the neighbourhood of any given schedule.
       It can be seen that this method is completely deterministic given a starting schedule,
-      and will always return a local maximum
+      and will always return a local maximum.
 
     \subsubsection{Mutate Search}
       Mutate Search starts by generating a random schedule. It makes an alternative schedule
       (by using the same mutate operator made for the genetic algorithm) with 1\% of the
-      data randomized and chooses which of the schedules is better. This operation is
+      data randomized and keeps the better schedule. This operation is
       repeated until it has performed as many evaluations as it is allowed to.
       
       This method can be changed to true simulated annealing by varying the degree of
@@ -260,7 +245,7 @@
       every step as processors are available and select the fittest result for the next 
       set of mutations. We expect that this would increase the rate at which the best 
       found fitness increases.
-
+      
   \subsection{Scheduling Problem Instances}
     We generated 2 sets of 3 scheduling problem instances with which to test the 
     above algorithms. The first set of instances were generated with the parameters 
@@ -284,12 +269,14 @@
     For the largest, which simulates a UofT exam schedule, a single evaluation of 
     the fitness function takes 0.2 seconds on on a typical desktop computer. This 
     makes it difficult to thoroughly investigate this instance.
-      
-    The following table characterizes the problem instances that we used ($\#$Maj is the 
-    number of different majors used and \textsc{SSS} is an approximation of the search space size):    
+    
+    The large data set was created with parameters corresponding to the fall 2009 
+	University of Toronto exam schedule, which is the size we expect for a large 
+	real-world problem instance.
+	
     \definecolor{light-gray}{gray}{0.87}
     \rowcolors{1}{light-gray}{white}
-    \begin{center}
+    \begin{table}[h]
     \begin{small}
     \begin{tabular}{*{7}{c}}
     \hline 
@@ -306,12 +293,10 @@
     \hline  
     \end{tabular} 
 	\end{small}
-	\end{center}
+	\caption{The six data sets used in our project. $\#$Maj is the number of different 
+	         majors used and \textsc{SSS} is an approximation of the search space size.}
+	\end{table}
 	
-	The large data set was created with parameters corresponding to the fall 2009 
-	University of Toronto exam schedule, which is the size we expect for a large 
-	real-world problem instance.
-	  
 \section{Evaluation}
    \subsection{Selecting Parameters for the GA}
       In order to select parameters for the genetic algorithm (that is, the population, 
@@ -333,7 +318,7 @@
   	      \caption{Effectiveness of the GA's proportion parameters}
   	      \label{graph:GAParam1}
 		\end{figure}	
-        
+		
         The graph indicates that for a fixed number of evaluations, best results are 
         achieved by selecting parameters that have the majority of individuals in the next 
         generation be generated by crossovers of the most fit schedules in the previous 
@@ -347,7 +332,7 @@
       
   \subsection{Comparison Between the Different Searches}
     We tested the 4 search methods on all 6 of our problem instances. The results 
-    for two of the problems, the small and large problems, are shown on figure 2 
+    for two of the problems, the small and large problems, are shown in figure 2 
     and 3. The medium problem exhibited characteristics very similar to the large problem.
     
     All methods produced nearly indistinguishable results for the uncorrelated 
@@ -362,13 +347,13 @@
     \begin{figure}[h]
   	  \centering
   	  \includegraphics[width=8cm]{SMALL-TYPE2_FullAverageStats}
-      \caption{Comparison of the different searches on a small data set}
+      \caption{Comparing the four searches on a small data set}
 	\end{figure}
 	
 	\begin{figure}[h]
   	  \centering
   	  \includegraphics[width=8cm]{HUGE-TYPE2_FullAverageStats}
-      \caption{Comparison of the different searches on a large data set}
+      \caption{Comparing the four searches on a large data set}
 	\end{figure}
 	
 	Random search provides a benchmark by which to measure the other 3 techniques. 
