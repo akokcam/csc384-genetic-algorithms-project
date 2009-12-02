@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{float}
+\usepackage{natbib}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PDFMARK for TeX and GhostScript
 % Uncomment and complete the following for metadata if
@@ -72,13 +73,7 @@
   which we can express like this:
   
   \[ C \rightarrow \left\{(r,\ a,\ b)\ |\ r\in R,\ a\in \{1..d\},\ b\in \{1..t\}\right\} \]
-  
-  The total number of different possible schedules in any problem instance is
-  $|C|^{|R|dt}$ which is typically far too large for brute force search.
-  For example, one instance that we examine (scheduling the fall semester
-  exams at the University of Toronto in 2009) involves 603 courses, 7 days,
-  8 times, 43 rooms, and 21945 students. This instance admits approximately 
-  $10^{6695}$ different possible schedules.
+
 
   Typically, with relatively loose constraints on the number of rooms and 
   particular schedules of students, it is not difficult to find some consistent
@@ -134,43 +129,36 @@
 
 \section{Approach and Implementation}
   \subsection{Differences From Natural Exam Scheduling Problems}
-    The problem we have constructed here is a compromise between the most
-    mathematically pure problem with the same sort of properties (which might ignore the
-    rooms and related constraints completely) and the problem that must be solved in the
-    real world when scheduling thousands of students, which has some important differences
-    from this problem. For example, we don't deal with constraints such as room capacity
-    or exams with varying length.
+    The problem we have constructed here is a compromise between more mathematically
+    pure problems with the same sort of properties (which might ignore the rooms' 
+    constraints completely) and the problem that must be solved in the real world 
+    when scheduling thousands of students, which has some important differences from 
+    this problem. For example, we don't deal with constraints like room capacity or 
+    exams with varying length.
     
   \subsection{Tools used}
     Our application was entirely written in Java. We also wrote another Java application 
     to generate problem instance files for testing our algorithms. We used Mathematica 
-    to plot all of our graphs.  Additionally, we use Google code's source code
-    repository\footnote{\url{http://code.google.com/p/csc384-genetic-algorithms-project/}} 
-    and Google docs to collaborate on this report.
+    to plot all of our graphs.  Additionally, we use Google code's subversion
+    repository\footnote{\url{http://code.google.com/p/csc384-genetic-algorithms-project/}},
+    Google docs and Google Wave to collaborate on this report.
     
   \subsection{Fitness Function}
-    In order to assign each schedule a fitness, we need to define the functions 
-    $q_{student}$ and $q_{room}$. They need to capture the idea of determining how
-    much each student or room likes their given timetable. We do this by calculating 
-    the penalty incurred by a room, which is a measure of it having properties that 
-    are unpleasant to the student or room, and then using the formula
+    In order to assign each schedule a fitness, we need to define the functions
+    $q_{student}$ and $q_{room}$. They need to capture the idea of determining 
+    how much each student or room likes their given timetable. We do this by giving 
+    penalties to schedules when they have properties that are disliked by the 
+    student or room, and then using the formula
     
     \[ q(TT)=\frac{1}{1+penalty_{TT}} \]
     
-    This function will be in the desired range or [0,1].
+    This function will be in the desired range of [0,1].
     
-    For students, we accrue a penalty of 50 for every time that is repeated in a 
-    timetable, 5 when there are exams in 2 consecutive times, 3 when 2 exams happen 
-    on the same day, and 0.5 when the student has exams on consecutive days. This 
-    accords reasonably well with real students' hopes for their exam timetables.
-    
-    Rooms have the same penalty of 50 when it is used by two exams at the same time, 
-    5 if it hosts exams in consecutive time slots (reasoning that the invigilators 
-    need time to let the students out and in and prepare for the next exam) and a 
-    penalty of 0.5 when a room is empty for an entire day between uses (reasoning 
-    that the room requires some amount of modifications to be used for exams, and 
-    it is difficult to use it for other purposes if it will still be used for exams 
-    soon.)
+    We assign 50 point penalties for inconsistent schedules, 3-5 points when 
+    students are assigned multiple exams on the same day, and 0.5 when students 
+    don't have a rest day between exams. Rooms have the same stiff 50 point penalty 
+    for inconsistencies, 5 for hosting exams in consecutive time slots, and 0.5 for 
+    any days without exams between the days it is first used and last used.
     
     We chose the weighting constants $w_s=2$ and $w_r=1$, which suggest that we are 
     more concerned with the students' schedules than the rooms'.
@@ -180,24 +168,25 @@
     modelling the preferences of students and requirements of rooms.
     
   \subsection{Genetic Algorithm Search}
-    Although there are many readily available open source genetic algorithm software
+    Although there are many readily available open source genetic algorithm software 
     packages available (see JGAP, Jenes) we decided to write a simple, yet general, 
     genetic algorithm package, in Java, that can interface with data types designed 
-    by others, so long as they implement a few necessary methods. The package we wrote 
-    is more than adequate for investigating the scheduling problem under consideration here.
+    by others, so long as they implement a few necessary methods. The package we 
+    wrote is more than adequate for investigating the scheduling problem under 
+    consideration here.
     
     \subsubsection{General Description}
-      The genetic algorithm maintains a population of schedules and constructs subsequent
+      The genetic algorithm maintains a population of schedules and constructs subsequent 
       generations by adding new random schedules, making copies of high quality schedules 
-      in the present generation, applies the mutation operator to schedules, or uses the
+      in the present generation, applies the mutation operator to schedules, or uses the 
       crossover operator on 2 schedules. When performing mutation or crossover, the 
       schedules are selected with a probability proportional to their fitness, allowing 
       the schedules with high quality to be selected more frequently and make more 
-      ``offspring''. 
+      ``offspring".
       
-      The free parameters in our GA are the size of the population, number of
-      generations to simulate, and proportions of new generations to be made by the copy, 
-      random, mutation, and crossover methods.
+      The free parameters in our GA are the size of the population, number of generations 
+      to simulate, and proportions of new generations to be made by the copy, random, 
+      mutation, and crossover methods.
             
     \subsubsection{Representation}
       We use the naive representation of schedules. A schedule contains lists of size $|C|$
@@ -264,54 +253,64 @@
       optimize the parameters. 1\% does seem to give better performance than other nearby 
       values, though we did not collect data to substantiate this. Finding ideal parameters 
       for simulated annealing on this problem would make for a project-sized inquiry in itself.
+      
+    \subsubsection{Parallel Computations}
+      Of the 4 methods, only mutate search is not trivially parallelizable. A plausible 
+      parallel version of mutate search would generate as many mutated schedules at 
+      every step as processors are available and select the fittest result for the next 
+      set of mutations. We expect that this would increase the rate at which the best 
+      found fitness increases.
 
-    \subsection{Scheduling Problem Instances}
-      We generated 2 sets of 3 scheduling problem instances with which to test the 
-      above algorithms. The first set of instances were generated with the parameters 
-      in the first three columns of the table below. The rooms, courses and students 
-      were given arbitrary names and the courses that each student attended were 
-      selected with uniform probability from the complete set of courses.
+  \subsection{Scheduling Problem Instances}
+    We generated 2 sets of 3 scheduling problem instances with which to test the 
+    above algorithms. The first set of instances were generated with the parameters 
+    in the first three columns of the table below. The rooms, courses and students 
+    were given arbitrary names and the courses that each student attended were 
+    selected with uniform probability from the complete set of courses.
       
-      The second set was generated with a sort of correlation between the courses that each 
-      student took, rendering the dataset more true to the sort of data that would be found 
-      in real-world situations. The set of courses that each student takes was selected such 
-      that we could expect that 70\% of their courses were courses in their major. This 
-      simulates the way in which we expect student bodies to choose their courses, though 
-      the true data is likely to exhibit far more structure, due to program requirements, 
-      notorious professors, etc.
+    The second set was generated with a correlation between the courses that each 
+    student took, rendering the data-set more true to the sort of data that would 
+    be found in real-world situations. The set of courses that each student takes 
+    was selected so that around 70\% of their courses were in their (randomly selected) 
+    major. This simulates the way in which we expect student bodies to choose their 
+    courses, though the true data is likely to exhibit far more structure, due to 
+    program requirements, notorious professors, etc.
       
-      The 3 instances' size vary from manageable to large. The smallest could potentially be 
-      solved exactly, with methods not under consideration here, while the others have 
-      search spaces much too large for any hope of finding a perfect solution. For the 
-      largest, which simulates a UofT exam schedule, a single evaluation of the fitness 
-      function takes 0.2 seconds on on a typical desktop computer. This makes it difficult 
-      to thoroughly investigate this instance.
+    The sized of our 3 instances' vary from manageable to large. The total number 
+    of different possible schedules in any problem instance is $|C|^{|R|dt}$ which 
+    is far too large to conduct a brute force search. The smallest could potentially 
+    be solved exactly, with methods not under consideration here, while the others 
+    have search spaces much too large for any hope of finding a perfect solution. 
+    For the largest, which simulates a UofT exam schedule, a single evaluation of 
+    the fitness function takes 0.2 seconds on on a typical desktop computer. This 
+    makes it difficult to thoroughly investigate this instance.
       
-      The following table characterizes the problem instances that we used ($\#$Maj is the 
-      number of different majors used and \textsc{SSS} is an approximation of the search space size):    
-      \definecolor{light-gray}{gray}{0.87}
-      \rowcolors{1}{light-gray}{white}
-      \begin{center}
-      \begin{small}
-      \begin{tabular}{*{7}{c}}
-      \hline 
-      	& S 	& M 	& L 	& $S_{Cor}$ & $M_{Cor}$ & $L_{Cor}$ \\ 
-      \hline \hline
-       d 		& 7 	& 10	& 7 	& 7 	& 10 	& 7 	\\ 
-       t 		& 5		& 8 	& 8 	& 5 	& 8 	& 8 	\\ 
-       $|C|$	& 20 	& 200 	& 603 	& 20 	& 200 	& 600 	\\ 
-       $|R|$	& 4 	& 10 	& 43 	& 4 	& 10 	& 43	\\ 
-       $|S|$	& 50 	& 300 	& 21945 & 50 	& 300 	& 21945	\\ 
-       $|L_s|$	& 1-5 	& 1-6 	& 1-5 	& 2-6 	& 2-6 	& 2-6 	\\ 
-       \begin{tiny}$\#$Maj\end{tiny}	& N/A 	& N/A 	& N/A 	& 4 	& 10 	& 20 	\\ 
-       \textsc{SSS}	& $10^{182}$ & $10^{1840}$ & $10^{6695}$ & $10^{182}$ & $10^{1840}$ & $10^{6689}$ \\
-      \hline 
-	  \end{tabular} 
-	  \end{small}
-	  \end{center}
-	  
-	  The large data set was created with parameters inspired from the University of 
-	  Toronto's Faculty of Arts and Science.
+    The following table characterizes the problem instances that we used ($\#$Maj is the 
+    number of different majors used and \textsc{SSS} is an approximation of the search space size):    
+    \definecolor{light-gray}{gray}{0.87}
+    \rowcolors{1}{light-gray}{white}
+    \begin{center}
+    \begin{small}
+    \begin{tabular}{*{7}{c}}
+    \hline 
+ 	  	& S 	& M 	& L 	& $S_{Cor}$ & $M_{Cor}$ & $L_{Cor}$ \\ 
+    \hline \hline
+     d 		& 7 	& 10	& 7 	& 7 	& 10 	& 7 	\\ 
+     t 		& 5		& 8 	& 8 	& 5 	& 8 	& 8 	\\ 
+     $|C|$	& 20 	& 200 	& 603 	& 20 	& 200 	& 600 	\\ 
+     $|R|$	& 4 	& 10 	& 43 	& 4 	& 10 	& 43	\\ 
+     $|S|$	& 50 	& 300 	& 21945 & 50 	& 300 	& 21945	\\ 
+     $|L_s|$	& 1-5 	& 1-6 	& 1-5 	& 2-6 	& 2-6 	& 2-6 	\\ 
+     \begin{tiny}$\#$Maj\end{tiny}	& N/A 	& N/A 	& N/A 	& 4 	& 10 	& 20 	\\ 
+     \textsc{SSS}	& $10^{182}$ & $10^{1840}$ & $10^{6695}$ & $10^{182}$ & $10^{1840}$ & $10^{6689}$ \\
+    \hline  
+    \end{tabular} 
+	\end{small}
+	\end{center}
+	
+	The large data set was created with parameters corresponding to the fall 2009 
+	University of Toronto exam schedule, which is the size we expect for a large 
+	real-world problem instance.
 	  
 \section{Evaluation}
    \subsection{Selecting Parameters for the GA}
@@ -322,12 +321,11 @@
       
       \paragraph{Generation Parameters}
         We undertook a search of the space of parameters for forming new generations. 
-
-        Our results can be seen on figure 1, where each data point of the graph 
-        represents the average of 5 trials. To make the scale clearer, the colour 
-        on the surface corresponds to the fitness, where the highest fitnesses 
-        are red. The number of copies is fixed at 1, and the proportions of 
-        mutations and crossovers are shown on the horizontal axes.
+        Our results for different combinations of parameters can be seen in figure 1. 
+        Each point has been averaged over 5 trials. The colour on the plotted surface 
+        corresponds to the fitness, where the highest fitnesses are red. The number of 
+        copies is fixed at 1, and the proportion of mutations and crossovers are shown 
+        on the horizontal axes.
         
         \begin{figure}[h]
   		  \centering
@@ -346,19 +344,6 @@
         larger instances. We chose generation proportion parameters to approximate the optimal 
         values seen here, under the assumption that the larger problems exhibited this sort of 
         preference.
-        
-      \paragraph{Size Parameters}
-        We also performed tests to gauge the optimal population size and number of generations 
-        to calculate. We determined that very small values for either the population or number 
-        of generations result in very poor generated solutions. A population of around 50 is 
-        sufficient for good diversity to be retained in the population, and having a number of 
-        generations relatively large compared to the population size seemed to be effective.
-       
-        We gathered data from the small and medium problem instances, but the precise qualities 
-        provided by particular parameters will not necessarily hold in larger instances. The 
-        optimal population size and number of generations (for a fixed number of fitness 
-        evaluations) is likely to vary for larger problem instances, but it seemed clear that 
-        the number of generations should be set somewhat higher than the population.
       
   \subsection{Comparison Between the Different Searches}
     We tested the 4 search methods on all 6 of our problem instances. The results 
@@ -415,6 +400,8 @@
   the fitness values to decide the probability of schedules being selected and 
   modified for subsequent generations. It might be possible to reduce or increase 
   the probability of poor functions being selected for mutation or crossover.
+  \citeauthor*{pdf:solvingexam} \citeyearpar{pdf:solvingexam} for example, got 
+  favourable results by squaring the fitness.
   
   Modifying the fitness function in a variety of ways (perhaps calculating the 
   total penalty that a schedule gets instead averaging over the values given by 
