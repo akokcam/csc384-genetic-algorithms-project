@@ -222,7 +222,8 @@
       
       The neighbouring schedules are those where only one course meets in either a different
       room, on a different day, or at a different time. 
-%      This leads to a total of $ |C|(d+t+|R|-3) $ schedules in the neighbourhood of any given schedule.
+      This leads to a total of $ |C|(d+t+|R|-3) $ schedules in the neighbourhood of any given schedule.
+
       It can be seen that this method is completely deterministic given a starting schedule,
       and will always return a local maximum.
 
@@ -235,9 +236,10 @@
       This method can be changed to true simulated annealing by varying the degree of
       modification made to the current best schedule with the number of evaluations
       remaining. Not being the focus of our investigation, little effort was made to 
-      optimize the parameters. 1\% does seem to give better performance than other nearby 
-      values, though we did not collect data to substantiate this. Finding ideal parameters 
-      for simulated annealing on this problem would make for a project-sized inquiry in itself.
+      optimize the parameters. 
+      %1\% does seem to give better performance than other nearby 
+%      values, though we did not collect data to substantiate this. Finding ideal parameters 
+ %     for simulated annealing on this problem would make for a project-sized inquiry in itself.
       
     \subsubsection{Parallel Computations}
       Of the 4 methods, only mutate search is not trivially parallelizable. A plausible 
@@ -270,7 +272,7 @@
     the fitness function takes 0.2 seconds on on a typical desktop computer. This 
     makes it difficult to thoroughly investigate this instance.
     
-    The large data set was created with parameters corresponding to the fall 2009 
+    The large problem instance was created with parameters corresponding to the fall 2009 
 	University of Toronto exam schedule, which is the size we expect for a large 
 	real-world problem instance.
 	
@@ -293,7 +295,7 @@
     \hline  
     \end{tabular} 
 	\end{small}
-	\caption{The six data sets used in our project. $\#$Maj is the number of different 
+	\caption{The six problem instances used in our project. $\#$Maj is the number of different 
 	         majors used and \textsc{SSS} is an approximation of the search space size.}
 	\end{table}
 	
@@ -347,13 +349,13 @@
     \begin{figure}[h]
   	  \centering
   	  \includegraphics[width=8cm]{SMALL-TYPE2_FullAverageStats}
-      \caption{Comparing the four searches on a small data set}
+      \caption{Search methods on small problem instance}
 	\end{figure}
 	
 	\begin{figure}[h]
   	  \centering
   	  \includegraphics[width=8cm]{HUGE-TYPE2_FullAverageStats}
-      \caption{Comparing the four searches on a large data set}
+      \caption{Search methods on large problem instance}
 	\end{figure}
 	
 	Random search provides a benchmark by which to measure the other 3 techniques. 
