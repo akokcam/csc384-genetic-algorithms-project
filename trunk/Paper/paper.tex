@@ -222,8 +222,7 @@
       
       The neighbouring schedules are those where only one course meets in either a different
       room, on a different day, or at a different time. 
-      This leads to a total of $ |C|(d+t+|R|-3) $ schedules in the neighbourhood of any given schedule.
-
+%     This leads to a total of $ |C|(d+t+|R|-3) $ schedules in the neighbourhood of any given schedule.
       It can be seen that this method is completely deterministic given a starting schedule,
       and will always return a local maximum.
 
@@ -237,9 +236,9 @@
       modification made to the current best schedule with the number of evaluations
       remaining. Not being the focus of our investigation, little effort was made to 
       optimize the parameters. 
-      %1\% does seem to give better performance than other nearby 
+%      1\% does seem to give better performance than other nearby 
 %      values, though we did not collect data to substantiate this. Finding ideal parameters 
- %     for simulated annealing on this problem would make for a project-sized inquiry in itself.
+%      for simulated annealing on this problem would make for a project-sized inquiry in itself.
       
     \subsubsection{Parallel Computations}
       Of the 4 methods, only mutate search is not trivially parallelizable. A plausible 
@@ -262,20 +261,7 @@
     major. This simulates the way in which we expect student bodies to choose their 
     courses, though the true data is likely to exhibit far more structure, due to 
     program requirements, notorious professors, etc.
-      
-    The size of our 3 instances vary considerably. The total number of different possible
-    schedules in any problem instance is $|C|^{|R|dt}$ which is far too large to conduct
-    a brute force search. The smallest could potentially be solved exactly, with methods
-    not under consideration here, while the others have search spaces much too large 
-    for any hope of finding a perfect solution. For the largest, which simulates a UofT 
-    exam schedule, a single evaluation of the fitness function takes 0.2 seconds on on 
-    a typical desktop computer. This makes it difficult to thoroughly investigate this 
-    instance.
     
-    The large problem instance was created with parameters corresponding to the fall 2009 
-	University of Toronto exam schedule, which is the size we expect for a large 
-	real-world problem instance.
-	
     \definecolor{light-gray}{gray}{0.87}
     \rowcolors{1}{light-gray}{white}
     \begin{table}[h]
@@ -298,6 +284,19 @@
 	\caption{The six problem instances used in our project. $\#$Maj is the number of different 
 	         majors used and \textsc{SSS} is an approximation of the search space size.}
 	\end{table}
+	  
+    The size of our 3 instances vary considerably. The total number of different possible
+    schedules in any problem instance is $|C|^{|R|dt}$ which is far too large to conduct
+    a brute force search. The smallest could potentially be solved exactly, with methods
+    not under consideration here, while the others have search spaces much too large 
+    for any hope of finding a perfect solution. For the largest, which simulates a UofT 
+    exam schedule, a single evaluation of the fitness function takes 0.2 seconds on on 
+    a typical desktop computer. This makes it difficult to thoroughly investigate this 
+    instance.
+    
+    The large problem instance was created with parameters corresponding to the fall 2009 
+	University of Toronto exam schedule, which is the size we expect for a large 
+	real-world problem instance.
 	
 \section{Evaluation}
    \subsection{Selecting Parameters for the GA}
@@ -334,7 +333,7 @@
       
   \subsection{Comparison Between the Different Searches}
     We tested the 4 search methods on all 6 of our problem instances. The results 
-    for two of the problems, the small and large problems, are shown in figure 2 
+    for two of the problems, the small and large correlated problems, are shown in figure 2 
     and 3. The medium problem exhibited characteristics very similar to the large problem.
     
     All methods produced nearly indistinguishable results for the uncorrelated 
